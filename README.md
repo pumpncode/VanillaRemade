@@ -1,6 +1,6 @@
 # Vanilla Remade - Balatro Mod
 
-Remakes all vanilla jokers using SMODS and simple hooks.
+Remakes all vanilla jokers using SMODS and simple hooks. (Still WIP)
 
 This is not meant to be a tutorial or example mod like [these ones](https://github.com/Steamodded/examples/) nor is it meant to be used for playing but rather as a reference point for your own mod effects.
 
