@@ -312,6 +312,7 @@ SMODS.Joker {
 }
 
 -- Half Joker
+-- TODO: Add size fix
 SMODS.Joker {
     key = "half",
     blueprint_compat = true,
@@ -445,6 +446,8 @@ SMODS.Joker {
         G.GAME.bankrupt_at = G.GAME.bankrupt_at + card.ability.extra.bankrupt_at
     end
 }
+
+------- WIP ----------------------------------------------------------------
 
 -- Ceremonial Dagger
 SMODS.Joker {
