@@ -714,71 +714,71 @@ SMODS.Joker {
     config = { extra = 4 }
 }
 
--- Cavendish
+-- Egg
 SMODS.Joker {
     key = "egg",
     blueprint_compat = false,
     rarity = 1,
     cost = 4,
-    name = 'Egg',
     pos = { x = 0, y = 10 },
     config = { extra = 3 }
 }
 
+-- Burglar
 SMODS.Joker {
     key = "burglar",
     blueprint_compat = true,
     rarity = 2,
     cost = 6,
-    name = 'Burglar',
     pos = { x = 1, y = 10 },
     config = { extra = 3 }
 }
 
+-- Blackboard
 SMODS.Joker {
     key = "blackboard",
     blueprint_compat = true,
     rarity = 2,
     cost = 6,
-    name = 'Blackboard',
     pos = { x = 2, y = 10 },
     config = { extra = 3 }
 }
 
+-- Runner
 SMODS.Joker {
     key = "runner",
     blueprint_compat = true,
     perishable_compat = false,
     rarity = 1,
     cost = 5,
-    name = 'Runner',
     pos = { x = 3, y = 10 },
     config = { extra = { chips = 0,
         chip_mod = 15 } }
 }
 
+-- Ice Cream
 SMODS.Joker {
     key = "ice_cream",
     blueprint_compat = true,
     eternal_compat = false,
     rarity = 1,
     cost = 5,
-    name = 'Ice Cream',
     pos = { x = 4, y = 10 },
     config = { extra = { chips = 100,
         chip_mod = 5 } }
 }
 
+-- DNA
 SMODS.Joker {
     key = "dna",
     blueprint_compat = true,
     rarity = 3,
     cost = 8,
-    name = 'DNA',
     pos = { x = 5, y = 10 },
     config = {}
 }
 
+-- Splash
 SMODS.Joker {
     key = "splash",
     blueprint_compat = false,
@@ -789,6 +789,7 @@ SMODS.Joker {
     config = {}
 }
 
+-- Blue Joker
 SMODS.Joker {
     key = "blue_joker",
     blueprint_compat = true,
@@ -799,6 +800,7 @@ SMODS.Joker {
     config = { extra = 2 }
 }
 
+-- Sixth Sense
 SMODS.Joker {
     key = "sixth_sense",
     blueprint_compat = false,
@@ -809,72 +811,73 @@ SMODS.Joker {
     config = {}
 }
 
+-- Constellation
 SMODS.Joker {
     key = "constellation",
     blueprint_compat = true,
     perishable_compat = false,
     rarity = 2,
     cost = 6,
-    name = 'Constellation',
     pos = { x = 9, y = 10 },
     config = { extra = 0.1,
         Xmult = 1 }
 }
 
+-- Hiker
 SMODS.Joker {
     key = "hiker",
     blueprint_compat = true,
     rarity = 2,
     cost = 5,
-    name = 'Hiker',
     pos = { x = 0, y = 11 },
     config = { extra = 5 }
 }
 
+-- Faceless Joker
 SMODS.Joker {
     key = "faceless",
     blueprint_compat = true,
     rarity = 1,
     cost = 4,
-    name = 'Faceless Joker',
     pos = { x = 1, y = 11 },
     config = { extra = { dollars = 5,
         faces = 3 } }
 }
 
+-- Green Joker
 SMODS.Joker {
     key = "green_joker",
     blueprint_compat = true,
     perishable_compat = false,
     rarity = 1,
     cost = 4,
-    name = 'Green Joker',
     pos = { x = 2, y = 11 },
     config = { extra = { hand_add = 1,
         discard_sub = 1 } }
 }
 
+-- Superposition
 SMODS.Joker {
     key = "superposition",
     blueprint_compat = true,
     rarity = 1,
     cost = 4,
-    name = 'Superposition',
     pos = { x = 3, y = 11 },
     config = {}
 }
 
+-- To Do List
 SMODS.Joker {
     key = "todo_list",
     blueprint_compat = true,
     rarity = 1,
     cost = 4,
-    name = 'To Do List',
     pos = { x = 4, y = 11 },
     config = { extra = { dollars = 4,
         poker_hand = 'High Card' } }
 }
 
+-- Cavendish
 SMODS.Joker {
     key = "cavendish",
     blueprint_compat = true,
