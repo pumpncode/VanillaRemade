@@ -222,7 +222,7 @@ return {
                 text = {
                     "Played {C:attention}face{} cards have",
                     "a {C:green}#1# in #2#{} chance to",
-                    "give {C:money}$2{} when scored",
+                    "give {C:money}$#3#{} when scored",
                 },
             },
             j_vremade_caino = {
