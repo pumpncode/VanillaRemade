@@ -402,7 +402,7 @@ return {
                 name = "DNA",
                 text = {
                     "If {C:attention}first hand{} of round",
-                    "has only {C:attention}1{} card, add a",
+                    "has only {C:attention}#1#{} card, add a",
                     "permanent copy to deck",
                     "and draw it to {C:attention}hand",
                 },
