@@ -2031,7 +2031,7 @@ SMODS.Joker {
 }
 
 --[[
-    Note: The mod Talisman replaces some in-game values with tables in order to be able to reach higher numbers.
+    Note: The popular mod Talisman replaces some in-game values with tables in order to be able to reach higher numbers.
     Talisman itself handles most compatibility except for comparisons between values.
 
     With Talisman installed `G.GAME.dollars <= card.ability.extra.dollars` will cause a crash.
