@@ -1,11 +1,15 @@
---- Notes:
----
---- 1. This mod will use the default Joker atlas for convenience and to not redistribute Balatro assets.
---- It is recommended that you include your own atlas. Check the SMODS documentation or example mods for more info.
----
---- 2. Unlike some vanilla jokers that put values in card.ability, these will all use card.ability.extra as it's best practice for modded jokers.
----
---- 3. The objective is not to recreate vanilla code 1-to-1 but to highlight best practices. So while effects should be practically the same, there might be some small differences.
+--[[
+
+1. This mod will use the default Joker atlas for convenience and to not redistribute Balatro assets.
+It is recommended that you include your own atlas. Check the SMODS documentation or example mods for more info.
+
+2. Unlike some vanilla Jokers that put values in card.ability, these will all use card.ability.extra as it's best practice for modded Jokers.
+
+3. The objective is not to recreate vanilla code 1-to-1 but to highlight best practices. So while effects should be practically the same, there might be some small differences.
+
+4. Only some of Balatro's specific quirks will be explained. It is recommended to brush up on basic programming logic and basic lua knowledge before starting, as well as reading the documentation on Jokers and calculate functions.
+
+]] --
 
 -- Joker
 SMODS.Joker {
@@ -549,6 +553,9 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 3, y = 2 },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+    end,
     calculate = function(self, card, context)
         if context.setting_blind then
             local stone_card = create_playing_card({ center = G.P_CENTERS.m_stone }, G.discard, true, false,
@@ -805,9 +812,11 @@ SMODS.Joker {
     pos = { x = 7, y = 2 },
     config = { extra = { xmult = 0.2 } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
+
         local steel_tally = 0
         if G.playing_cards then
-            for _, playing_card in pairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards) do
                 if SMODS.has_enhancement(playing_card, 'm_steel') then steel_tally = steel_tally + 1 end
             end
         end
@@ -816,7 +825,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             local steel_tally = 0
-            for _, playing_card in pairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards) do
                 if SMODS.has_enhancement(playing_card, 'm_steel') then steel_tally = steel_tally + 1 end
             end
             return {
@@ -825,7 +834,7 @@ SMODS.Joker {
         end
     end,
     in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_steel'`
-        for _, playing_card in pairs(G.playing_cards) do
+        for _, playing_card in ipairs(G.playing_cards or {}) do
             if SMODS.has_enhancement(playing_card, 'm_steel') then
                 return true
             end
@@ -2010,7 +2019,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main and
             #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            if G.GAME.dollars <= card.ability.extra.dollars then -- See note about Talisman compatibility below
+            if G.GAME.dollars <= card.ability.extra.dollars then -- See note about Talisman compatibility at the bottom
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
                     func = (function()
@@ -2029,19 +2038,6 @@ SMODS.Joker {
         end
     end,
 }
-
---[[
-    Note: The popular mod Talisman replaces some in-game values with tables in order to be able to reach higher numbers.
-    Talisman itself handles most compatibility except for comparisons between values.
-
-    With Talisman installed `G.GAME.dollars <= card.ability.extra.dollars` will cause a crash.
-    We can prevent this replacing that line with `to_big(G.GAME.dollars) <= to_big(card.ability.extra.dollars)`
-    This will cause crashes as well because `to_big` doesn't exist without the mod installed, so to prevent that issue we can define it as follows:
-
-    to_big = to_big or function(x) return x end
-
-    This means that `to_big` will either be the Talisman defined `to_big` if it exists or a dummy function that does nothing if not.
---]]
 
 -- Baron
 SMODS.Joker {
@@ -2081,7 +2077,7 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         local nine_tally = 0
         if G.playing_cards then
-            for _, playing_card in pairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards) do
                 if playing_card:get_id() == 9 then nine_tally = nine_tally + 1 end
             end
         end
@@ -2089,7 +2085,7 @@ SMODS.Joker {
     end,
     calc_dollar_bonus = function(self, card)
         local nine_tally = 0
-        for _, playing_card in pairs(G.playing_cards) do
+        for _, playing_card in ipairs(G.playing_cards) do
             if playing_card:get_id() == 9 then nine_tally = nine_tally + 1 end
         end
         return nine_tally > 0 and card.ability.extra.dollars * nine_tally or nil
@@ -2170,6 +2166,9 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 0, y = 13 },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
+    end,
     calculate = function(self, card, context)
         if context.before and context.main_eval and not context.blueprint then
             local faces = {}
@@ -2595,9 +2594,11 @@ SMODS.Joker {
     pos = { x = 9, y = 0 },
     config = { extra = { chips = 25 } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+
         local stone_tally = 0
         if G.playing_card then
-            for _, playing_card in pairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards) do
                 if SMODS.has_enhancement(playing_card, 'm_stone') then stone_tally = stone_tally + 1 end
             end
         end
@@ -2606,7 +2607,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             local stone_tally = 0
-            for _, playing_card in pairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards) do
                 if SMODS.has_enhancement(playing_card, 'm_stone') then stone_tally = stone_tally + 1 end
             end
             return {
@@ -2615,7 +2616,7 @@ SMODS.Joker {
         end
     end,
     in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
-        for _, playing_card in pairs(G.playing_cards) do
+        for _, playing_card in ipairs(G.playing_cards or {}) do
             if SMODS.has_enhancement(playing_card, 'm_stone') then
                 return true
             end
@@ -2650,6 +2651,8 @@ SMODS.Joker {
     pos = { x = 5, y = 14 },
     config = { extra = { Xmult_gain = 0.25, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
+
         return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
@@ -2668,7 +2671,7 @@ SMODS.Joker {
         end
     end,
     in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_lucky'`
-        for _, playing_card in pairs(G.playing_cards) do
+        for _, playing_card in ipairs(G.playing_cards or {}) do
             if SMODS.has_enhancement(playing_card, 'm_lucky') then
                 return true
             end
@@ -2726,6 +2729,7 @@ SMODS.Joker {
     cost = 6,
     pos = { x = 8, y = 14 },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = 'tag_double', set = 'Tag' }
         return { vars = { localize { type = 'name_text', set = 'Tag', key = 'tag_double' } } }
     end,
     calculate = function(self, card, context)
@@ -3096,7 +3100,7 @@ local function reset_vremade_castle_card()
     local castle_card = pseudorandom_element(valid_castle_cards,
         pseudoseed('vremade_castle' .. G.GAME.round_resets.ante))
     if castle_card then
-        G.GAME.current_round.castle_card.suit = castle_card.base.suit
+        G.GAME.current_round.vremade_castle_card.suit = castle_card.base.suit
     end
 end
 
@@ -3165,12 +3169,46 @@ SMODS.Joker {
     rarity = 1,
     cost = 5,
     pos = { x = 5, y = 3 },
-    config = { extra = 4 },
-    unlock_condition = { type = 'hand_contents', extra = 'Gold' }, -- TODO: Replace for check_for_unlock
-    in_pool = function(self, args)                                 --equivalent to `enhancement_gate = 'm_gold'`
-        for _, playing_card in pairs(G.playing_cards) do
+    config = { extra = { dollars = 4 } },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
+        return { vars = { card.ability.extra.dollars } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and
+            SMODS.has_enhancement(context.other_card, 'm_gold') then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+            return {
+                dollars = card.ability.extra.dollars,
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
+                end
+            }
+        end
+    end,
+    in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_gold'`
+        for _, playing_card in ipairs(G.playing_cards or {}) do
             if SMODS.has_enhancement(playing_card, 'm_gold') then
                 return true
+            end
+        end
+        return false
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'hand_contents' then
+            local tally = 0
+            for j = 1, #args.cards do
+                if SMODS.has_enhancement(args.cards[j], 'm_gold') then
+                    tally = tally + 1
+                    if tally == 5 then
+                        return true
+                    end
+                end
             end
         end
         return false
@@ -3186,8 +3224,35 @@ SMODS.Joker {
     rarity = 2,
     cost = 5,
     pos = { x = 3, y = 4 },
-    config = {},
-    unlock_condition = { type = 'c_losses', extra = 5 } -- TODO: Replace for check_for_unlock
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over and context.main_eval then
+            if G.GAME.chips / G.GAME.blind.chips >= 0.25 then -- See note about Talisman compatibility at the bottom
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.hand_text_area.blind_chips:juice_up()
+                        G.hand_text_area.game_chips:juice_up()
+                        play_sound('tarot1')
+                        card:start_dissolve()
+                        return true
+                    end
+                }))
+                return {
+                    message = localize('k_saved_ex'),
+                    saved = 'ph_mr_bones',
+                    colour = G.C.RED
+                }
+            end
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 5, G.PROFILES[G.SETTINGS.profile].career_stats.c_losses } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = {type = 'c_losses', extra = 5}`
+        if args.type == 'career_stat' and args.statname == 'c_losses' then
+            return G.PROFILES[G.SETTINGS.profile].career_stats[args.statname] >= 5
+        end
+        return false
+    end
 }
 
 -- Acrobat
@@ -3198,8 +3263,26 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 2, y = 1 },
-    config = { extra = 3 },
-    unlock_condition = { type = 'c_hands_played', extra = 200 } -- TODO: Replace for check_for_unlock
+    config = { extra = { xmult = 3 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.current_round.hands_left == 0 then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 200, G.PROFILES[G.SETTINGS.profile].career_stats.c_hands_played } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'c_hands_played', extra = 200 }`
+        if args.type == 'career_stat' and args.statname == 'c_hands_played' then
+            return G.PROFILES[G.SETTINGS.profile].career_stats[args.statname] >= 200
+        end
+        return false
+    end
 }
 
 -- Sock and Buskin
@@ -3210,8 +3293,23 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 3, y = 1 },
-    config = { extra = 1 },
-    unlock_condition = { type = 'c_face_cards_played', extra = 300 } -- TODO: Replace for check_for_unlock
+    config = { extra = { repetitions = 1 } },
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play and context.other_card:is_face() then
+            return {
+                repetitions = card.ability.extra.repetitions
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 300, G.PROFILES[G.SETTINGS.profile].career_stats.c_face_cards_played } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'c_face_cards_played', extra = 300 }`
+        if args.type == 'career_stat' and args.statname == 'c_face_cards_played' then
+            return G.PROFILES[G.SETTINGS.profile].career_stats[args.statname] >= 300
+        end
+        return false
+    end
 }
 
 -- Swashbuckler
@@ -3222,8 +3320,38 @@ SMODS.Joker {
     rarity = 1,
     cost = 4,
     pos = { x = 9, y = 5 },
-    config = { mult = 1 },
-    unlock_condition = { type = 'c_jokers_sold', extra = 20 } -- TODO: Replace for check_for_unlock
+    config = { extra = { mult = 1 } },
+    loc_vars = function(self, info_queue, card)
+        local sell_cost = 0
+        for _, joker in ipairs(G.jokers and G.jokers.cards or {}) do
+            if joker ~= card then
+                sell_cost = sell_cost + joker.sell_cost
+            end
+        end
+        return { vars = { card.ability.extra.mult * sell_cost } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local sell_cost = 0
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker ~= card then
+                    sell_cost = sell_cost + joker.sell_cost
+                end
+            end
+            return {
+                mult = card.ability.extra.mult * sell_cost
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 20, G.PROFILES[G.SETTINGS.profile].career_stats.c_jokers_sold } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'c_jokers_sold', extra = 20 }`
+        if args.type == 'career_stat' and args.statname == 'c_jokers_sold' then
+            return G.PROFILES[G.SETTINGS.profile].career_stats[args.statname] >= 20
+        end
+        return false
+    end
 }
 
 -- Troubadour
@@ -3234,9 +3362,27 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 0, y = 2 },
-    config = { extra = { h_size = 2,
-        h_plays = -1 } },
-    unlock_condition = { type = 'round_win', extra = 5 } -- TODO: Replace for check_for_unlock
+    config = { extra = { h_size = 2, h_plays = -1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.h_size, -card.ability.extra.h_plays } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.h_plays
+        G.hand:change_size(card.ability.extra.h_size)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.h_plays
+        G.hand:change_size(-card.ability.extra.h_size)
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 5 } }
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'round_win' then
+            return G.PROFILES[G.SETTINGS.profile].career_stats.c_single_hand_round_streak >= 5
+        end
+        return false
+    end
 }
 
 -- Certificate
@@ -3247,8 +3393,37 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 8, y = 8 },
-    config = {},
-    unlock_condition = { type = 'double_gold' } -- TODO: Replace for check_for_unlock
+    calculate = function(self, card, context)
+        if context.first_hand_drawn then
+            local _card = create_playing_card({
+                front = pseudorandom_element(G.P_CARDS, pseudoseed('vremade_certificate')),
+                center = G.P_CENTERS.c_base
+            }, G.discard, true, nil, { G.C.SECONDARY_SET.Enhanced }, true)
+            _card:set_seal(SMODS.poll_seal({ guaranteed = true, type_key = 'vremade_certificate_seal' }))
+            return {
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.hand:emplace(_card)
+                            _card:start_materialize()
+                            G.GAME.blind:debuff_card(_card)
+                            G.hand:sort()
+                            if context.blueprint_card then
+                                context.blueprint_card:juice_up()
+                            else
+                                card:juice_up()
+                            end
+                            return true
+                        end
+                    }))
+                    SMODS.calculate_context({ playing_card_added = true, cards = { _card } })
+                end
+            }
+        end
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'double_gold' }`
+        return args.type == 'double_gold'
+    end
 }
 
 -- Smeared Joker
@@ -3259,9 +3434,31 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 4, y = 6 },
-    config = {},
-    unlock_condition = { type = 'modify_deck', extra = { count = 3, enhancement = 'Wild Card', e_key = 'm_wild' } } -- TODO: Replace for check_for_unlock
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 3, localize { type = 'name_text', key = 'm_wild', set = 'Enhanced' } } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 3, enhancement = 'Wild Card', e_key = 'm_wild' } }`
+        if args.type == 'modify_deck' then
+            local count = 0
+            for _, playing_card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(playing_card, 'm_wild') then count = count + 1 end
+                if count >= 3 then
+                    return true
+                end
+            end
+        end
+        return false
+    end
 }
+
+local card_is_suit_ref = Card.is_suit
+function Card:is_suit(suit, bypass_debuff, flush_calc)
+    local ret = card_is_suit_ref(self, suit, bypass_debuff, flush_calc)
+    if not ret and not SMODS.has_no_suit(self) and SMODS.find_card("j_vremade_smeared") then
+        return SMODS.smeared_check(self, suit)
+    end
+    return ret
+end
 
 -- Throwback
 SMODS.Joker {
@@ -3271,8 +3468,25 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 5, y = 7 },
-    config = { extra = 0.25 },
-    unlock_condition = { type = 'continue_game' } -- TODO: Replace for check_for_unlock
+    config = { extra = { xmult = 0.25 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult, 1 + G.GAME.skips * card.ability.extra.xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.skip_blind and not context.blueprint then
+            return {
+                message = localize { type = 'variable', key = 'a_xmult', vars = { 1 + G.GAME.skips * card.ability.extra.xmult } }
+            }
+        end
+        if context.joker_main then
+            return {
+                xmult = 1 + G.GAME.skips * card.ability.extra.xmult
+            }
+        end
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'continue_game' }`
+        return args.type == 'continue_game'
+    end
 }
 
 -- Hanging Chad
@@ -3283,8 +3497,26 @@ SMODS.Joker {
     rarity = 1,
     cost = 4,
     pos = { x = 9, y = 6 },
-    config = { extra = 2 },
-    unlock_condition = { type = 'round_win', extra = 'High Card' } -- TODO: Replace for check_for_unlock
+    config = { extra = { repetitions = 2 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.repetitions } }
+    end,
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play and context.other_card == context.scoring_hand[1] then
+            return {
+                repetitions = card.ability.extra.repetitions
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { localize('High Card', 'poker_hands') } }
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'round_win' then
+            return G.GAME.last_hand_played == 'High Card' and G.GAME.blind.boss
+        end
+        return false
+    end
 }
 
 -- Rough Gem
@@ -3295,9 +3527,41 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 9, y = 7 },
-    config = { extra = 1 },
-    unlock_condition = { type = 'modify_deck',
-        extra = { count = 30, suit = 'Diamonds' } } -- TODO: Replace for check_for_unlock
+    config = { extra = { dollars = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.dollars } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:is_suit("Diamonds") then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+            return {
+                dollars = card.ability.extra.dollars,
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
+                end
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 30, localize('Diamonds', 'suits_singular') } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Diamonds' } }`
+        if args.type == 'modify_deck' then
+            local count = 0
+            for _, playing_card in ipairs(G.playing_cards) do
+                if playing_card.base.suit == "Diamonds" then count = count + 1 end
+                if count >= card.unlock_condition.extra.count then
+                    return true
+                end
+            end
+        end
+        return false
+    end
 }
 
 -- Bloodstone
@@ -3308,10 +3572,33 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 0, y = 8 },
-    config = { extra = { odds = 2,
-        Xmult = 1.5 } },
-    unlock_condition = { type = 'modify_deck',
-        extra = { count = 30, suit = 'Hearts' } } -- TODO: Replace for check_for_unlock
+    config = { extra = { odds = 2, Xmult = 1.5 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { G.GAME.probabilities.normal or 1, card.ability.extra.odds, card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:is_suit("Hearts") and
+            pseudorandom('vremade_bloodstone') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            return {
+                xmult = card.ability.extra.Xmult
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 30, localize('Hearts', 'suits_singular') } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Hearts' } }`
+        if args.type == 'modify_deck' then
+            local count = 0
+            for _, playing_card in ipairs(G.playing_cards) do
+                if playing_card.base.suit == "Hearts" then count = count + 1 end
+                if count >= card.unlock_condition.extra.count then
+                    return true
+                end
+            end
+        end
+        return false
+    end
 }
 
 -- Arrowhead
@@ -3322,8 +3609,32 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 1, y = 8 },
-    config = { extra = 50 },
-    unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Spades' } } -- TODO: Replace for check_for_unlock
+    config = { extra = { chips = 50 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:is_suit("Spades") then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 30, localize('Spades', 'suits_singular') } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Spades' } }`
+        if args.type == 'modify_deck' then
+            local count = 0
+            for _, playing_card in ipairs(G.playing_cards) do
+                if playing_card.base.suit == "Spades" then count = count + 1 end
+                if count >= card.unlock_condition.extra.count then
+                    return true
+                end
+            end
+        end
+        return false
+    end
 }
 
 -- Onyx Agate
@@ -3334,8 +3645,32 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 2, y = 8 },
-    config = { extra = 7 },
-    unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Clubs' } } -- TODO: Replace for check_for_unlock
+    config = { extra = { mult = 7 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:is_suit("Clubs") then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 30, localize('Clubs', 'suits_singular') } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Clubs' } }`
+        if args.type == 'modify_deck' then
+            local count = 0
+            for _, playing_card in ipairs(G.playing_cards) do
+                if playing_card.base.suit == "Clubs" then count = count + 1 end
+                if count >= card.unlock_condition.extra.count then
+                    return true
+                end
+            end
+        end
+        return false
+    end
 }
 
 -- Glass Joker
@@ -3347,13 +3682,80 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 1, y = 3 },
-    config = { extra = 0.75,
-        Xmult = 1 },
-    unlock_condition = { type = 'modify_deck', extra = { count = 5, enhancement = 'Glass Card', e_key = 'm_glass' } }, -- TODO: Replace for check_for_unlock
-    in_pool = function(self, args)                                                                                     --equivalent to `enhancement_gate = 'm_glass'`
-        for _, playing_card in pairs(G.playing_cards) do
+    config = { extra = { Xmult_gain = 0.75, Xmult = 1 } },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
+        return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.remove_playing_cards and not context.blueprint then
+            local glass_cards = 0
+            for _, removed_card in ipairs(context.removed) do
+                if removed_card.shattered then glass_cards = glass_cards + 1 end
+            end
+            if glass_cards > 0 then
+                return {
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                G.E_MANAGER:add_event(Event({
+                                    func = function()
+                                        card.ability.extra.Xmult = card.ability.extra.Xmult +
+                                            card.ability.extra.Xmult_gain * glass_cards
+                                        return true
+                                    end
+                                }))
+                                SMODS.calculate_effect(
+                                    {
+                                        message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult +
+                                        card.ability.extra.Xmult_gain * glass_cards } }
+                                    }, card)
+                                return true
+                            end
+                        }))
+                    end
+                }
+            end
+        end
+        if context.using_consumeable and not context.blueprint and context.consumeable.config.center.key == 'c_hanged_man' then
+            -- Glass Joker updates on Hanged Man and no other destroy consumable
+            local glass_cards = 0
+            for _, removed_card in ipairs(G.hand.highlighted) do
+                if SMODS.has_enhancement(removed_card, 'm_glass') then glass_cards = glass_cards + 1 end
+            end
+            if glass_cards > 0 then
+                card.ability.extra.Xmult = card.ability.extra.Xmult +
+                    card.ability.extra.Xmult_gain * glass_cards
+                return {
+                    message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } }
+                }
+            end
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.Xmult
+            }
+        end
+    end,
+    in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_glass'`
+        for _, playing_card in ipairs(G.playing_cards or {}) do
             if SMODS.has_enhancement(playing_card, 'm_glass') then
                 return true
+            end
+        end
+        return false
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 5, localize { type = 'name_text', key = 'm_glass', set = 'Enhanced' } } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 5, enhancement = 'Glass Card', e_key = 'm_glass' } }`
+        if args.type == 'modify_deck' then
+            local count = 0
+            for _, playing_card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(playing_card, 'm_glass') then count = count + 1 end
+                if count >= 5 then
+                    return true
+                end
             end
         end
         return false
@@ -3369,7 +3771,14 @@ SMODS.Joker {
     cost = 5,
     pos = { x = 6, y = 5 },
     config = {},
-    unlock_condition = { type = 'ante_up', ante = 4 } -- TODO: Replace for check_for_unlock
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 4 } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'ante_up', ante = 4 }`
+        return args.type == 'ante_up' and args.ante == 4
+    end,
+    -- Right now there's no easy way to recreate Showman's effect without patching every instance of the code checking directly for Showman. So instead we can cheat and just let the game treat it like vanilla Showman like this:
+    name = "Showman"
 }
 
 -- Flower Pot
@@ -3380,8 +3789,60 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 0, y = 6 },
-    config = { extra = 3 },
-    unlock_condition = { type = 'ante_up', ante = 8 } -- TODO: Replace for check_for_unlock
+    config = { extra = { Xmult = 3 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local suits = {
+                ['Hearts'] = 0,
+                ['Diamonds'] = 0,
+                ['Spades'] = 0,
+                ['Clubs'] = 0
+            }
+            for i = 1, #context.scoring_hand do
+                if not SMODS.has_any_suit(context.scoring_hand[i]) then
+                    if context.scoring_hand[i]:is_suit('Hearts', true) and suits["Hearts"] == 0 then
+                        suits["Hearts"] = suits["Hearts"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Diamonds', true) and suits["Diamonds"] == 0 then
+                        suits["Diamonds"] = suits["Diamonds"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Spades', true) and suits["Spades"] == 0 then
+                        suits["Spades"] = suits["Spades"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Clubs', true) and suits["Clubs"] == 0 then
+                        suits["Clubs"] = suits["Clubs"] + 1
+                    end
+                end
+            end
+            for i = 1, #context.scoring_hand do
+                if SMODS.has_any_suit(context.scoring_hand[i]) then
+                    if context.scoring_hand[i]:is_suit('Hearts') and suits["Hearts"] == 0 then
+                        suits["Hearts"] = suits["Hearts"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Diamonds') and suits["Diamonds"] == 0 then
+                        suits["Diamonds"] = suits["Diamonds"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Spades') and suits["Spades"] == 0 then
+                        suits["Spades"] = suits["Spades"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Clubs') and suits["Clubs"] == 0 then
+                        suits["Clubs"] = suits["Clubs"] + 1
+                    end
+                end
+            end
+            if suits["Hearts"] > 0 and
+                suits["Diamonds"] > 0 and
+                suits["Spades"] > 0 and
+                suits["Clubs"] > 0 then
+                return {
+                    xmult = card.ability.extra.Xmult
+                }
+            end
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 8 } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'ante_up', ante = 8 }`
+        return args.type == 'ante_up' and args.ante == 8
+    end
 }
 
 -- Blueprint
@@ -3392,8 +3853,16 @@ SMODS.Joker {
     rarity = 3,
     cost = 10,
     pos = { x = 0, y = 3 },
-    config = {},
-    unlock_condition = { type = 'win_custom' } -- TODO: Replace for check_for_unlock
+    calculate = function(self, card, context)
+        local other_joker = nil
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i + 1] end
+        end
+        return SMODS.blueprint_effect(card, other_joker, context)
+    end,
+    check_for_unlock = function(self, args)
+        return args.type == 'win_custom'
+    end
 }
 
 -- Wee Joker
@@ -3405,9 +3874,32 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 0, y = 0 },
-    config = { extra = { chips = 0,
-        chip_mod = 8 } },
-    unlock_condition = { type = 'win', n_rounds = 18 } -- TODO: Replace for check_for_unlock
+    config = { extra = { chips = 0, chip_mod = 8 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 2 and not context.blueprint then
+            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
+
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.CHIPS,
+                message_card = card
+            }
+        end
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 18 } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'win', n_rounds = 18 }`
+        return args.type == 'win' and 18 >= G.GAME.round
+    end
 }
 
 -- Merry Andy
@@ -3418,9 +3910,26 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 8, y = 0 },
-    config = { d_size = 3,
-        h_size = -1 },
-    unlock_condition = { type = 'win', n_rounds = 12 } -- TODO: Replace for check_for_unlock
+    config = { extra = { d_size = 3, h_size = -1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.d_size, card.ability.extra.h_size } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.d_size
+        ease_discard(card.ability.extra.d_size)
+        G.hand:change_size(card.ability.extra.h_size)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.d_size
+        ease_discard(-card.ability.extra.d_size)
+        G.hand:change_size(-card.ability.extra.h_size)
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 12 } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'win', n_rounds = 12 }`
+        return args.type == 'win' and 12 >= G.GAME.round
+    end
 }
 
 -- Oops! All 6s
@@ -3431,8 +3940,22 @@ SMODS.Joker {
     rarity = 2,
     cost = 4,
     pos = { x = 5, y = 6 },
-    config = {},
-    unlock_condition = { type = 'chip_score', chips = 10000 } -- TODO: Replace for check_for_unlock
+    add_to_deck = function(self, card, from_debuff)
+        for k, v in pairs(G.GAME.probabilities) do
+            G.GAME.probabilities[k] = v * 2
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        for k, v in pairs(G.GAME.probabilities) do
+            G.GAME.probabilities[k] = v / 2
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { number_format(10000) } }
+    end,
+    check_for_unlock = function(self, args)                      -- equivalent to `unlock_condition = { type = 'chip_score', chips = 10000 }`
+        return args.type == 'chip_score' and args.chips >= 10000 -- See note about Talisman at the bottom
+    end
 }
 
 -- The Idol
@@ -3443,9 +3966,46 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 6, y = 7 },
-    config = { extra = 2 },
-    unlock_condition = { type = 'chip_score', chips = 1000000 } -- TODO: Replace for check_for_unlock
+    config = { extra = { xmult = 2 } },
+    loc_vars = function(self, info_queue, card)
+        local idol_card = G.GAME.current_round.vremade_idol_card or { rank = 'Ace', suit = 'Spades' }
+        return { vars = { card.ability.extra.xmult, localize(idol_card.rank, 'ranks'), localize(idol_card.suit, 'suits_plural'), colours = { G.C.SUITS[idol_card.suit] } } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and
+            context.other_card:get_id() == G.GAME.current_round.vremade_idol_card.id and
+            context.other_card:is_suit(G.GAME.current_round.vremade_idol_card.suit) then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { number_format(1000000) } }
+    end,
+    check_for_unlock = function(self, args)                        -- equivalent to `unlock_condition = { type = 'chip_score', chips = 1000000 }`
+        return args.type == 'chip_score' and args.chips >= 1000000 -- See note about Talisman at the bottom
+    end
 }
+
+--- This changes vremade_idol_card every round so every instance of The Idol shares the same card.
+--- You could replace this with a context.end_of_round reset instead if you want the variables to be local.
+--- See SMODS.current_mod.reset_game_globals at the bottom of this file for when this function is called.
+local function reset_vremade_idol_card()
+    G.GAME.current_round.vremade_idol_card = { rank = 'Ace', suit = 'Spades' }
+    local valid_idol_cards = {}
+    for _, playing_card in ipairs(G.playing_cards) do
+        if not SMODS.has_no_suit(playing_card) and not SMODS.has_no_rank(playing_card) then
+            valid_idol_cards[#valid_idol_cards + 1] = playing_card
+        end
+    end
+    local idol_card = pseudorandom_element(valid_idol_cards, pseudoseed('idol' .. G.GAME.round_resets.ante))
+    if idol_card then
+        G.GAME.current_round.vremade_idol_card.rank = idol_card.base.value
+        G.GAME.current_round.vremade_idol_card.suit = idol_card.base.suit
+        G.GAME.current_round.vremade_idol_card.id = idol_card.base.id
+    end
+end
 
 -- Seeing Double
 SMODS.Joker {
@@ -3455,8 +4015,34 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 4, y = 4 },
-    config = { extra = 2 },
-    unlock_condition = { type = 'hand_contents', extra = 'four 7 of Clubs' } -- TODO: Replace for check_for_unlock
+    config = { extra = { xmult = 2 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and SMODS.seeing_double_check(context.scoring_hand, 'Clubs') then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { localize("ph_4_7_of_clubs") } }
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'hand_contents' then
+            local tally = 0
+            for i = 1, #args.cards do
+                if args.cards[i]:get_id() == 7 and args.cards[i]:is_suit('Clubs') then
+                    tally = tally + 1
+                end
+                if tally >= 4 then
+                    return true
+                end
+            end
+        end
+        return false
+    end
 }
 
 -- Matador
@@ -3467,8 +4053,33 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 4, y = 5 },
-    config = { extra = 8 },
-    unlock_condition = { type = 'round_win' } -- TODO: Replace for check_for_unlock
+    config = { extra = { dollars = 8 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.dollars } }
+    end,
+    calculate = function(self, card, context)
+        if context.debuffed_hand or context.joker_main then
+            if G.GAME.blind.triggered then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+                return {
+                    dollars = card.ability.extra.dollars,
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                G.GAME.dollar_buffer = 0
+                                return true
+                            end
+                        }))
+                    end
+                }
+            end
+        end
+    end,
+    check_for_unlock = function(self, args)
+        return args.type == 'round_win' and G.GAME.current_round.hands_played == 1 and
+            G.GAME.current_round.discards_left == G.GAME.round_resets.discards and
+            G.GAME.blind.boss
+    end
 }
 
 -- Hit the Road
@@ -3479,8 +4090,47 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 8, y = 5 },
-    config = { extra = 0.5 },
-    unlock_condition = { type = 'discard_custom' } -- TODO: Replace for check_for_unlock
+    config = { extra = { xmult_gain = 0.5, xmult = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult_gain, card.ability.extra.xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.discard and not context.blueprint and
+            not context.other_card.debuff and
+            context.other_card:get_id() == 11 then
+            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
+            return {
+                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } },
+                colour = G.C.RED
+            }
+        end
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            card.ability.extra.xmult = 1
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'discard_custom' then
+            local tally = 0
+            for i = 1, #args.cards do
+                if args.cards[i]:get_id() == 11 then
+                    tally = tally + 1
+                end
+                if tally >= 5 then
+                    return true
+                end
+            end
+        end
+        return false
+    end
 }
 
 -- The Duo
@@ -3491,9 +4141,23 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 5, y = 4 },
-    config = { Xmult = 2,
-        type = 'Pair' },
-    unlock_condition = { type = 'win_no_hand', extra = 'Pair' } -- TODO: Replace for check_for_unlock
+    config = { extra = { Xmult = 2, type = 'Pair' } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, localize(card.ability.extra.type, 'poker_hands') } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands[card.ability.extra.type]) then
+            return {
+                xmult = card.ability.extra.Xmult
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { localize('Pair', 'poker_hands') } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'win_no_hand', extra = 'Pair' }`
+        return args.type == 'win_no_hand' and G.GAME.hands['Pair'].played == 0
+    end
 }
 
 -- The Trio
@@ -3504,9 +4168,23 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 6, y = 4 },
-    config = { Xmult = 3,
-        type = 'Three of a Kind' },
-    unlock_condition = { type = 'win_no_hand', extra = 'Three of a Kind' } -- TODO: Replace for check_for_unlock
+    config = { extra = { Xmult = 3, type = 'Three of a Kind' } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, localize(card.ability.extra.type, 'poker_hands') } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands[card.ability.extra.type]) then
+            return {
+                xmult = card.ability.extra.Xmult
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { localize('Three of a Kind', 'poker_hands') } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'win_no_hand', extra = 'Three of a Kind' }`
+        return args.type == 'win_no_hand' and G.GAME.hands['Three of a Kind'].played == 0
+    end
 }
 
 -- The Family
@@ -3517,9 +4195,23 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 7, y = 4 },
-    config = { Xmult = 4,
-        type = 'Four of a Kind' },
-    unlock_condition = { type = 'win_no_hand', extra = 'Four of a Kind' } -- TODO: Replace for check_for_unlock
+    config = { extra = { Xmult = 4, type = 'Four of a Kind' } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, localize(card.ability.extra.type, 'poker_hands') } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands[card.ability.extra.type]) then
+            return {
+                xmult = card.ability.extra.Xmult
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { localize('Four of a Kind', 'poker_hands') } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'win_no_hand', extra = 'Four of a Kind' }`
+        return args.type == 'win_no_hand' and G.GAME.hands['Four of a Kind'].played == 0
+    end
 }
 
 -- The Order
@@ -3530,9 +4222,23 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 8, y = 4 },
-    config = { Xmult = 3,
-        type = 'Straight' },
-    unlock_condition = { type = 'win_no_hand', extra = 'Straight' } -- TODO: Replace for check_for_unlock
+    config = { extra = { Xmult = 3, type = 'Straight' } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, localize(card.ability.extra.type, 'poker_hands') } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands[card.ability.extra.type]) then
+            return {
+                xmult = card.ability.extra.Xmult
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { localize('Straight', 'poker_hands') } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'win_no_hand', extra = 'Straight' }`
+        return args.type == 'win_no_hand' and G.GAME.hands['Straight'].played == 0
+    end
 }
 
 -- The Tribe
@@ -3543,9 +4249,23 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 9, y = 4 },
-    config = { Xmult = 2,
-        type = 'Flush' },
-    unlock_condition = { type = 'win_no_hand', extra = 'Flush' } -- TODO: Replace for check_for_unlock
+    config = { extra = { Xmult = 2, type = 'Flush' } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, localize(card.ability.extra.type, 'poker_hands') } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands[card.ability.extra.type]) then
+            return {
+                xmult = card.ability.extra.Xmult
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { localize('Flush', 'poker_hands') } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'win_no_hand', extra = 'Flush' }`
+        return args.type == 'win_no_hand' and G.GAME.hands['Flush'].played == 0
+    end
 }
 
 -- Stuntman
@@ -3556,9 +4276,29 @@ SMODS.Joker {
     rarity = 3,
     cost = 7,
     pos = { x = 8, y = 6 },
-    config = { extra = { h_size = 2,
-        chip_mod = 250 } },
-    unlock_condition = { type = 'chip_score', chips = 100000000 } -- TODO: Replace for check_for_unlock
+    config = { extra = { h_size = 2, chip_mod = 250 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chip_mod, card.ability.extra.h_size } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chip_mod
+            }
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.hand:change_size(-card.ability.extra.h_size)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(card.ability.extra.h_size)
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { number_format(100000000) } }
+    end,
+    check_for_unlock = function(self, args)                          -- equivalent to `unlock_condition = { type = 'chip_score', chips = 100000000 }`
+        return args.type == 'chip_score' and args.chips >= 100000000 -- See note about Talisman at the bottom
+    end
 }
 
 -- Invisible Joker
@@ -3570,8 +4310,65 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 1, y = 7 },
-    config = { extra = 2 },
-    unlock_condition = { type = 'win_custom' } -- TODO: Replace for check_for_unlock
+    config = { extra = { invis_rounds = 0, total_rounds = 2 } },
+    loc_vars = function(self, info_queue, card)
+        local main_end
+        if G.jokers and G.jokers.cards then
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker.edition and joker.edition.negative then
+                    main_end = {}
+                    localize { type = 'other', key = 'remove_negative', nodes = main_end, vars = {} }
+                    break
+                end
+            end
+        end
+        return { vars = { card.ability.extra.total_rounds, card.ability.extra.invis_rounds }, main_end = main_end }
+    end,
+    calculate = function(self, card, context)
+        if context.selling_self and (card.ability.extra.invis_rounds >= card.ability.extra.total_rounds) and not context.blueprint then
+            local jokers = {}
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] ~= card then
+                    jokers[#jokers + 1] = G.jokers.cards[i]
+                end
+            end
+            if #jokers > 0 then
+                if #G.jokers.cards <= G.jokers.config.card_limit then
+                    local chosen_joker = pseudorandom_element(jokers, pseudoseed('vremade_invisible'))
+                    local copied_joker = copy_card(chosen_joker, nil, nil, nil,
+                        chosen_joker.edition and chosen_joker.edition.negative)
+                    copied_joker:add_to_deck()
+                    G.jokers:emplace(copied_joker)
+                    return { message = localize('k_duplicated_ex') }
+                else
+                    return { message = localize('k_no_room_ex') }
+                end
+            else
+                return { message = localize('k_no_other_jokers') }
+            end
+        end
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            card.ability.extra.invis_rounds = card.ability.extra.invis_rounds + 1
+            if card.ability.extra.invis_rounds == card.ability.extra.total_rounds then
+                local eval = function(card) return not card.REMOVED end
+                juice_card_until(self, eval, true)
+            end
+            return {
+                message = (card.ability.extra.invis_rounds < card.ability.extra.total_rounds) and
+                    (card.ability.extra.invis_rounds .. '/' .. card.ability.extra.total_rounds) or
+                    localize('k_active_ex'),
+                colour = G.C.FILTER
+            }
+        end
+    end,
+    check_for_unlock = function(self, args)
+        return args.type == 'win_custom' and G.GAME.max_jokers <= 4
+    end,
+    draw = function(self, card, layer)
+        if card.config.center.discovered or card.bypass_discovery_center then
+            card.children.center:draw_shader('voucher', nil, card.ARGS.send_to_shader)
+        end
+    end
 }
 
 -- Brainstorm
@@ -3582,8 +4379,28 @@ SMODS.Joker {
     rarity = 3,
     cost = 10,
     pos = { x = 7, y = 7 },
-    config = {},
-    unlock_condition = { type = 'discard_custom' } -- TODO: Replace for check_for_unlock
+    calculate = function(self, card, context)
+        local ret = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
+        if ret then
+            ret.colour = G.C.RED
+        end
+        return ret
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'discard_custom' then
+            local eval = evaluate_poker_hand(args.cards)
+            if next(eval['Straight Flush']) then
+                local min = 10
+                for j = 1, #args.cards do
+                    if args.cards[j]:get_id() < min then min = args.cards[j]:get_id() end
+                end
+                if min == 10 then
+                    return true
+                end
+            end
+        end
+        return false
+    end
 }
 
 -- Satellite
@@ -3594,8 +4411,25 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 8, y = 7 },
-    config = { extra = 1 },
-    unlock_condition = { type = 'money', extra = 400 } -- TODO: Replace for check_for_unlock
+    config = { extra = { dollars = 1 } },
+    loc_vars = function(self, info_queue, card)
+        local planets_used = 0
+        for k, v in pairs(G.GAME.consumeable_usage) do if v.set == 'Planet' then planets_used = planets_used + 1 end end
+        return { vars = { card.ability.extra.dollars, planets_used * card.ability.extra.dollars } }
+    end,
+    calc_dollar_bonus = function(self, card)
+        local planets_used = 0
+        for k, v in pairs(G.GAME.consumeable_usage) do
+            if v.set == 'Planet' then planets_used = planets_used + 1 end
+        end
+        return planets_used > 0 and planets_used * card.ability.extra.dollars or nil
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 400 } }
+    end,
+    check_for_unlock = function(self, args)                   -- equivalent to `unlock_condition = { type = 'money', extra = 400 }`
+        return args.type == 'money' and G.GAME.dollars >= 400 -- See note about Talisman at the bottom
+    end
 }
 
 -- Shoot the Moon
@@ -3606,8 +4440,40 @@ SMODS.Joker {
     rarity = 1,
     cost = 5,
     pos = { x = 2, y = 6 },
-    config = { extra = 13 },
-    unlock_condition = { type = 'play_all_hearts' } -- TODO: Replace for check_for_unlock
+    config = { extra = { mult = 13 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.hand and context.other_card:get_id() == 12 then
+            if context.other_card.debuff then
+                return {
+                    message = localize('k_debuffed'),
+                    colour = G.C.RED
+                }
+            else
+                return {
+                    mult = card.ability.extra.mult
+                }
+            end
+        end
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'play_all_hearts' }`
+        if args.type == 'play_all_hearts' then
+            for _, card in ipairs(G.deck.cards) do
+                if not SMODS.has_no_suit(card) and card.base.suit == 'Hearts' then
+                    return false
+                end
+            end
+            for _, card in ipairs(G.hand.cards) do
+                if not SMODS.has_no_suit(card) and card.base.suit == 'Hearts' then
+                    return false
+                end
+            end
+            return true
+        end
+        return false
+    end
 }
 
 -- Driver's License
@@ -3618,8 +4484,42 @@ SMODS.Joker {
     rarity = 3,
     cost = 7,
     pos = { x = 0, y = 7 },
-    config = { extra = 3 },
-    unlock_condition = { type = 'modify_deck', extra = { count = 16, tally = 'total' } } -- TODO: Replace for check_for_unlock
+    config = { extra = { xmult = 3, driver_amount = 16 } },
+    loc_vars = function(self, info_queue, card)
+        local driver_tally = 0
+        for _, playing_card in pairs(G.playing_cards or {}) do
+            if next(SMODS.get_enhancements(playing_card)) then driver_tally = driver_tally + 1 end
+        end
+        return { vars = { card.ability.extra.xmult, card.ability.extra.driver_amount, driver_tally } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local driver_tally = 0
+            for _, playing_card in pairs(G.playing_cards) do
+                if next(SMODS.get_enhancements(playing_card)) then driver_tally = driver_tally + 1 end
+            end
+            if driver_tally >= card.ability.extra.driver_amount then
+                return {
+                    xmult = card.ability.extra.xmult
+                }
+            end
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 16 } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 16, tally = 'total' } }`
+        if args.type == 'modify_deck' then
+            local count = 0
+            for _, playing_card in ipairs(G.playing_cards) do
+                if playing_card.ability.set == 'Enhanced' then count = count + 1 end
+                if count >= 16 then
+                    return true
+                end
+            end
+        end
+        return false
+    end
 }
 
 -- Cartomancer
@@ -3630,8 +4530,38 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 7, y = 3 },
-    config = {},
-    unlock_condition = { type = 'discover_amount', tarot_count = 22 } -- TODO: Replace for check_for_unlock
+    calculate = function(self, card, context)
+        if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            return {
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    SMODS.add_card {
+                                        set = 'Tarot',
+                                        key_append = 'vremade_cartomancer' -- Optional, useful for checking the source of the creation.
+                                    }
+                                    G.GAME.consumeable_buffer = 0
+                                    return true
+                                end
+                            }))
+                            SMODS.calculate_effect({ message = localize('k_plus_tarot'), colour = G.C.PURPLE },
+                                context.blueprint_card or card)
+                            return true
+                        end)
+                    }))
+                end
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 22 } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'discover_amount', tarot_count = 22 }`
+        return args.type == 'discover_amount' and #G.P_CENTER_POOLS.Tarot <= args.tarot_count
+    end
 }
 
 -- Astronomer
@@ -3642,9 +4572,40 @@ SMODS.Joker {
     rarity = 2,
     cost = 8,
     pos = { x = 2, y = 7 },
-    config = {},
-    unlock_condition = { type = 'discover_amount', planet_count = 12 } -- TODO: Replace for check_for_unlock
+    add_to_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                for k, v in pairs(G.I.CARD) do
+                    if v.set_cost then v:set_cost() end
+                end
+                return true
+            end
+        }))
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                for k, v in pairs(G.I.CARD) do
+                    if v.set_cost then v:set_cost() end
+                end
+                return true
+            end
+        }))
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'discover_amount', planet_count = 12 }`
+        return args.type == 'discover_amount' and #G.P_CENTER_POOLS.Planet <= args.planet_count
+    end
 }
+
+local card_set_cost_ref = Card.set_cost()
+function Card:set_cost()
+    card_set_cost_ref(self)
+    if next(SMODS.find_card("j_vremade_astronomer")) then
+        if (self.ability.set == 'Planet' or (self.ability.set == 'Booster' and self.config.center.kind == 'Celestial')) then self.cost = 0 end
+        self.sell_cost = math.max(1, math.floor(self.cost / 2)) + (self.ability.extra_value or 0)
+        self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost
+    end
+end
 
 -- Burnt Joker
 SMODS.Joker {
@@ -3654,9 +4615,22 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 3, y = 7 },
-    config = { h_size = 0,
-        extra = 4 },
-    unlock_condition = { type = 'c_cards_sold', extra = 50 } -- TODO: Replace for check_for_unlock
+    calculate = function(self, card, context)
+        if context.pre_discard and G.GAME.current_round.discards_used <= 0 and not context.hook then
+            return {
+                level_up = 1
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 50, G.PROFILES[G.SETTINGS.profile].career_stats.c_cards_sold } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'c_cards_sold', extra = 50 }`
+        if args.type == 'career_stat' and args.statname == 'c_cards_sold' then
+            return G.PROFILES[G.SETTINGS.profile].career_stats[args.statname] >= 50
+        end
+        return false
+    end
 }
 
 -- Bootstraps
@@ -3667,9 +4641,35 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 9, y = 8 },
-    config = { extra = { mult = 2,
-        dollars = 5 } },
-    unlock_condition = { type = 'modify_jokers', extra = { polychrome = true, count = 2 } } -- TODO: Replace for check_for_unlock
+    config = { extra = { mult = 2, dollars = 5 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.dollars, card.ability.extra.mult * math.floor(((G.GAME.dollars or 0) + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars) } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult *
+                    math.floor(((G.GAME.dollars or 0) + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars)
+            }
+        end
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 2 } }
+    end,
+    check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_jokers', extra = { polychrome = true, count = 2 } }`
+        if args.type == 'modify_jokers' and G.jokers then
+            local count = 0
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker.ability.set == 'Joker' and joker.edition and joker.edition.polychrome then
+                    count = count + 1
+                end
+                if count >= 2 then
+                    return true
+                end
+            end
+        end
+        return false
+    end
 }
 
 -- Canio
@@ -3681,7 +4681,27 @@ SMODS.Joker {
     cost = 20,
     pos = { x = 3, y = 8 },
     soul_pos = { x = 3, y = 9 },
-    config = { extra = 1 },
+    config = { extra = { xmult = 1, xmult_gain = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult_gain, card.ability.extra.xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.remove_playing_cards and not context.blueprint then
+            local face_cards = 0
+            for _, removed_card in ipairs(context.removed) do
+                if removed_card:is_face() then face_cards = face_cards + 1 end
+            end
+            if face_cards > 0 then
+                card.ability.extra.xmult = card.ability.extra.xmult + face_cards * card.ability.extra.xmult_gain
+                return { message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } } }
+            end
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
 }
 
 -- Triboulet
@@ -3693,7 +4713,18 @@ SMODS.Joker {
     cost = 20,
     pos = { x = 4, y = 8 },
     soul_pos = { x = 4, y = 9 },
-    config = { extra = 2 },
+    config = { extra = { xmult = 2 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and
+            (context.other_card:get_id() == 12 or context.other_card:get_id() == 13) then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
 }
 
 -- Yorick
@@ -3705,8 +4736,33 @@ SMODS.Joker {
     cost = 20,
     pos = { x = 5, y = 8 },
     soul_pos = { x = 5, y = 9 },
-    config = { extra = { xmult = 1,
-        discards = 23 } },
+    config = { extra = { xmult = 1, xmult_gain = 1, discards = 23, discards_remaining = 23 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult_gain, card.ability.extra.discards, card.ability.extra.discards_remaining, card.ability.extra.xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.discard and not context.blueprint then
+            if card.ability.extra.discards_remaining <= 1 then
+                card.ability.extra.discards_remaining = card.ability.extra.discards
+                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
+                return {
+                    message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } },
+                    colour = G.C.RED
+                }
+            else
+                return { -- To count for retriggers
+                    func = function()
+                        card.ability.extra.discards_remaining = card.ability.extra.discards_remaining - 1
+                    end
+                }
+            end
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end,
 }
 
 -- Chicot
@@ -3718,7 +4774,35 @@ SMODS.Joker {
     cost = 20,
     pos = { x = 6, y = 8 },
     soul_pos = { x = 6, y = 9 },
-    config = {},
+    calculate = function(self, card, context)
+        if context.setting_blind and not context.blueprint and context.blind.boss then
+            return {
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    G.GAME.blind:disable()
+                                    play_sound('timpani')
+                                    delay(0.4)
+                                    return true
+                                end
+                            }))
+                            SMODS.calculate_effect({ message = localize('ph_boss_disabled') }, card)
+                            return true
+                        end
+                    }))
+                end
+            }
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
+            G.GAME.blind:disable()
+            play_sound('timpani')
+            SMODS.calculate_effect({ message = localize('ph_boss_disabled') }, card)
+        end
+    end
 }
 
 -- Perkeo
@@ -3730,12 +4814,46 @@ SMODS.Joker {
     cost = 20,
     pos = { x = 7, y = 8 },
     soul_pos = { x = 7, y = 9 },
-    config = {},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = 'e_negative_consumable', set = 'Edition', config = { extra = 1 } }
+    end,
+    calculate = function(self, card, context)
+        if context.ending_shop and G.consumeables.cards[1] then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local copied_card = copy_card(
+                        pseudorandom_element(G.consumeables.cards, pseudoseed('vremade_perkeo')))
+                    copied_card:set_edition("e_negative", true)
+                    copied_card:add_to_deck()
+                    G.consumeables:emplace(copied_card)
+                    return true
+                end
+            }))
+            return { message = localize('k_duplicated_ex') }
+        end
+    end,
 }
 
--- This is done to change variables globally each round
+-- This changes variables globally each round
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_vremade_mail_rank()    -- See Mail-In Rebate
     reset_vremade_ancient_card() -- See Ancient Joker
     reset_vremade_castle_card()  -- See Castle
+    reset_vremade_idol_card()    -- See The Idol
 end
+
+--[[
+    Note about Talisman compatibility:
+    The popular mod Talisman replaces some in-game values with tables in order to be able to reach higher numbers.
+    Talisman itself handles most compatibility except for comparisons between values.
+
+    With Talisman installed `G.GAME.dollars <= 5` will cause a "trying to compare table with number" crash.
+    We can prevent this replacing that line with `to_big(G.GAME.dollars) <= to_big(card.ability.extra.dollars)`
+    This will cause crashes as well because `to_big` doesn't exist without the mod installed, so to prevent that issue we can define it as follows somewhere else in the file:
+
+    to_big = to_big or function(x) return x end
+
+    This means that `to_big` will either be the Talisman defined `to_big` if it exists or a dummy function that does nothing if not.
+
+    The values changed include scored chips, scored mult, total score, dollars and poker hand levels.
+--]]
