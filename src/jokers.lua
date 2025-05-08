@@ -1390,7 +1390,7 @@ SMODS.Joker {
     cost = 3,
     pos = { x = 6, y = 10 },
     calculate = function(self, card, context)
-        if context.modify_scoring_hand then
+        if context.modify_scoring_hand and not context.blueprint then
             return {
                 add_to_hand = true
             }
