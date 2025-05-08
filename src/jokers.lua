@@ -2926,7 +2926,7 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 2, y = 15 },
-    config = { extra = { Xmult_gain = 0.01, Xmult = 2 } },
+    config = { extra = { Xmult_loss = 0.01, Xmult = 2 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_loss } }
     end,
