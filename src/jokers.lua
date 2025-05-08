@@ -3166,9 +3166,15 @@ SMODS.Joker {
     cost = 5,
     pos = { x = 5, y = 3 },
     config = { extra = 4 },
-    unlock_condition = { type = 'hand_contents',
-        extra = 'Gold' },
-    enhancement_gate = 'm_gold'
+    unlock_condition = { type = 'hand_contents', extra = 'Gold' }, -- TODO: Replace for check_for_unlock
+    in_pool = function(self, args)                                 --equivalent to `enhancement_gate = 'm_gold'`
+        for _, playing_card in pairs(G.playing_cards) do
+            if SMODS.has_enhancement(playing_card, 'm_gold') then
+                return true
+            end
+        end
+        return false
+    end
 }
 
 -- Mr. Bones
@@ -3181,8 +3187,7 @@ SMODS.Joker {
     cost = 5,
     pos = { x = 3, y = 4 },
     config = {},
-    unlock_condition = { type = 'c_losses',
-        extra = 5 }
+    unlock_condition = { type = 'c_losses', extra = 5 } -- TODO: Replace for check_for_unlock
 }
 
 -- Acrobat
@@ -3194,8 +3199,7 @@ SMODS.Joker {
     cost = 6,
     pos = { x = 2, y = 1 },
     config = { extra = 3 },
-    unlock_condition = { type = 'c_hands_played',
-        extra = 200 }
+    unlock_condition = { type = 'c_hands_played', extra = 200 } -- TODO: Replace for check_for_unlock
 }
 
 -- Sock and Buskin
@@ -3207,8 +3211,7 @@ SMODS.Joker {
     cost = 6,
     pos = { x = 3, y = 1 },
     config = { extra = 1 },
-    unlock_condition = { type = 'c_face_cards_played',
-        extra = 300 }
+    unlock_condition = { type = 'c_face_cards_played', extra = 300 } -- TODO: Replace for check_for_unlock
 }
 
 -- Swashbuckler
@@ -3220,8 +3223,7 @@ SMODS.Joker {
     cost = 4,
     pos = { x = 9, y = 5 },
     config = { mult = 1 },
-    unlock_condition = { type = 'c_jokers_sold',
-        extra = 20 }
+    unlock_condition = { type = 'c_jokers_sold', extra = 20 } -- TODO: Replace for check_for_unlock
 }
 
 -- Troubadour
@@ -3234,8 +3236,7 @@ SMODS.Joker {
     pos = { x = 0, y = 2 },
     config = { extra = { h_size = 2,
         h_plays = -1 } },
-    unlock_condition = { type = 'round_win',
-        extra = 5 }
+    unlock_condition = { type = 'round_win', extra = 5 } -- TODO: Replace for check_for_unlock
 }
 
 -- Certificate
@@ -3247,7 +3248,7 @@ SMODS.Joker {
     cost = 6,
     pos = { x = 8, y = 8 },
     config = {},
-    unlock_condition = { type = 'double_gold' }
+    unlock_condition = { type = 'double_gold' } -- TODO: Replace for check_for_unlock
 }
 
 -- Smeared Joker
@@ -3259,10 +3260,7 @@ SMODS.Joker {
     cost = 7,
     pos = { x = 4, y = 6 },
     config = {},
-    unlock_condition = { type = 'modify_deck',
-        extra = { count = 3,
-            enhancement = 'Wild Card',
-            e_key = 'm_wild' } }
+    unlock_condition = { type = 'modify_deck', extra = { count = 3, enhancement = 'Wild Card', e_key = 'm_wild' } } -- TODO: Replace for check_for_unlock
 }
 
 -- Throwback
@@ -3274,7 +3272,7 @@ SMODS.Joker {
     cost = 6,
     pos = { x = 5, y = 7 },
     config = { extra = 0.25 },
-    unlock_condition = { type = 'continue_game' }
+    unlock_condition = { type = 'continue_game' } -- TODO: Replace for check_for_unlock
 }
 
 -- Hanging Chad
@@ -3286,8 +3284,7 @@ SMODS.Joker {
     cost = 4,
     pos = { x = 9, y = 6 },
     config = { extra = 2 },
-    unlock_condition = { type = 'round_win',
-        extra = 'High Card' }
+    unlock_condition = { type = 'round_win', extra = 'High Card' } -- TODO: Replace for check_for_unlock
 }
 
 -- Rough Gem
@@ -3300,8 +3297,7 @@ SMODS.Joker {
     pos = { x = 9, y = 7 },
     config = { extra = 1 },
     unlock_condition = { type = 'modify_deck',
-        extra = { count = 30,
-            suit = 'Diamonds' } }
+        extra = { count = 30, suit = 'Diamonds' } } -- TODO: Replace for check_for_unlock
 }
 
 -- Bloodstone
@@ -3315,8 +3311,7 @@ SMODS.Joker {
     config = { extra = { odds = 2,
         Xmult = 1.5 } },
     unlock_condition = { type = 'modify_deck',
-        extra = { count = 30,
-            suit = 'Hearts' } }
+        extra = { count = 30, suit = 'Hearts' } } -- TODO: Replace for check_for_unlock
 }
 
 -- Arrowhead
@@ -3328,9 +3323,7 @@ SMODS.Joker {
     cost = 7,
     pos = { x = 1, y = 8 },
     config = { extra = 50 },
-    unlock_condition = { type = 'modify_deck',
-        extra = { count = 30,
-            suit = 'Spades' } }
+    unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Spades' } } -- TODO: Replace for check_for_unlock
 }
 
 -- Onyx Agate
@@ -3342,9 +3335,7 @@ SMODS.Joker {
     cost = 7,
     pos = { x = 2, y = 8 },
     config = { extra = 7 },
-    unlock_condition = { type = 'modify_deck',
-        extra = { count = 30,
-            suit = 'Clubs' } }
+    unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Clubs' } } -- TODO: Replace for check_for_unlock
 }
 
 -- Glass Joker
@@ -3358,11 +3349,15 @@ SMODS.Joker {
     pos = { x = 1, y = 3 },
     config = { extra = 0.75,
         Xmult = 1 },
-    unlock_condition = { type = 'modify_deck',
-        extra = { count = 5,
-            enhancement = 'Glass Card',
-            e_key = 'm_glass' } },
-    enhancement_gate = 'm_glass'
+    unlock_condition = { type = 'modify_deck', extra = { count = 5, enhancement = 'Glass Card', e_key = 'm_glass' } }, -- TODO: Replace for check_for_unlock
+    in_pool = function(self, args)                                                                                     --equivalent to `enhancement_gate = 'm_glass'`
+        for _, playing_card in pairs(G.playing_cards) do
+            if SMODS.has_enhancement(playing_card, 'm_glass') then
+                return true
+            end
+        end
+        return false
+    end
 }
 
 -- Showman
@@ -3374,8 +3369,7 @@ SMODS.Joker {
     cost = 5,
     pos = { x = 6, y = 5 },
     config = {},
-    unlock_condition = { type = 'ante_up',
-        ante = 4 }
+    unlock_condition = { type = 'ante_up', ante = 4 } -- TODO: Replace for check_for_unlock
 }
 
 -- Flower Pot
@@ -3387,8 +3381,7 @@ SMODS.Joker {
     cost = 6,
     pos = { x = 0, y = 6 },
     config = { extra = 3 },
-    unlock_condition = { type = 'ante_up',
-        ante = 8 }
+    unlock_condition = { type = 'ante_up', ante = 8 } -- TODO: Replace for check_for_unlock
 }
 
 -- Blueprint
@@ -3400,7 +3393,7 @@ SMODS.Joker {
     cost = 10,
     pos = { x = 0, y = 3 },
     config = {},
-    unlock_condition = { type = 'win_custom' }
+    unlock_condition = { type = 'win_custom' } -- TODO: Replace for check_for_unlock
 }
 
 -- Wee Joker
@@ -3414,8 +3407,7 @@ SMODS.Joker {
     pos = { x = 0, y = 0 },
     config = { extra = { chips = 0,
         chip_mod = 8 } },
-    unlock_condition = { type = 'win',
-        n_rounds = 18 }
+    unlock_condition = { type = 'win', n_rounds = 18 } -- TODO: Replace for check_for_unlock
 }
 
 -- Merry Andy
@@ -3428,8 +3420,7 @@ SMODS.Joker {
     pos = { x = 8, y = 0 },
     config = { d_size = 3,
         h_size = -1 },
-    unlock_condition = { type = 'win',
-        n_rounds = 12 }
+    unlock_condition = { type = 'win', n_rounds = 12 } -- TODO: Replace for check_for_unlock
 }
 
 -- Oops! All 6s
@@ -3441,8 +3432,7 @@ SMODS.Joker {
     cost = 4,
     pos = { x = 5, y = 6 },
     config = {},
-    unlock_condition = { type = 'chip_score',
-        chips = 10000 }
+    unlock_condition = { type = 'chip_score', chips = 10000 } -- TODO: Replace for check_for_unlock
 }
 
 -- The Idol
@@ -3454,8 +3444,7 @@ SMODS.Joker {
     cost = 6,
     pos = { x = 6, y = 7 },
     config = { extra = 2 },
-    unlock_condition = { type = 'chip_score',
-        chips = 1000000 }
+    unlock_condition = { type = 'chip_score', chips = 1000000 } -- TODO: Replace for check_for_unlock
 }
 
 -- Seeing Double
@@ -3467,8 +3456,7 @@ SMODS.Joker {
     cost = 6,
     pos = { x = 4, y = 4 },
     config = { extra = 2 },
-    unlock_condition = { type = 'hand_contents',
-        extra = 'four 7 of Clubs' }
+    unlock_condition = { type = 'hand_contents', extra = 'four 7 of Clubs' } -- TODO: Replace for check_for_unlock
 }
 
 -- Matador
@@ -3480,7 +3468,7 @@ SMODS.Joker {
     cost = 7,
     pos = { x = 4, y = 5 },
     config = { extra = 8 },
-    unlock_condition = { type = 'round_win' }
+    unlock_condition = { type = 'round_win' } -- TODO: Replace for check_for_unlock
 }
 
 -- Hit the Road
@@ -3492,7 +3480,7 @@ SMODS.Joker {
     cost = 8,
     pos = { x = 8, y = 5 },
     config = { extra = 0.5 },
-    unlock_condition = { type = 'discard_custom' }
+    unlock_condition = { type = 'discard_custom' } -- TODO: Replace for check_for_unlock
 }
 
 -- The Duo
@@ -3505,8 +3493,7 @@ SMODS.Joker {
     pos = { x = 5, y = 4 },
     config = { Xmult = 2,
         type = 'Pair' },
-    unlock_condition = { type = 'win_no_hand',
-        extra = 'Pair' }
+    unlock_condition = { type = 'win_no_hand', extra = 'Pair' } -- TODO: Replace for check_for_unlock
 }
 
 -- The Trio
@@ -3519,8 +3506,7 @@ SMODS.Joker {
     pos = { x = 6, y = 4 },
     config = { Xmult = 3,
         type = 'Three of a Kind' },
-    unlock_condition = { type = 'win_no_hand',
-        extra = 'Three of a Kind' }
+    unlock_condition = { type = 'win_no_hand', extra = 'Three of a Kind' } -- TODO: Replace for check_for_unlock
 }
 
 -- The Family
@@ -3533,8 +3519,7 @@ SMODS.Joker {
     pos = { x = 7, y = 4 },
     config = { Xmult = 4,
         type = 'Four of a Kind' },
-    unlock_condition = { type = 'win_no_hand',
-        extra = 'Four of a Kind' }
+    unlock_condition = { type = 'win_no_hand', extra = 'Four of a Kind' } -- TODO: Replace for check_for_unlock
 }
 
 -- The Order
@@ -3547,8 +3532,7 @@ SMODS.Joker {
     pos = { x = 8, y = 4 },
     config = { Xmult = 3,
         type = 'Straight' },
-    unlock_condition = { type = 'win_no_hand',
-        extra = 'Straight' }
+    unlock_condition = { type = 'win_no_hand', extra = 'Straight' } -- TODO: Replace for check_for_unlock
 }
 
 -- The Tribe
@@ -3561,8 +3545,7 @@ SMODS.Joker {
     pos = { x = 9, y = 4 },
     config = { Xmult = 2,
         type = 'Flush' },
-    unlock_condition = { type = 'win_no_hand',
-        extra = 'Flush' }
+    unlock_condition = { type = 'win_no_hand', extra = 'Flush' } -- TODO: Replace for check_for_unlock
 }
 
 -- Stuntman
@@ -3575,8 +3558,7 @@ SMODS.Joker {
     pos = { x = 8, y = 6 },
     config = { extra = { h_size = 2,
         chip_mod = 250 } },
-    unlock_condition = { type = 'chip_score',
-        chips = 100000000 }
+    unlock_condition = { type = 'chip_score', chips = 100000000 } -- TODO: Replace for check_for_unlock
 }
 
 -- Invisible Joker
@@ -3589,7 +3571,7 @@ SMODS.Joker {
     cost = 8,
     pos = { x = 1, y = 7 },
     config = { extra = 2 },
-    unlock_condition = { type = 'win_custom' }
+    unlock_condition = { type = 'win_custom' } -- TODO: Replace for check_for_unlock
 }
 
 -- Brainstorm
@@ -3601,7 +3583,7 @@ SMODS.Joker {
     cost = 10,
     pos = { x = 7, y = 7 },
     config = {},
-    unlock_condition = { type = 'discard_custom' }
+    unlock_condition = { type = 'discard_custom' } -- TODO: Replace for check_for_unlock
 }
 
 -- Satellite
@@ -3613,8 +3595,7 @@ SMODS.Joker {
     cost = 6,
     pos = { x = 8, y = 7 },
     config = { extra = 1 },
-    unlock_condition = { type = 'money',
-        extra = 400 }
+    unlock_condition = { type = 'money', extra = 400 } -- TODO: Replace for check_for_unlock
 }
 
 -- Shoot the Moon
@@ -3626,7 +3607,7 @@ SMODS.Joker {
     cost = 5,
     pos = { x = 2, y = 6 },
     config = { extra = 13 },
-    unlock_condition = { type = 'play_all_hearts' }
+    unlock_condition = { type = 'play_all_hearts' } -- TODO: Replace for check_for_unlock
 }
 
 -- Driver's License
@@ -3638,9 +3619,7 @@ SMODS.Joker {
     cost = 7,
     pos = { x = 0, y = 7 },
     config = { extra = 3 },
-    unlock_condition = { type = 'modify_deck',
-        extra = { count = 16,
-            tally = 'total' } }
+    unlock_condition = { type = 'modify_deck', extra = { count = 16, tally = 'total' } } -- TODO: Replace for check_for_unlock
 }
 
 -- Cartomancer
@@ -3652,8 +3631,7 @@ SMODS.Joker {
     cost = 6,
     pos = { x = 7, y = 3 },
     config = {},
-    unlock_condition = { type = 'discover_amount',
-        tarot_count = 22 }
+    unlock_condition = { type = 'discover_amount', tarot_count = 22 } -- TODO: Replace for check_for_unlock
 }
 
 -- Astronomer
@@ -3665,8 +3643,7 @@ SMODS.Joker {
     cost = 8,
     pos = { x = 2, y = 7 },
     config = {},
-    unlock_condition = { type = 'discover_amount',
-        planet_count = 12 }
+    unlock_condition = { type = 'discover_amount', planet_count = 12 } -- TODO: Replace for check_for_unlock
 }
 
 -- Burnt Joker
@@ -3679,8 +3656,7 @@ SMODS.Joker {
     pos = { x = 3, y = 7 },
     config = { h_size = 0,
         extra = 4 },
-    unlock_condition = { type = 'c_cards_sold',
-        extra = 50 }
+    unlock_condition = { type = 'c_cards_sold', extra = 50 } -- TODO: Replace for check_for_unlock
 }
 
 -- Bootstraps
@@ -3693,9 +3669,7 @@ SMODS.Joker {
     pos = { x = 9, y = 8 },
     config = { extra = { mult = 2,
         dollars = 5 } },
-    unlock_condition = { type = 'modify_jokers',
-        extra = { polychrome = true,
-            count = 2 } }
+    unlock_condition = { type = 'modify_jokers', extra = { polychrome = true, count = 2 } } -- TODO: Replace for check_for_unlock
 }
 
 -- Canio
@@ -3708,9 +3682,6 @@ SMODS.Joker {
     pos = { x = 3, y = 8 },
     soul_pos = { x = 3, y = 9 },
     config = { extra = 1 },
-    unlock_condition = { type = '',
-        extra = '',
-        hidden = true }
 }
 
 -- Triboulet
@@ -3723,9 +3694,6 @@ SMODS.Joker {
     pos = { x = 4, y = 8 },
     soul_pos = { x = 4, y = 9 },
     config = { extra = 2 },
-    unlock_condition = { type = '',
-        extra = '',
-        hidden = true }
 }
 
 -- Yorick
@@ -3739,9 +3707,6 @@ SMODS.Joker {
     soul_pos = { x = 5, y = 9 },
     config = { extra = { xmult = 1,
         discards = 23 } },
-    unlock_condition = { type = '',
-        extra = '',
-        hidden = true }
 }
 
 -- Chicot
@@ -3754,9 +3719,6 @@ SMODS.Joker {
     pos = { x = 6, y = 8 },
     soul_pos = { x = 6, y = 9 },
     config = {},
-    unlock_condition = { type = '',
-        extra = '',
-        hidden = true }
 }
 
 -- Perkeo
@@ -3769,9 +3731,6 @@ SMODS.Joker {
     pos = { x = 7, y = 8 },
     soul_pos = { x = 7, y = 9 },
     config = {},
-    unlock_condition = { type = '',
-        extra = '',
-        hidden = true }
 }
 
 -- This is done to change variables globally each round
