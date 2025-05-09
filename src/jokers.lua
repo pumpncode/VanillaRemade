@@ -3440,7 +3440,7 @@ SMODS.Joker {
     check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 3, enhancement = 'Wild Card', e_key = 'm_wild' } }`
         if args.type == 'modify_deck' then
             local count = 0
-            for _, playing_card in ipairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards or {}) do
                 if SMODS.has_enhancement(playing_card, 'm_wild') then count = count + 1 end
                 if count >= 3 then
                     return true
@@ -3553,9 +3553,9 @@ SMODS.Joker {
     check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Diamonds' } }`
         if args.type == 'modify_deck' then
             local count = 0
-            for _, playing_card in ipairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards or {}) do
                 if playing_card.base.suit == "Diamonds" then count = count + 1 end
-                if count >= card.unlock_condition.extra.count then
+                if count >= 30 then
                     return true
                 end
             end
@@ -3590,9 +3590,9 @@ SMODS.Joker {
     check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Hearts' } }`
         if args.type == 'modify_deck' then
             local count = 0
-            for _, playing_card in ipairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards or {}) do
                 if playing_card.base.suit == "Hearts" then count = count + 1 end
-                if count >= card.unlock_condition.extra.count then
+                if count >= 30 then
                     return true
                 end
             end
@@ -3626,9 +3626,9 @@ SMODS.Joker {
     check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Spades' } }`
         if args.type == 'modify_deck' then
             local count = 0
-            for _, playing_card in ipairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards or {}) do
                 if playing_card.base.suit == "Spades" then count = count + 1 end
-                if count >= card.unlock_condition.extra.count then
+                if count >= 30 then
                     return true
                 end
             end
@@ -3662,9 +3662,9 @@ SMODS.Joker {
     check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 30, suit = 'Clubs' } }`
         if args.type == 'modify_deck' then
             local count = 0
-            for _, playing_card in ipairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards or {}) do
                 if playing_card.base.suit == "Clubs" then count = count + 1 end
-                if count >= card.unlock_condition.extra.count then
+                if count >= 30 then
                     return true
                 end
             end
@@ -3751,7 +3751,7 @@ SMODS.Joker {
     check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 5, enhancement = 'Glass Card', e_key = 'm_glass' } }`
         if args.type == 'modify_deck' then
             local count = 0
-            for _, playing_card in ipairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards or {}) do
                 if SMODS.has_enhancement(playing_card, 'm_glass') then count = count + 1 end
                 if count >= 5 then
                     return true
@@ -4511,7 +4511,7 @@ SMODS.Joker {
     check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'modify_deck', extra = { count = 16, tally = 'total' } }`
         if args.type == 'modify_deck' then
             local count = 0
-            for _, playing_card in ipairs(G.playing_cards) do
+            for _, playing_card in ipairs(G.playing_cards or {}) do
                 if playing_card.ability.set == 'Enhanced' then count = count + 1 end
                 if count >= 16 then
                     return true
