@@ -2342,7 +2342,7 @@ SMODS.Joker {
                 card.ability.extra.h_size = card.ability.extra.h_size - card.ability.extra.h_mod
                 G.hand:change_size(-card.ability.extra.h_mod)
                 return {
-                    message = localize { type = 'variable', key = 'a_handsize_minus', vars = { self.ability.extra.h_mod } },
+                    message = localize { type = 'variable', key = 'a_handsize_minus', vars = { card.ability.extra.h_mod } },
                     colour = G.C.FILTER
                 }
             end
@@ -3853,6 +3853,25 @@ SMODS.Joker {
     rarity = 3,
     cost = 10,
     pos = { x = 0, y = 3 },
+    loc_vars = function(self, info_queue, card)
+        card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ''
+        card.ability.blueprint_compat_check = nil
+        main_end = (card.area and card.area == G.jokers) and {
+            {
+                n = G.UIT.C,
+                config = { align = "bm", minh = 0.4 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { ref_table = card, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat' },
+                        nodes = {
+                            { n = G.UIT.T, config = { ref_table = card.ability, ref_value = 'blueprint_compat_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                        }
+                    }
+                }
+            }
+        } or nil
+    end,
     calculate = function(self, card, context)
         local other_joker = nil
         for i = 1, #G.jokers.cards do
