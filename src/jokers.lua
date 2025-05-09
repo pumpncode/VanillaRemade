@@ -1994,7 +1994,7 @@ SMODS.Joker {
         if context.playing_card_added and not context.blueprint then
             card.ability.extra.Xmult = card.ability.extra.Xmult + #context.cards * card.ability.extra.Xmult_gain
             return {
-                message = localize { type = 'variable', key = 'a_xmult', vars = { self.ability.x_mult } },
+                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } },
             }
         end
         if context.joker_main then
