@@ -4597,7 +4597,7 @@ SMODS.Joker {
     end
 }
 
-local card_set_cost_ref = Card.set_cost()
+local card_set_cost_ref = Card.set_cost
 function Card:set_cost()
     card_set_cost_ref(self)
     if next(SMODS.find_card("j_vremade_astronomer")) then
@@ -4617,8 +4617,10 @@ SMODS.Joker {
     pos = { x = 3, y = 7 },
     calculate = function(self, card, context)
         if context.pre_discard and G.GAME.current_round.discards_used <= 0 and not context.hook then
+            local text, _ = G.FUNCS.get_poker_hand_info(G.hand.highlighted)
             return {
-                level_up = 1
+                level_up = true,
+                level_up_hand = text -- TODO: this crashes, seems to be an SMODS bug?
             }
         end
     end,
