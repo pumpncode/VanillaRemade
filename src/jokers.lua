@@ -2714,7 +2714,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             return { -- TODO: Check Talisman compat
-                xmult = card.ability.extra.chips * math.max(0, (G.GAME.dollars + (G.GAME.dollar_buffer or 0)))
+                chips = card.ability.extra.chips * math.max(0, (G.GAME.dollars + (G.GAME.dollar_buffer or 0)))
             }
         end
     end,
