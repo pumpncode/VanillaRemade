@@ -4370,7 +4370,7 @@ SMODS.Joker {
             card.ability.extra.invis_rounds = card.ability.extra.invis_rounds + 1
             if card.ability.extra.invis_rounds == card.ability.extra.total_rounds then
                 local eval = function(card) return not card.REMOVED end
-                juice_card_until(self, eval, true)
+                juice_card_until(card, eval, true)
             end
             return {
                 message = (card.ability.extra.invis_rounds < card.ability.extra.total_rounds) and
