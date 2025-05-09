@@ -4464,7 +4464,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand and context.other_card:get_id() == 12 then
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:get_id() == 12 then
             if context.other_card.debuff then
                 return {
                     message = localize('k_debuffed'),
