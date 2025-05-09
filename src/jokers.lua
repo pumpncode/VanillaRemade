@@ -2868,7 +2868,7 @@ SMODS.Joker {
     rarity = 2,
     cost = 6,
     pos = { x = 4, y = 15 },
-    config = { extra = { mult_gain = 2, mult = 20 } },
+    config = { extra = { mult_gain = 2, mult = 0 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult_gain, localize('Two Pair', 'poker_hands'), card.ability.extra.mult } }
     end,
