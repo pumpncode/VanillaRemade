@@ -3454,7 +3454,7 @@ SMODS.Joker {
 local card_is_suit_ref = Card.is_suit
 function Card:is_suit(suit, bypass_debuff, flush_calc)
     local ret = card_is_suit_ref(self, suit, bypass_debuff, flush_calc)
-    if not ret and not SMODS.has_no_suit(self) and SMODS.find_card("j_vremade_smeared") then
+    if not ret and not SMODS.has_no_suit(self) and next(SMODS.find_card("j_vremade_smeared")) then
         return SMODS.smeared_check(self, suit)
     end
     return ret
