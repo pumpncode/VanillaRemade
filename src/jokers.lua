@@ -3904,6 +3904,7 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 0, y = 0 },
+    display_size = { w = 71 * 0.7, h = 95 * 0.7 },
     config = { extra = { chips = 0, chip_mod = 8 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
