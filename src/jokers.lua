@@ -968,9 +968,7 @@ SMODS.Joker {
                             delay = 0.3,
                             blockable = false,
                             func = function()
-                                G.jokers:remove_card(self)
                                 card:remove()
-                                card = nil
                                 return true
                             end
                         }))
@@ -1315,9 +1313,7 @@ SMODS.Joker {
                             delay = 0.3,
                             blockable = false,
                             func = function()
-                                G.jokers:remove_card(card)
                                 card:remove()
-                                card = nil
                                 return true
                             end
                         }))
@@ -1688,7 +1684,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-            if pseudorandom('vremade_cavendish') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            if pseudorandom('vremade_cavendish') < G.GAME.probabilities.normal / 1 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound('tarot1')
@@ -1701,9 +1697,7 @@ SMODS.Joker {
                             delay = 0.3,
                             blockable = false,
                             func = function()
-                                G.jokers:remove_card(self)
                                 card:remove()
-                                card = nil
                                 return true
                             end
                         }))
@@ -2332,9 +2326,7 @@ SMODS.Joker {
                             delay = 0.3,
                             blockable = false,
                             func = function()
-                                G.jokers:remove_card(self)
                                 card:remove()
-                                card = nil
                                 return true
                             end
                         }))
@@ -2838,10 +2830,8 @@ SMODS.Joker {
                             delay = 0.3,
                             blockable = false,
                             func = function()
-                                G.jokers:remove_card(card)
                                 card:remove()
-                                card = nil
-                                return true;
+                                return true
                             end
                         }))
                         return true
@@ -2956,10 +2946,8 @@ SMODS.Joker {
                             delay = 0.3,
                             blockable = false,
                             func = function()
-                                G.jokers:remove_card(card)
                                 card:remove()
-                                card = nil
-                                return true;
+                                return true
                             end
                         }))
                         return true
@@ -3039,10 +3027,8 @@ SMODS.Joker {
                             delay = 0.3,
                             blockable = false,
                             func = function()
-                                G.jokers:remove_card(card)
                                 card:remove()
-                                card = nil
-                                return true;
+                                return true
                             end
                         }))
                         return true
