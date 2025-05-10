@@ -4663,7 +4663,7 @@ SMODS.Joker {
             local text, _ = G.FUNCS.get_poker_hand_info(G.hand.highlighted)
             return {
                 level_up = true,
-                level_up_hand = text -- TODO: this crashes, seems to be an SMODS bug?
+                level_up_hand = text
             }
         end
     end,
