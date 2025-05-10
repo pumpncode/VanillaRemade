@@ -316,7 +316,6 @@ SMODS.Joker {
 }
 
 -- Half Joker
--- TODO: Add size fix
 SMODS.Joker {
     key = "half",
     blueprint_compat = true,
@@ -324,6 +323,7 @@ SMODS.Joker {
     cost = 5,
     pos = { x = 7, y = 0 },
     config = { extra = { mult = 20, size = 3 } },
+    pixel_size = { h = 95 / 1.7 },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.size } }
     end,
@@ -1823,7 +1823,6 @@ SMODS.Joker {
 }
 
 -- Square Joker
--- TODO: Fix sprite size
 SMODS.Joker {
     key = "square",
     blueprint_compat = true,
@@ -1831,6 +1830,7 @@ SMODS.Joker {
     rarity = 1,
     cost = 4,
     pos = { x = 9, y = 11 },
+    pixel_size = { h = 71 },
     config = { extra = { chips = 0, chip_mod = 4 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
@@ -1977,7 +1977,6 @@ SMODS.Joker {
 }
 
 -- Hologram
--- TODO: Add sprite effect
 SMODS.Joker {
     key = "hologram",
     blueprint_compat = true,
@@ -1985,7 +1984,15 @@ SMODS.Joker {
     rarity = 2,
     cost = 7,
     pos = { x = 4, y = 12 },
-    soul_pos = { x = 2, y = 9 },
+    soul_pos = {
+        x = 2, y = 9,
+        draw = function(card, scale_mod, rotate_mod)
+            card.hover_tilt = card.hover_tilt * 1.5
+            card.children.floating_sprite:draw_shader('hologram', nil, card.ARGS.send_to_shader, nil,
+                card.children.center, 2 * scale_mod, 2 * rotate_mod)
+            card.hover_tilt = card.hover_tilt / 1.5
+        end
+    },
     config = { extra = { Xmult_gain = 0.25, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
@@ -2239,13 +2246,13 @@ SMODS.Joker {
 }
 
 -- Photograph
--- TODO: Fix sprite
 SMODS.Joker {
     key = "photograph",
     blueprint_compat = true,
     rarity = 1,
     cost = 5,
     pos = { x = 2, y = 13 },
+    pixel_size = { h = 95 / 1.2 },
     config = { extra = { xmult = 2 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.xmult } }
