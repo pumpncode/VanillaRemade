@@ -646,7 +646,7 @@ SMODS.Joker {
                                 func = (function()
                                     SMODS.add_card {
                                         set = 'Tarot',
-                                        key_append = 'vremade_8_ball' -- Optional, useful for checking the source of the creation.
+                                        key_append = 'vremade_8_ball' -- Optional, useful for checking the source of the creation in `in_pool`.
                                     }
                                     G.GAME.consumeable_buffer = 0
                                     return true
@@ -1443,7 +1443,7 @@ SMODS.Joker {
                         func = (function()
                             SMODS.add_card {
                                 set = 'Spectral',
-                                key_append = 'vremade_sixth_sense' -- Optional, useful for checking the source of the creation.
+                                key_append = 'vremade_sixth_sense' -- Optional, useful for checking the source of the creation in `in_pool`.
                             }
                             G.GAME.consumeable_buffer = 0
                             return true
@@ -1608,7 +1608,7 @@ SMODS.Joker {
                     func = (function()
                         SMODS.add_card {
                             set = 'Tarot',
-                            key_append = 'vremade_superposition' -- Optional, useful for checking the source of the creation.
+                            key_append = 'vremade_superposition' -- Optional, useful for checking the source of the creation in `in_pool`.
                         }
                         G.GAME.consumeable_buffer = 0
                         return true
@@ -1870,7 +1870,7 @@ SMODS.Joker {
                 func = (function()
                     SMODS.add_card {
                         set = 'Spectral',
-                        key_append = 'vremade_seance' -- Optional, useful for checking the source of the creation.
+                        key_append = 'vremade_seance' -- Optional, useful for checking the source of the creation in `in_pool`.
                     }
                     G.GAME.consumeable_buffer = 0
                     return true
@@ -1905,7 +1905,7 @@ SMODS.Joker {
                         SMODS.add_card {
                             set = 'Joker',
                             rarity = 'Common',
-                            key_append = 'vremade_riff_raff' -- Optional, useful for checking the source of the creation.
+                            key_append = 'vremade_riff_raff' -- Optional, useful for checking the source of the creation in `in_pool`.
                         }
                         G.GAME.joker_buffer = 0
                     end
@@ -2025,7 +2025,7 @@ SMODS.Joker {
                     func = (function()
                         SMODS.add_card {
                             set = 'Tarot',
-                            key_append = 'vremade_vagabond' -- Optional, useful for checking the source of the creation.
+                            key_append = 'vremade_vagabond' -- Optional, useful for checking the source of the creation in `in_pool`.
                         }
                         G.GAME.consumeable_buffer = 0
                         return true
@@ -2213,7 +2213,7 @@ SMODS.Joker {
                     nodes = {
                         {
                             n = G.UIT.C,
-                            config = { ref_table = self, align = "m", colour = disableable and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06 },
+                            config = { ref_table = card, align = "m", colour = disableable and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06 },
                             nodes = {
                                 { n = G.UIT.T, config = { text = ' ' .. localize(disableable and 'k_active' or 'ph_no_boss_active') .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.9 } },
                             }
@@ -2504,7 +2504,7 @@ SMODS.Joker {
                     func = (function()
                         SMODS.add_card {
                             set = 'Tarot',
-                            key_append = 'vremade_hallucination' -- Optional, useful for checking the source of the creation.
+                            key_append = 'vremade_hallucination' -- Optional, useful for checking the source of the creation in `in_pool`.
                         }
                         G.GAME.consumeable_buffer = 0
                         return true
@@ -3854,8 +3854,11 @@ SMODS.Joker {
     cost = 10,
     pos = { x = 0, y = 3 },
     loc_vars = function(self, info_queue, card)
-        card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ''
-        card.ability.blueprint_compat_check = nil
+        local other_joker
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] == card then other_joker = G.jokers.cards[i + 1] end
+        end
+        local compatible = other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat
         main_end = (card.area and card.area == G.jokers) and {
             {
                 n = G.UIT.C,
@@ -3863,14 +3866,15 @@ SMODS.Joker {
                 nodes = {
                     {
                         n = G.UIT.C,
-                        config = { ref_table = card, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat' },
+                        config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
                         nodes = {
-                            { n = G.UIT.T, config = { ref_table = card.ability, ref_value = 'blueprint_compat_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                            { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
                         }
                     }
                 }
             }
         } or nil
+        return { main_end = main_end }
     end,
     calculate = function(self, card, context)
         local other_joker = nil
@@ -4398,6 +4402,26 @@ SMODS.Joker {
     rarity = 3,
     cost = 10,
     pos = { x = 7, y = 7 },
+    loc_vars = function(self, info_queue, card)
+        local compatible = G.jokers.cards[1] and G.jokers.cards[1] ~= card and
+            other_joker.config.center.blueprint_compat
+        main_end = (card.area and card.area == G.jokers) and {
+            {
+                n = G.UIT.C,
+                config = { align = "bm", minh = 0.4 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { ref_table = card, align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = ' ' .. localize('k_' .. (compatible and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+                        }
+                    }
+                }
+            }
+        } or nil
+        return { main_end = main_end }
+    end,
     calculate = function(self, card, context)
         local ret = SMODS.blueprint_effect(card, G.jokers.cards[1], context)
         if ret then
@@ -4560,7 +4584,7 @@ SMODS.Joker {
                                 func = function()
                                     SMODS.add_card {
                                         set = 'Tarot',
-                                        key_append = 'vremade_cartomancer' -- Optional, useful for checking the source of the creation.
+                                        key_append = 'vremade_cartomancer' -- Optional, useful for checking the source of the creation in `in_pool`.
                                     }
                                     G.GAME.consumeable_buffer = 0
                                     return true
