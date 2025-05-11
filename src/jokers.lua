@@ -18,7 +18,7 @@ SMODS.Joker {
     rarity = 1,
     blueprint_compat = true,
     cost = 2,
-    config = { extra = { mult = 4 }, },
+    config = { extra = { mult = 4, h_size = 0 }, },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
     end,
@@ -570,7 +570,7 @@ SMODS.Joker {
             return {
                 message = localize('k_plus_stone'),
                 colour = G.C.SECONDARY_SET.Enhanced,
-                func = function()
+                func = function() -- This is for timing purposes, everything here runs after the message
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.deck.config.card_limit = G.deck.config.card_limit + 1
@@ -641,7 +641,7 @@ SMODS.Joker {
                     extra = {
                         message = localize('k_plus_tarot'),
                         message_card = card,
-                        func = function()
+                        func = function() -- This is for timing purposes, everything here runs after the message
                             G.E_MANAGER:add_event(Event({
                                 func = (function()
                                     SMODS.add_card {
@@ -958,6 +958,9 @@ SMODS.Joker {
             if pseudorandom('vremade_gros_michel') < G.GAME.probabilities.normal / card.ability.extra.odds then
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        -- This replicates the food destruction effect
+                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
                         card:juice_up(0.3, 0.4)
@@ -1084,7 +1087,7 @@ SMODS.Joker {
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
-                func = function()
+                func = function() -- This is for timing purposes, this goes after the dollar modification
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.GAME.dollar_buffer = 0
@@ -1213,6 +1216,8 @@ SMODS.Joker {
         if context.setting_blind then
             return {
                 func = function()
+                    -- This is for retrigger purposes, Jokers need to return something to retrigger
+                    -- You can also do this outside the return and `return nil, true` instead
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             ease_discard(-G.GAME.current_round.discards_left, nil, true)
@@ -1303,6 +1308,9 @@ SMODS.Joker {
             if card.ability.extra.chips - card.ability.extra.chip_mod <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        -- This replicates the food destruction effect
+                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
                         card:juice_up(0.3, 0.4)
@@ -1374,7 +1382,7 @@ SMODS.Joker {
             return {
                 message = localize('k_copied_ex'),
                 colour = G.C.CHIPS,
-                func = function()
+                func = function() -- This is for timing purposes, it runs after the message
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             SMODS.calculate_context({ playing_card_added = true, cards = { copy_card } })
@@ -1530,7 +1538,7 @@ SMODS.Joker {
                 G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
                 return {
                     dollars = card.ability.extra.dollars,
-                    func = function()
+                    func = function() -- This is for timing purposes, it runs after the dollar manipulation
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 G.GAME.dollar_buffer = 0
@@ -1635,7 +1643,7 @@ SMODS.Joker {
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
-                func = function()
+                func = function() -- This is for timing purposes, it runs after the dollar manipulation
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.GAME.dollar_buffer = 0
@@ -1687,6 +1695,9 @@ SMODS.Joker {
             if pseudorandom('vremade_cavendish') < G.GAME.probabilities.normal / card.ability.extra.odds then
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        -- This replicates the food destruction effect
+                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
                         card:juice_up(0.3, 0.4)
@@ -2230,7 +2241,7 @@ SMODS.Joker {
             if G.GAME.blind and not G.GAME.blind.disabled and G.GAME.blind.boss then
                 return {
                     message = localize('ph_boss_disabled'),
-                    func = function()
+                    func = function() -- This is for timing purposes, it runs after the message
                         G.GAME.blind:disable()
                     end
                 }
@@ -2316,6 +2327,9 @@ SMODS.Joker {
             if card.ability.extra.h_size - card.ability.extra.h_mod <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        -- This replicates the food destruction effect
+                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
                         card:juice_up(0.3, 0.4)
@@ -2399,7 +2413,7 @@ SMODS.Joker {
                     G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
                     return {
                         dollars = card.ability.extra.dollars,
-                        func = function()
+                        func = function() -- This is for timing purposes, it runs after the dollar manipulation
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     G.GAME.dollar_buffer = 0
@@ -2431,7 +2445,7 @@ SMODS.Joker {
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
-                func = function()
+                func = function() -- This is for timing purposes, it runs after the dollar manipulation
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.GAME.dollar_buffer = 0
@@ -2735,6 +2749,8 @@ SMODS.Joker {
         if context.selling_self then
             return {
                 func = function()
+                    -- This is for retrigger purposes, Jokers need to return something to retrigger
+                    -- You can also do this outside the return and `return nil, true` instead
                     G.E_MANAGER:add_event(Event({
                         func = (function()
                             add_tag(Tag('tag_double'))
@@ -2820,6 +2836,9 @@ SMODS.Joker {
             if card.ability.extra.mult - card.ability.extra.mult_loss <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        -- This replicates the food destruction effect
+                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
                         card:juice_up(0.3, 0.4)
@@ -2936,6 +2955,9 @@ SMODS.Joker {
             if card.ability.extra.Xmult - card.ability.extra.Xmult_loss <= 1 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        -- This replicates the food destruction effect
+                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
                         card:juice_up(0.3, 0.4)
@@ -3017,6 +3039,9 @@ SMODS.Joker {
             if card.ability.extra.hands_left - 1 <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        -- This replicates the food destruction effect
+                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
                         card:juice_up(0.3, 0.4)
@@ -3173,7 +3198,7 @@ SMODS.Joker {
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
-                func = function()
+                func = function() -- This is for timing purposes, it runs after the dollar manipulation
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.GAME.dollar_buffer = 0
@@ -3395,6 +3420,8 @@ SMODS.Joker {
             _card:set_seal(SMODS.poll_seal({ guaranteed = true, type_key = 'vremade_certificate_seal' }))
             return {
                 func = function()
+                    -- This is for retrigger purposes, Jokers need to return something to retrigger
+                    -- You can also do this outside the return and `return nil, true` instead
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.hand:emplace(_card)
@@ -3529,7 +3556,7 @@ SMODS.Joker {
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
-                func = function()
+                func = function() -- This is for timing purposes, it runs after the dollar manipulation
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.GAME.dollar_buffer = 0
@@ -3689,6 +3716,8 @@ SMODS.Joker {
             if glass_cards > 0 then
                 return {
                     func = function()
+                        -- This is for retrigger purposes, Jokers need to return something to retrigger
+                        -- You can also do this outside the return and `return nil, true` instead
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 G.E_MANAGER:add_event(Event({
@@ -4080,7 +4109,7 @@ SMODS.Joker {
                 G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
                 return {
                     dollars = card.ability.extra.dollars,
-                    func = function()
+                    func = function() -- This is for timing purposes, it runs after the dollar manipulation
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 G.GAME.dollar_buffer = 0
@@ -4572,6 +4601,8 @@ SMODS.Joker {
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             return {
                 func = function()
+                    -- This is for retrigger purposes, Jokers need to return something to retrigger
+                    -- You can also do this outside the return and `return nil, true` instead
                     G.E_MANAGER:add_event(Event({
                         func = (function()
                             G.E_MANAGER:add_event(Event({
@@ -4789,7 +4820,9 @@ SMODS.Joker {
                     colour = G.C.RED
                 }
             else
-                return { -- To count for retriggers
+                return {
+                    -- This is for retrigger purposes, Jokers need to return something to retrigger
+                    -- You can also do this outside the return and `return nil, true` instead
                     func = function()
                         card.ability.extra.discards_remaining = card.ability.extra.discards_remaining - 1
                     end
@@ -4817,6 +4850,8 @@ SMODS.Joker {
         if context.setting_blind and not context.blueprint and context.blind.boss then
             return {
                 func = function()
+                    -- This is for retrigger purposes, Jokers need to return something to retrigger
+                    -- You can also do this outside the return and `return nil, true` instead
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             G.E_MANAGER:add_event(Event({
