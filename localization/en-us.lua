@@ -1,5 +1,199 @@
 return {
     descriptions = {
+        Back={
+            b_vremade_abandoned={
+                name="Abandoned Deck",
+                text={
+                    "Start run with",
+                    "no {C:attention}Face Cards",
+                    "in your deck",
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
+                }
+            },
+            b_vremade_anaglyph={
+                name="Anaglyph Deck",
+                text={
+                    "After defeating each",
+                    "{C:attention}Boss Blind{}, gain a",
+                    "{C:attention,T:tag_double}#1#",
+                },
+                unlock={
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
+            },
+            b_vremade_black={
+                name="Black Deck",
+                text={
+                    "{C:attention}+#1#{} Joker slot",
+                    "",
+                    "{C:blue}-#2#{} hand",
+                    "every round",
+                },
+                unlock={
+                    "Discover at least",
+                    "{C:attention}#1#{} items from",
+                    "your collection",
+                }
+            },
+            b_vremade_blue={
+                name="Blue Deck",
+                text={
+                    "{C:blue}+#1#{} hand",
+                    "every round",
+                },
+                unlock={
+                    "Discover at least",
+                    "{C:attention}#1#{} items from",
+                    "your collection",
+                }
+            },
+            b_vremade_checkered={
+                name="Checkered Deck",
+                text={
+                    "Start run with",
+                    "{C:attention}26{C:spades} Spades{} and",
+                    "{C:attention}26{C:hearts} Hearts{} in deck",
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
+                }
+            },
+            b_vremade_erratic={
+                name="Erratic Deck",
+                text={
+                    "All {C:attention}Ranks{} and",
+                    "{C:attention}Suits{} in deck",
+                    "are randomized",
+                },
+                unlock={
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
+            },
+            b_vremade_ghost={
+                name="Ghost Deck",
+                text={
+                    "{C:spectral}Spectral{} cards may",
+                    "appear in the shop,",
+                    "start with a {C:spectral,T:c_hex}Hex{} card",
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
+                }
+            },
+            b_vremade_green={
+                name="Green Deck",
+                text={
+                    "At end of each Round:",
+                    "{C:money}$#1#{s:0.85} per remaining {C:blue}Hand",
+                    "{C:money}$#2#{s:0.85} per remaining {C:red}Discard",
+                    "Earn no {C:attention}Interest",
+                },
+                unlock={
+                    "Discover at least",
+                    "{C:attention}#1#{} items from",
+                    "your collection",
+                }
+            },
+            b_vremade_magic={
+                name="Magic Deck",
+                text={
+                    "Start run with the",
+                    "{C:tarot,T:v_crystal_ball}#1#{} voucher",
+                    "and {C:attention}2{} copies",
+                    "of {C:tarot,T:c_fool}#2#",
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
+                }
+            },
+            b_vremade_nebula={
+                name="Nebula Deck",
+                text={
+                    "Start run with the",
+                    "{C:planet,T:v_telescope}#1#{} voucher",
+                    "",
+                    "{C:red}#2#{} consumable slot",
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
+                }
+            },
+            b_vremade_painted={
+                name="Painted Deck",
+                text={
+                    "{C:attention}+#1#{} hand size,",
+                    "{C:red}#2#{} Joker slot",
+                },
+                unlock={
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
+            },
+            b_vremade_plasma={
+                name="Plasma Deck",
+                text={
+                    "Balance {C:blue}Chips{} and",
+                    "{C:red}Mult{} when calculating",
+                    "score for played hand",
+                    "{C:red}X#1#{} base Blind size",
+                },
+                unlock={
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
+            },
+            b_vremade_red={
+                name="Red Deck",
+                text={
+                    "{C:red}+#1#{} discard",
+                    "every round",
+                },
+            },
+            b_vremade_yellow={
+                name="Yellow Deck",
+                text={
+                    "Start with",
+                    "extra {C:money}$#1#",
+                },
+                unlock={
+                    "Discover at least",
+                    "{C:attention}#1#{} items from",
+                    "your collection",
+                }
+            },
+            b_vremade_zodiac={
+                name="Zodiac Deck",
+                text={
+                    "Start run with",
+                    "{C:tarot,T:v_tarot_merchant}#1#{},",
+                    "{C:planet,T:v_planet_merchant}#2#{},",
+                    "and {C:attention,T:v_overstock_norm}#3#",
+                },
+                unlock={
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
+            },
+        },
         Joker = {
             j_vremade_joker = {
                 name = "Joker",
