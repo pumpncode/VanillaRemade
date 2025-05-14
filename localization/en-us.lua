@@ -194,6 +194,67 @@ return {
                 }
             },
         },
+        Enhanced={
+            m_vremade_bonus={
+                name="Bonus Card",
+                text={
+                    "{C:chips}+#1#{} extra chips",
+                },
+            },
+            m_vremade_glass={
+                name="Glass Card",
+                text={
+                    "{X:mult,C:white} X#1# {} Mult",
+                    "{C:green}#2# in #3#{} chance to",
+                    "destroy card",
+                },
+            },
+            m_vremade_gold={
+                name="Gold Card",
+                text={
+                    "{C:money}$#1#{} if this",
+                    "card is held in hand",
+                    "at end of round",
+                },
+            },
+            m_vremade_lucky={
+                name="Lucky Card",
+                text={
+                    "{C:green}#1# in #3#{} chance",
+                    "for {C:mult}+#2#{} Mult",
+                    "{C:green}#1# in #5#{} chance",
+                    "to win {C:money}$#4#",
+                },
+            },
+            m_vremade_mult={
+                name="Mult Card",
+                text={
+                    "{C:mult}+#1#{} Mult",
+                },
+            },
+            m_vremade_steel={
+                name="Steel Card",
+                text={
+                    "{X:mult,C:white} X#1# {} Mult",
+                    "while this card",
+                    "stays in hand",
+                },
+            },
+            m_vremade_stone={
+                name="Stone Card",
+                text={
+                    "{C:chips}+#1#{} Chips",
+                    "no rank or suit",
+                },
+            },
+            m_vremade_wild={
+                name="Wild Card",
+                text={
+                    "Can be used",
+                    "as any suit",
+                },
+            },
+        },
         Joker = {
             j_vremade_joker = {
                 name = "Joker",
@@ -1669,6 +1730,195 @@ return {
                     "card {C:attention}#1#{} time",
                 },
             },
+            undiscovered_vremade_tarot = {
+                name = "Not Discovered",
+                text = {
+                    "Purchase this",
+                    "card in an",
+                    "unseeded run to",
+                    "learn what it does",
+                },
+            },
+        },
+        vremade_Tarot={
+            c_vremade_chariot={
+                name="The Chariot",
+                text={
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_vremade_death={
+                name="Death",
+                text={
+                    "Select {C:attention}#1#{} cards,",
+                    "convert the {C:attention}left{} card",
+                    "into the {C:attention}right{} card",
+                    "{C:inactive}(Drag to rearrange)",
+                },
+            },
+            c_vremade_devil={
+                name="The Devil",
+                text={
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_vremade_emperor={
+                name="The Emperor",
+                text={
+                    "Creates up to {C:attention}#1#",
+                    "random {C:tarot}Tarot{} cards",
+                    "{C:inactive}(Must have room)",
+                },
+            },
+            c_vremade_empress={
+                name="The Empress",
+                text={
+                    "Enhances {C:attention}#1#",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_vremade_fool={
+                name="The Fool",
+                text={
+                    "Creates the last",
+                    "{C:tarot}Tarot{} or {C:planet}Planet{} card",
+                    "used during this run",
+                    "{s:0.8,C:tarot}The Fool{s:0.8} excluded",
+                },
+            },
+            c_vremade_hanged_man={
+                name="The Hanged Man",
+                text={
+                    "Destroys up to",
+                    "{C:attention}#1#{} selected cards",
+                },
+            },
+            c_vremade_heirophant={
+                name="The Hierophant",
+                text={
+                    "Enhances {C:attention}#1#",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_vremade_hermit={
+                name="The Hermit",
+                text={
+                    "Doubles money",
+                    "{C:inactive}(Max of {C:money}$#1#{C:inactive})",
+                },
+            },
+            c_vremade_high_priestess={
+                name="The High Priestess",
+                text={
+                    "Creates up to {C:attention}#1#",
+                    "random {C:planet}Planet{} cards",
+                    "{C:inactive}(Must have room)",
+                },
+            },
+            c_vremade_judgement={
+                name="Judgement",
+                text={
+                    "Creates a random",
+                    "{C:attention}Joker{} card",
+                    "{C:inactive}(Must have room)",
+                },
+            },
+            c_vremade_justice={
+                name="Justice",
+                text={
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_vremade_lovers={
+                name="The Lovers",
+                text={
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_vremade_magician={
+                name="The Magician",
+                text={
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_vremade_moon={
+                name="The Moon",
+                text={
+                    "Converts up to",
+                    "{C:attention}#1#{} selected cards",
+                    "to {V:1}#2#{}",
+                },
+            },
+            c_vremade_star={
+                name="The Star",
+                text={
+                    "Converts up to",
+                    "{C:attention}#1#{} selected cards",
+                    "to {V:1}#2#{}",
+                },
+            },
+            c_vremade_strength={
+                name="Strength",
+                text={
+                    "Increases rank of",
+                    "up to {C:attention}#1#{} selected",
+                    "cards by {C:attention}1",
+                },
+            },
+            c_vremade_sun={
+                name="The Sun",
+                text={
+                    "Converts up to",
+                    "{C:attention}#1#{} selected cards",
+                    "to {V:1}#2#{}",
+                },
+            },
+            c_vremade_temperance={
+                name="Temperance",
+                text={
+                    "Gives the total sell",
+                    "value of all current",
+                    "Jokers {C:inactive}(Max of {C:money}$#1#{C:inactive})",
+                    "{C:inactive}(Currently {C:money}$#2#{C:inactive})",
+                },
+            },
+            c_vremade_tower={
+                name="The Tower",
+                text={
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_vremade_wheel_of_fortune={
+                name="The Wheel of Fortune",
+                text={
+                    "{C:green}#1# in #2#{} chance to add",
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
+                    "{C:dark_edition}Polychrome{} edition",
+                    "to a random {C:attention}Joker",
+                },
+            },
+            c_vremade_world={
+                name="The World",
+                text={
+                    "Converts up to",
+                    "{C:attention}#1#{} selected cards",
+                    "to {V:1}#2#{}",
+                },
+            },
         },
         Voucher={
             v_vremade_antimatter={
@@ -2000,11 +2250,16 @@ return {
         },
     },
     misc = {
+        dictionary = {
+            b_vremade_tarot_cards = "Tarot Cards",
+            k_vremade_tarot = "Tarot",
+        },
         labels = {
             vremade_blue_seal="Blue Seal",
             vremade_gold_seal="Gold Seal",
             vremade_purple_seal="Purple Seal",
             vremade_red_seal="Red Seal",
+            vremade_tarot = "Tarot",
         }
     }
 }

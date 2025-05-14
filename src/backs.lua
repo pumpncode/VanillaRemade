@@ -98,7 +98,7 @@ SMODS.Back {
 SMODS.Back {
     key = "magic",
     pos = { x = 0, y = 3 },
-    config = { extra = { voucher = 'v_crystal_ball', consumables = { 'c_fool', 'c_fool' } } },
+    config = { extra = { voucher = 'v_vremade_crystal_ball', consumables = { 'c_vremade_fool', 'c_vremade_fool' } } },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
         return {
@@ -146,7 +146,7 @@ SMODS.Back {
 SMODS.Back {
     key = "nebula",
     pos = { x = 3, y = 0 },
-    config = { extra = { voucher = 'v_telescope', consumable_slot = -1 } },
+    config = { extra = { voucher = 'v_vremade_telescope', consumable_slot = -1 } },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
         return { vars = { localize { type = 'name_text', key = self.config.extra.voucher, set = 'Voucher' }, self.config.extra.consumable_slot } }
@@ -274,7 +274,7 @@ SMODS.Back {
 SMODS.Back {
     key = "zodiac",
     pos = { x = 3, y = 4 },
-    config = { extra = { vouchers = { 'v_tarot_merchant', 'v_planet_merchant', 'v_overstock_norm' } } },
+    config = { extra = { vouchers = { 'v_vremade_tarot_merchant', 'v_vremade_planet_merchant', 'v_vremade_overstock_norm' } } },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
         return {
