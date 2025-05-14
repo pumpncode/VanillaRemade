@@ -194,6 +194,67 @@ return {
                 }
             },
         },
+        Enhanced={
+            m_vremade_bonus={
+                name="Bonus Card",
+                text={
+                    "{C:chips}+#1#{} extra chips",
+                },
+            },
+            m_vremade_glass={
+                name="Glass Card",
+                text={
+                    "{X:mult,C:white} X#1# {} Mult",
+                    "{C:green}#2# in #3#{} chance to",
+                    "destroy card",
+                },
+            },
+            m_vremade_gold={
+                name="Gold Card",
+                text={
+                    "{C:money}$#1#{} if this",
+                    "card is held in hand",
+                    "at end of round",
+                },
+            },
+            m_vremade_lucky={
+                name="Lucky Card",
+                text={
+                    "{C:green}#1# in #3#{} chance",
+                    "for {C:mult}+#2#{} Mult",
+                    "{C:green}#1# in #5#{} chance",
+                    "to win {C:money}$#4#",
+                },
+            },
+            m_vremade_mult={
+                name="Mult Card",
+                text={
+                    "{C:mult}+#1#{} Mult",
+                },
+            },
+            m_vremade_steel={
+                name="Steel Card",
+                text={
+                    "{X:mult,C:white} X#1# {} Mult",
+                    "while this card",
+                    "stays in hand",
+                },
+            },
+            m_vremade_stone={
+                name="Stone Card",
+                text={
+                    "{C:chips}+#1#{} Chips",
+                    "no rank or suit",
+                },
+            },
+            m_vremade_wild={
+                name="Wild Card",
+                text={
+                    "Can be used",
+                    "as any suit",
+                },
+            },
+        },
         Joker = {
             j_vremade_joker = {
                 name = "Joker",
