@@ -3,7 +3,7 @@
   "name": "VanillaRemade",
   "display_name": "VanillaRemade",
   "author": ["nh6574"],
-  "description": "Remakes all vanilla Jokers using SMODS and simple hooks.",
+  "description": "Remakes vanilla objects using SMODS and simple hooks.",
   "prefix": "vremade",
   "main_file": "VanillaRemade.lua",
   "priority": 0,
