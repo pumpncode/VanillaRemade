@@ -81,7 +81,7 @@ SMODS.Seal {
                 trigger = 'before',
                 delay = 0.0,
                 func = function()
-                    SMODS.add_card({ set = 'Tarot' })
+                    SMODS.add_card({ set = 'vremade_Tarot' })
                     G.GAME.consumeable_buffer = 0
                     return true
                 end
