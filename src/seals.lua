@@ -7,9 +7,7 @@ SMODS.Seal {
     calculate = function(self, card, context)
         if context.repetition then
             return {
-                message = localize('k_again_ex'),
                 repetitions = card.ability.seal.extra.retriggers,
-                card = card
             }
         end
     end,
@@ -45,7 +43,7 @@ SMODS.Seal {
                     return true
                 end
             }))
-            SMODS.calculate_effect({ message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet }, card)
+            return { message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet }
         end
     end
 }
@@ -88,7 +86,7 @@ SMODS.Seal {
                     return true
                 end
             }))
-            SMODS.calculate_effect({ message = localize('k_plus_tarot'), colour = G.C.PURPLE }, card)
+            return { message = localize('k_plus_tarot'), colour = G.C.PURPLE }
         end
     end
 }
