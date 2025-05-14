@@ -4356,6 +4356,11 @@ SMODS.Joker {
     rarity = 3,
     cost = 8,
     pos = { x = 1, y = 7 },
+    draw = function(self, card, layer)
+        if card.config.center.discovered or card.bypass_discovery_center then
+            card.children.center:draw_shader('voucher', nil, card.ARGS.send_to_shader)
+        end
+    end,
     config = { extra = { invis_rounds = 0, total_rounds = 2 } },
     loc_vars = function(self, info_queue, card)
         local main_end
@@ -4410,11 +4415,6 @@ SMODS.Joker {
     check_for_unlock = function(self, args)
         return args.type == 'win_custom' and G.GAME.max_jokers <= 4
     end,
-    draw = function(self, card, layer)
-        if card.config.center.discovered or card.bypass_discovery_center then
-            card.children.center:draw_shader('voucher', nil, card.ARGS.send_to_shader)
-        end
-    end
 }
 
 -- Brainstorm
