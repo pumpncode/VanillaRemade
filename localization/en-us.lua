@@ -1,5 +1,199 @@
 return {
     descriptions = {
+        Back = {
+            b_vremade_abandoned = {
+                name = "Abandoned Deck",
+                text = {
+                    "Start run with",
+                    "no {C:attention}Face Cards",
+                    "in your deck",
+                },
+                unlock = {
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
+                }
+            },
+            b_vremade_anaglyph = {
+                name = "Anaglyph Deck",
+                text = {
+                    "After defeating each",
+                    "{C:attention}Boss Blind{}, gain a",
+                    "{C:attention,T:tag_double}#1#",
+                },
+                unlock = {
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
+            },
+            b_vremade_black = {
+                name = "Black Deck",
+                text = {
+                    "{C:attention}+#1#{} Joker slot",
+                    "",
+                    "{C:blue}-#2#{} hand",
+                    "every round",
+                },
+                unlock = {
+                    "Discover at least",
+                    "{C:attention}#1#{} items from",
+                    "your collection",
+                }
+            },
+            b_vremade_blue = {
+                name = "Blue Deck",
+                text = {
+                    "{C:blue}+#1#{} hand",
+                    "every round",
+                },
+                unlock = {
+                    "Discover at least",
+                    "{C:attention}#1#{} items from",
+                    "your collection",
+                }
+            },
+            b_vremade_checkered = {
+                name = "Checkered Deck",
+                text = {
+                    "Start run with",
+                    "{C:attention}26{C:spades} Spades{} and",
+                    "{C:attention}26{C:hearts} Hearts{} in deck",
+                },
+                unlock = {
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
+                }
+            },
+            b_vremade_erratic = {
+                name = "Erratic Deck",
+                text = {
+                    "All {C:attention}Ranks{} and",
+                    "{C:attention}Suits{} in deck",
+                    "are randomized",
+                },
+                unlock = {
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
+            },
+            b_vremade_ghost = {
+                name = "Ghost Deck",
+                text = {
+                    "{C:spectral}Spectral{} cards may",
+                    "appear in the shop,",
+                    "start with a {C:spectral,T:c_hex}Hex{} card",
+                },
+                unlock = {
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
+                }
+            },
+            b_vremade_green = {
+                name = "Green Deck",
+                text = {
+                    "At end of each Round:",
+                    "{C:money}$#1#{s:0.85} per remaining {C:blue}Hand",
+                    "{C:money}$#2#{s:0.85} per remaining {C:red}Discard",
+                    "Earn no {C:attention}Interest",
+                },
+                unlock = {
+                    "Discover at least",
+                    "{C:attention}#1#{} items from",
+                    "your collection",
+                }
+            },
+            b_vremade_magic = {
+                name = "Magic Deck",
+                text = {
+                    "Start run with the",
+                    "{C:tarot,T:v_crystal_ball}#1#{} voucher",
+                    "and {C:attention}2{} copies",
+                    "of {C:tarot,T:c_fool}#2#",
+                },
+                unlock = {
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
+                }
+            },
+            b_vremade_nebula = {
+                name = "Nebula Deck",
+                text = {
+                    "Start run with the",
+                    "{C:planet,T:v_telescope}#1#{} voucher",
+                    "",
+                    "{C:red}#2#{} consumable slot",
+                },
+                unlock = {
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
+                }
+            },
+            b_vremade_painted = {
+                name = "Painted Deck",
+                text = {
+                    "{C:attention}+#1#{} hand size,",
+                    "{C:red}#2#{} Joker slot",
+                },
+                unlock = {
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
+            },
+            b_vremade_plasma = {
+                name = "Plasma Deck",
+                text = {
+                    "Balance {C:blue}Chips{} and",
+                    "{C:red}Mult{} when calculating",
+                    "score for played hand",
+                    "{C:red}X#1#{} base Blind size",
+                },
+                unlock = {
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
+            },
+            b_vremade_red = {
+                name = "Red Deck",
+                text = {
+                    "{C:red}+#1#{} discard",
+                    "every round",
+                },
+            },
+            b_vremade_yellow = {
+                name = "Yellow Deck",
+                text = {
+                    "Start with",
+                    "extra {C:money}$#1#",
+                },
+                unlock = {
+                    "Discover at least",
+                    "{C:attention}#1#{} items from",
+                    "your collection",
+                }
+            },
+            b_vremade_zodiac = {
+                name = "Zodiac Deck",
+                text = {
+                    "Start run with",
+                    "{C:tarot,T:v_tarot_merchant}#1#{},",
+                    "{C:planet,T:v_planet_merchant}#2#{},",
+                    "and {C:attention,T:v_overstock_norm}#3#",
+                },
+                unlock = {
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
+            },
+        },
         Joker = {
             j_vremade_joker = {
                 name = "Joker",
@@ -1442,5 +1636,375 @@ return {
                 },
             },
         },
+        Other = {
+            vremade_blue_seal = {
+                name = "Blue Seal",
+                text = {
+                    "Creates the {C:planet}Planet{} card",
+                    "for final played {C:attention}poker hand{}",
+                    "of round if {C:attention}held{} in hand",
+                    "{C:inactive}(Must have room)",
+                },
+            },
+            vremade_gold_seal = {
+                name = "Gold Seal",
+                text = {
+                    "Earn {C:money}$#1#{} when this",
+                    "card is played",
+                    "and scores",
+                },
+            },
+            vremade_purple_seal = {
+                name = "Purple Seal",
+                text = {
+                    "Creates a {C:tarot}Tarot{} card",
+                    "when {C:attention}discarded",
+                    "{C:inactive}(Must have room)",
+                },
+            },
+            vremade_red_seal = {
+                name = "Red Seal",
+                text = {
+                    "Retrigger this",
+                    "card {C:attention}#1#{} time",
+                },
+            },
+        },
+        Voucher={
+            v_vremade_antimatter={
+                name="Antimatter",
+                text={
+                    "{C:dark_edition}+#1#{} Joker Slot",
+                },
+                unlock={
+                    "Redeem {C:voucher}Blank{}",
+                    "{C:attention}#1#{} total times",
+                    "{C:inactive}(#2#)",
+                },
+            },
+            v_vremade_blank={
+                name="Blank",
+                text={
+                    "{C:inactive}Does nothing?",
+                },
+            },
+            v_vremade_clearance_sale={
+                name="Clearance Sale",
+                text={
+                    "All cards and packs in",
+                    "shop are {C:attention}#1#%{} off",
+                },
+            },
+            v_vremade_crystal_ball={
+                name="Crystal Ball",
+                text={
+                    "{C:attention}+#1#{} consumable slot",
+                },
+            },
+            v_vremade_directors_cut={
+                name="Director's Cut",
+                text={
+                    "Reroll Boss Blind",
+                    "{C:attention}1{} time per Ante,",
+                    "{C:money}$#1#{} per roll",
+                },
+            },
+            v_vremade_glow_up={
+                name="Glow Up",
+                text={
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, and",
+                    "{C:dark_edition}Polychrome{} cards",
+                    "appear {C:attention}#1#X{} more often",
+                },
+                unlock={
+                    "Have at least {C:attention}#1#",
+                    "{C:attention}Joker{} cards with",
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
+                    "{C:dark_edition}Polychrome{} edition",
+                },
+            },
+            v_vremade_grabber={
+                name="Grabber",
+                text={
+                    "Permanently",
+                    "gain {C:blue}+#1#{} hand",
+                    "per round",
+                },
+            },
+            v_vremade_hieroglyph={
+                name="Hieroglyph",
+                text={
+                    "{C:attention}-#1#{} Ante,",
+                    "{C:blue}-#1#{} hand",
+                    "each round",
+                },
+            },
+            v_vremade_hone={
+                name="Hone",
+                text={
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, and",
+                    "{C:dark_edition}Polychrome{} cards",
+                    "appear {C:attention}#1#X{} more often",
+                },
+            },
+            v_vremade_illusion={
+                name="Illusion",
+                text={
+                    "{C:attention}Playing cards{} in shop",
+                    "may have an {C:enhanced}Enhancement{},",
+                    "{C:dark_edition}Edition{}, and/or a {C:attention}Seal{}",
+                },
+                unlock={
+                    "Buy a total of",
+                    "{C:attention}#1#{} playing cards",
+                    "from the shop",
+                    "{C:inactive}(#2#)",
+                },
+            },
+            v_vremade_liquidation={
+                name="Liquidation",
+                text={
+                    "All cards and packs in",
+                    "shop are {C:attention}#1#%{} off",
+                },
+                unlock={
+                    "Redeem at least",
+                    "{C:attention}#1#{C:voucher} Voucher{} cards",
+                    "in one run",
+                },
+            },
+            v_vremade_magic_trick={
+                name="Magic Trick",
+                text={
+                    "{C:attention}Playing cards{} can",
+                    "be purchased",
+                    "from the {C:attention}shop",
+                },
+            },
+            v_vremade_money_tree={
+                name="Money Tree",
+                text={
+                    "Raise the cap on",
+                    "interest earned in",
+                    "each round to {C:money}$#1#{}",
+                },
+                unlock={
+                    "Max out the interest",
+                    "per round earnings for",
+                    "{C:attention}#1#{} consecutive rounds",
+                    "{C:inactive}(#2#)",
+                },
+            },
+            v_vremade_nacho_tong={
+                name="Nacho Tong",
+                text={
+                    "Permanently",
+                    "gain {C:blue}+#1#{} hand",
+                    "per round",
+                },
+                unlock={
+                    "Play a total",
+                    "of {C:attention}#1#{} cards",
+                    "{C:inactive}(#2#)",
+                },
+            },
+            v_vremade_observatory={
+                name="Observatory",
+                text={
+                    "{C:planet}Planet{} cards in your",
+                    "{C:attention}consumable{} area give",
+                    "{X:red,C:white} X#1# {} Mult for their",
+                    "specified {C:attention}poker hand",
+                },
+                unlock={
+                    "Use a total of {C:attention}#1#",
+                    "{C:planet}Planet{} cards from any",
+                    "{C:planet}Celestial Pack",
+                    "{C:inactive}(#2#)",
+                },
+            },
+            v_vremade_omen_globe={
+                name="Omen Globe",
+                text={
+                    "{C:spectral}Spectral{} cards may",
+                    "appear in any of",
+                    "the {C:attention}Arcana Packs",
+                },
+                unlock={
+                    "Use a total of {C:attention}#1#",
+                    "{C:tarot}Tarot{} cards from any",
+                    "{C:tarot}Arcana Pack",
+                    "{C:inactive}(#2#)",
+                },
+            },
+            v_vremade_overstock_norm={
+                name="Overstock",
+                text={
+                    "{C:attention}+#1#{} card slot",
+                    "available in shop",
+                },
+            },
+            v_vremade_overstock_plus={
+                name="Overstock Plus",
+                text={
+                    "{C:attention}+#1#{} card slot",
+                    "available in shop",
+                },
+                unlock={
+                    "Spend a total of",
+                    "{C:money}$#1#{} at the shop",
+                    "{C:inactive}($#2#)",
+                },
+            },
+            v_vremade_paint_brush={
+                name="Paint Brush",
+                text={
+                    "{C:attention}+#1#{} hand size",
+                },
+            },
+            v_vremade_palette={
+                name="Palette",
+                text={
+                    "{C:attention}+#1#{} hand size",
+                },
+                unlock={
+                    "Reduce hand size",
+                    "down to {C:attention}#1#{} cards",
+                },
+            },
+            v_vremade_petroglyph={
+                name="Petroglyph",
+                text={
+                    "{C:attention}-#1#{} Ante,",
+                    "{C:red}-#1#{} discard",
+                    "each round",
+                },
+                unlock={
+                    "Reach Ante",
+                    "level {E:1,C:attention}#1#",
+                },
+            },
+            v_vremade_planet_merchant={
+                name="Planet Merchant",
+                text={
+                    "{C:planet}Planet{} cards appear",
+                    "{C:attention}#1#X{} more frequently",
+                    "in the shop",
+                },
+            },
+            v_vremade_planet_tycoon={
+                name="Planet Tycoon",
+                text={
+                    "{C:planet}Planet{} cards appear",
+                    "{C:attention}#1#X{} more frequently",
+                    "in the shop",
+                },
+                unlock={
+                    "Buy a total of",
+                    "{C:attention}#1#{C:planet} Planet{} cards",
+                    "from the shop",
+                    "{C:inactive}(#2#)",
+                },
+            },
+            v_vremade_recyclomancy={
+                name="Recyclomancy",
+                text={
+                    "Permanently",
+                    "gain {C:red}+#1#{} discard",
+                    "each round",
+                },
+                unlock={
+                    "Discard a total",
+                    "of {C:attention}#1#{} cards",
+                    "{C:inactive}(#2#)",
+                },
+            },
+            v_vremade_reroll_glut={
+                name="Reroll Glut",
+                text={
+                    "Rerolls cost",
+                    "{C:money}$#1#{} less",
+                },
+                unlock={
+                    "Reroll the shop a",
+                    "total of {C:attention}#1#{} times",
+                    "{C:inactive}(#2#)",
+                },
+            },
+            v_vremade_reroll_surplus={
+                name="Reroll Surplus",
+                text={
+                    "Rerolls cost",
+                    "{C:money}$#1#{} less",
+                },
+            },
+            v_vremade_retcon={
+                name="Retcon",
+                text={
+                    "Reroll Boss Blind",
+                    "{C:attention}unlimited{} times,",
+                    "{C:money}$#1#{} per roll",
+                },
+                unlock={
+                    "Discover",
+                    "{C:attention}#1#{} Blinds",
+                },
+            },
+            v_vremade_seed_money={
+                name="Seed Money",
+                text={
+                    "Raise the cap on",
+                    "interest earned in",
+                    "each round to {C:money}$#1#{}",
+                },
+            },
+            v_vremade_tarot_merchant={
+                name="Tarot Merchant",
+                text={
+                    "{C:tarot}Tarot{} cards appear",
+                    "{C:attention}#1#X{} more frequently",
+                    "in the shop",
+                },
+            },
+            v_vremade_tarot_tycoon={
+                name="Tarot Tycoon",
+                text={
+                    "{C:tarot}Tarot{} cards appear",
+                    "{C:attention}#1#X{} more frequently",
+                    "in the shop",
+                },
+                unlock={
+                    "Buy a total of",
+                    "{C:attention}#1#{C:tarot} Tarot{} cards",
+                    "from the shop",
+                    "{C:inactive}(#2#)",
+                },
+            },
+            v_vremade_telescope={
+                name="Telescope",
+                text={
+                    "{C:attention}Celestial Packs{} always",
+                    "contain the {C:planet}Planet{}",
+                    "card for your most",
+                    "played {C:attention}poker hand",
+                },
+            },
+            v_vremade_wasteful={
+                name="Wasteful",
+                text={
+                    "Permanently",
+                    "gain {C:red}+#1#{} discard",
+                    "each round",
+                },
+            },
+        },
+    },
+    misc = {
+        labels = {
+            vremade_blue_seal="Blue Seal",
+            vremade_gold_seal="Gold Seal",
+            vremade_purple_seal="Purple Seal",
+            vremade_red_seal="Red Seal",
+        }
     }
 }
