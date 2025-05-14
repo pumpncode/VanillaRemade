@@ -1,3 +1,4 @@
+-- Red Seal
 SMODS.Seal {
     key = 'Red',
     pos = { x = 5, y = 4 },
@@ -17,6 +18,7 @@ SMODS.Seal {
     end
 }
 
+-- Blue Seal
 SMODS.Seal {
     key = 'Blue',
     pos = { x = 6, y = 4 },
@@ -48,6 +50,7 @@ SMODS.Seal {
     end
 }
 
+-- Gold Seal
 SMODS.Seal {
     key = 'Gold',
     pos = { x = 2, y = 0 },
@@ -68,6 +71,7 @@ SMODS.Seal {
     end
 }
 
+-- Purple Seal
 SMODS.Seal {
     key = 'Purple',
     pos = { x = 4, y = 4 },

@@ -1,0 +1,733 @@
+-- Overstock
+SMODS.Voucher {
+    key = 'overstock_norm',
+    pos = { x = 0, y = 0 },
+    config = { extra = { shop_size = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.shop_size } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                change_shop_size(card.ability.extra.shop_size)
+                return true;
+            end
+        }))
+    end
+}
+
+-- Overstock Plus
+SMODS.Voucher {
+    key = 'overstock_plus',
+    pos = { x = 0, y = 1 },
+    config = { extra = { shop_size = 1 } },
+    unlocked = false,
+    requires = 'v_vremade_overstock_norm',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.shop_size } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 2500, G.PROFILES[G.SETTINGS.profile].career_stats.c_shop_dollars_spent } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                change_shop_size(card.ability.extra.shop_size)
+                return true;
+            end
+        }))
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'c_shop_dollars_spent' and G.PROFILES[G.SETTINGS.profile].career_stats.c_shop_dollars_spent >= 2500 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Clearance Sale
+SMODS.Voucher {
+    key = 'clearance_sale',
+    pos = { x = 3, y = 0 },
+    config = { extra = { percent = 25 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.percent } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.discount_percent = card.ability.extra.percent
+                for k, v in pairs(G.I.CARD) do
+                    if v.set_cost then v:set_cost() end
+                end
+                return true;
+            end
+        }))
+    end
+}
+
+-- Liquidation
+SMODS.Voucher {
+    key = 'liquidation',
+    pos = { x = 3, y = 1 },
+    config = { extra = { percent = 50 } },
+    unlocked = false,
+    requires = 'v_vremade_clearance_sale',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.percent } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 10 } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.discount_percent = card.ability.extra.percent
+                for k, v in pairs(G.I.CARD) do
+                    if v.set_cost then v:set_cost() end
+                end
+                return true;
+            end
+        }))
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'run_redeem' then
+            local vouchers_redeemed = 0
+            for k, v in pairs(G.GAME.used_vouchers) do
+                vouchers_redeemed = vouchers_redeemed + 1
+            end
+            if vouchers_redeemed >= 10 then
+                return true
+            end
+        end
+        return false
+    end
+}
+
+-- Hone
+SMODS.Voucher {
+    key = 'hone',
+    pos = { x = 4, y = 0 },
+    config = { extra = { rate = 2 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.rate } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.edition_rate = card.ability.extra.rate
+                return true;
+            end
+        }))
+    end
+}
+
+-- Glow Up
+SMODS.Voucher {
+    key = 'glow_up',
+    pos = { x = 4, y = 1 },
+    config = { extra = { rate = 4 } },
+    unlocked = false,
+    requires = 'v_vremade_hone',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.rate } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 5 } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.edition_rate = card.ability.extra.rate
+                return true;
+            end
+        }))
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'have_edition' then
+            local shiny_jokers = 0
+            for k, v in ipairs(G.jokers.cards) do
+                if v.edition then shiny_jokers = shiny_jokers + 1 end
+            end
+            if shiny_jokers >= 5 then
+                return true
+            end
+        end
+        return false
+    end
+}
+
+-- Reroll Surplus
+SMODS.Voucher {
+    key = 'reroll_surplus',
+    pos = { x = 4, y = 0 },
+    config = { extra = { deduction = 2 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.deduction } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.deduction
+                G.GAME.current_round.reroll_cost = math.max(0,
+                    G.GAME.current_round.reroll_cost - card.ability.extra.deduction)
+                return true;
+            end
+        }))
+    end
+}
+
+-- Reroll Glut
+SMODS.Voucher {
+    key = 'reroll_glut',
+    pos = { x = 4, y = 1 },
+    config = { extra = { deduction = 2 } },
+    unlocked = false,
+    requires = 'v_vremade_reroll_surplus',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.deduction } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 100, G.PROFILES[G.SETTINGS.profile].career_stats.c_shop_rerolls } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.deduction
+                G.GAME.current_round.reroll_cost = math.max(0,
+                    G.GAME.current_round.reroll_cost - card.ability.extra.deduction)
+                return true;
+            end
+        }))
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'c_shop_rerolls' and G.PROFILES[G.SETTINGS.profile].career_stats.c_shop_rerolls >= 100 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Crystal Ball
+SMODS.Voucher {
+    key = 'crystal_ball',
+    pos = { x = 2, y = 2 },
+    config = { extra = { slots = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.slots } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.slots
+                return true;
+            end
+        }))
+    end
+}
+
+-- Omen Globe | Omen Globe does not have a redeem function, instead the pack open function checks
+-- if the player has it and rolls a chance to replace a Tarot card with a Spectral card.
+-- A Lovely patch or taking over a booster would be used to replicate this functionality
+SMODS.Voucher {
+    key = 'omen_globe',
+    pos = { x = 2, y = 3 },
+    config = { extra = {} },
+    unlocked = false,
+    requires = 'v_vremade_crystal_ball',
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 25, G.PROFILES[G.SETTINGS.profile].career_stats.c_shop_rerolls } }
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'c_tarot_reading_used' and G.PROFILES[G.SETTINGS.profile].career_stats.c_shop_rerolls >= 25 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Telescope | Telescope does not have a redeem function, instead the pack open function checks
+-- if the player has it and replaces the first card in the pack with the planet of your most used hand
+-- A Lovely patch or taking over a booster would be used to replicate this functionality
+SMODS.Voucher {
+    key = 'telescope',
+    pos = { x = 3, y = 2 },
+    config = { extra = {} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end
+}
+
+-- Observatory
+SMODS.Voucher {
+    key = 'observatory',
+    pos = { x = 3, y = 3 },
+    config = { extra = { Xmult = 1.5 } },
+    unlocked = false,
+    requires = 'v_vremade_telescope',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 25, G.PROFILES[G.SETTINGS.profile].career_stats.c_planetarium_used } }
+    end,
+    calculate = function(self, card, context)
+        if context.consumeable and context.other_consumable.ability.set == 'Planet' and context.other_consumable.ability.consumeable.hand_type == context.scoring_name then
+            return {
+                x_mult = card.ability.extra.Xmult,
+                message_card = context.other_consumable
+            }
+        end
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'c_planetarium_used' and G.PROFILES[G.SETTINGS.profile].career_stats.c_planetarium_used >= 25 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Grabber
+SMODS.Voucher {
+    key = 'grabber',
+    pos = { x = 5, y = 0 },
+    config = { extra = { hands = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.hands } }
+    end,
+    redeem = function(self, card)
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
+        ease_hands_played(card.ability.extra.hands)
+    end
+}
+
+-- Nacho Tong
+SMODS.Voucher {
+    key = 'nacho_tong',
+    pos = { x = 5, y = 1 },
+    config = { extra = { hands = 1 } },
+    unlocked = false,
+    requires = 'v_vremade_grabber',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.hands } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 2500, G.PROFILES[G.SETTINGS.profile].career_stats.c_cards_played } }
+    end,
+    redeem = function(self, card)
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
+        ease_hands_played(card.ability.extra.hands)
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'c_cards_played' and G.PROFILES[G.SETTINGS.profile].career_stats[args.statname] >= 2500 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Wasteful
+SMODS.Voucher {
+    key = 'wasteful',
+    pos = { x = 6, y = 0 },
+    config = { extra = { discards = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.discards } }
+    end,
+    redeem = function(self, card)
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
+        ease_discard(card.ability.extra.discards)
+    end
+}
+
+-- Recyclomancy
+SMODS.Voucher {
+    key = 'recyclomancy',
+    pos = { x = 6, y = 1 },
+    config = { extra = { discards = 1 } },
+    unlocked = false,
+    requires = 'v_vremade_telescope',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.discards } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 2500, G.PROFILES[G.SETTINGS.profile].career_stats.c_cards_discarded } }
+    end,
+    redeem = function(self, card)
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
+        ease_discard(card.ability.extra.discards)
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'c_cards_discarded' and G.PROFILES[G.SETTINGS.profile].career_stats[args.statname] >= 2500 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Tarot Merchant
+SMODS.Voucher {
+    key = 'tarot_merchant',
+    pos = { x = 1, y = 0 },
+    config = { extra = { rate = 2.4, display = 2 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.display } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.tarot_rate = 4 * card.ability.extra.rate
+                return true;
+            end
+        }))
+    end
+}
+
+-- Tarot Tycoon
+SMODS.Voucher {
+    key = 'tarot_tycoon',
+    pos = { x = 1, y = 1 },
+    config = { extra = { rate = 8, display = 4 } },
+    unlocked = false,
+    requires = 'v_vremade_tarot_merchant',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.display, } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 50, G.PROFILES[G.SETTINGS.profile].career_stats.c_tarots_bought } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.tarot_rate = 4 * card.ability.extra.rate
+                return true;
+            end
+        }))
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'c_tarots_bought' and G.PROFILES[G.SETTINGS.profile].career_stats.c_tarots_bought >= 50 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Planet Merchant
+SMODS.Voucher {
+    key = 'planet_merchant',
+    pos = { x = 2, y = 0 },
+    config = { extra = { rate = 2.4, display = 2 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.display } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.planet_rate = 4 * card.ability.extra.rate
+                return true;
+            end
+        }))
+    end
+}
+
+-- Planet Tycoon
+SMODS.Voucher {
+    key = 'planet_tycoon',
+    pos = { x = 2, y = 1 },
+    config = { extra = { rate = 8, display = 4 } },
+    unlocked = false,
+    requires = 'v_vremade_planet_merchant',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.display, } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 50, G.PROFILES[G.SETTINGS.profile].career_stats.c_planets_bought } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.planet_rate = 4 * card.ability.extra.rate
+                return true;
+            end
+        }))
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'c_planets_bought' and G.PROFILES[G.SETTINGS.profile].career_stats.c_planets_bought >= 50 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Seed Money
+SMODS.Voucher {
+    key = 'seed_money',
+    pos = { x = 1, y = 2 },
+    config = { extra = { cap = 50 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.cap } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.interest_cap = card.ability.extra.cap
+                return true;
+            end
+        }))
+    end
+}
+
+-- Money Tree
+SMODS.Voucher {
+    key = 'money_tree',
+    pos = { x = 1, y = 3 },
+    config = { extra = { cap = 100 } },
+    unlocked = false,
+    requires = 'v_vremade_seed_money',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.cap } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 10, G.PROFILES[G.SETTINGS.profile].career_stats.c_round_interest_cap_streak } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.interest_cap = card.ability.extra.cap
+                return true;
+            end
+        }))
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'interest_streak' and G.PROFILES[G.SETTINGS.profile].career_stats.c_round_interest_cap_streak >= 10 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Blank
+SMODS.Voucher {
+    key = 'blank',
+    pos = { x = 7, y = 0 },
+    config = { extra = {} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+    redeem = function(self, card)
+        check_for_unlock({ 'vremade_blank_redeems' })
+    end
+}
+
+-- Antimatter
+SMODS.Voucher {
+    key = 'antimatter',
+    pos = { x = 7, y = 1 },
+    config = { extra = { slots = 1 } },
+    unlocked = false,
+    requires = 'v_vremade_seed_money',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.slots } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 10, G.PROFILES[G.SETTINGS.profile].career_stats.c_round_interest_cap_streak } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.interest_cap = card.ability.extra.cap
+                return true;
+            end
+        }))
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'vremade_blank_redeems' and G.PROFILES[G.SETTINGS.profile].voucher_usage['v_vremade_blank'] and G.PROFILES[G.SETTINGS.profile].voucher_usage['v_remade_blank'].count >= 10 then
+            return true
+        end
+        return false
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' and (card.config.center.discovered or card.bypass_discovery_center) then
+            card.children.center:draw_shader('negative', nil, card.ARGS.send_to_shader)
+        end
+    end
+}
+
+-- Magic Trick
+SMODS.Voucher {
+    key = 'magic_trick',
+    pos = { x = 4, y = 2 },
+    config = { extra = { rate = 4 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.edition_rate = card.ability.extra.rate
+                return true;
+            end
+        }))
+    end
+}
+
+-- Illusion | The enhancement portion of Illusion is handled in functions/UI_definitions.lua
+-- and would require a Lovely patch or a hook to replicate the functionality of
+SMODS.Voucher {
+    key = 'illusion',
+    pos = { x = 4, y = 3 },
+    config = { extra = { rate = 4 } },
+    unlocked = false,
+    requires = 'v_vremade_magic_trick',
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 20, G.PROFILES[G.SETTINGS.profile].career_stats.c_playing_cards_bought } }
+    end,
+    redeem = function(self, card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.edition_rate = card.ability.extra.rate
+                return true;
+            end
+        }))
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'c_playing_cards_bought' and G.PROFILES[G.SETTINGS.profile].career_stats.c_playing_cards_bought >= 20 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Hieroglyph
+SMODS.Voucher {
+    key = 'hieroglyph',
+    pos = { x = 5, y = 2 },
+    config = { extra = { deduction = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.deduction } }
+    end,
+    redeem = function(self, card)
+        -- Apply ante change
+        ease_ante(-card.ability.extra.deduction)
+        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - card.ability.extra.deduction
+
+        -- Apply hand change
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.deduction
+        ease_hands_played(-card.ability.extra.deduction)
+    end
+}
+
+-- Petroglyph
+SMODS.Voucher {
+    key = 'petroglyph',
+    pos = { x = 5, y = 3 },
+    config = { extra = { deduction = 1 } },
+    unlocked = false,
+    requires = 'v_vremade_hieroglyph',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.deduction } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 12 } }
+    end,
+    redeem = function(self, card)
+        -- Apply ante change
+        ease_ante(-card.ability.extra.deduction)
+        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - card.ability.extra.deduction
+
+        -- Apply discard change
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.deduction
+        ease_discard(-card.ability.extra.deduction)
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'ante_up' and args.ante >= 12 then
+            return true
+        end
+        return false
+    end
+}
+
+-- Director's Cut | Director's Cut and Retcon both do not have a redeem functions. The game handles
+-- their functions in functions/button_callbacks.lua and specificall in G.FUNCS.reroll_boss_button
+SMODS.Voucher {
+    key = 'directors_cut',
+    pos = { x = 6, y = 2 },
+    config = { extra = { money = 10 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money } }
+    end
+}
+
+--  Retcon
+SMODS.Voucher {
+    key = 'retcon',
+    pos = { x = 6, y = 3 },
+    config = { extra = { money = 10 } },
+    unlocked = false,
+    requires = 'v_vremade_directors_cut',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.money } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 25 } }
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'blind_discoveries' then
+            local discovered_blinds = 0
+            for k, v in pairs(G.P_BLINDS) do
+                if v.discovered then
+                    discovered_blinds = discovered_blinds + 1
+                end
+            end
+            if discovered_blinds >= 25 then
+                return true
+            end
+        end
+        return false
+    end
+}
+
+-- Paint Brush
+SMODS.Voucher {
+    key = 'paint_brush',
+    pos = { x = 7, y = 2 },
+    config = { extra = { size = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.size } }
+    end,
+    redeem = function(self, card)
+        G.hand:change_size(card.ability.extra.size)
+    end
+}
+
+-- Palette
+SMODS.Voucher {
+    key = 'palette',
+    pos = { x = 7, y = 3 },
+    config = { extra = { size = 1 } },
+    unlocked = false,
+    requires = 'v_vremade_paint_brush',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.size } }
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 5 } }
+    end,
+    redeem = function(self, card)
+        G.hand:change_size(card.ability.extra.size)
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'min_hand_size' and G.hand and G.hand.config.card_limit <= 5 then
+            return true
+        end
+        return false
+    end
+}

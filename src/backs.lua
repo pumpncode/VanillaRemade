@@ -150,7 +150,7 @@ SMODS.Back {
         }))
     end,
     check_for_unlock = function(self, args)
-        if args.type == 'win_deck' and args.deck == 'b_red' then
+        if args.type == 'win_deck' and get_deck_win_stake('b_red') then
             return true
         end
         return false
@@ -190,7 +190,7 @@ SMODS.Back {
             self.config.extra.consumable_slot
     end,
     check_for_unlock = function(self, args)
-        if args.type == 'win_deck' and args.deck == 'b_blue' then
+        if args.type == 'win_deck' and get_deck_win_stake('b_blue') then
             return true
         end
         return false
@@ -230,7 +230,7 @@ SMODS.Back {
         }))
     end,
     check_for_unlock = function(self, args)
-        if args.type == 'win_deck' and args.deck == 'b_yellow' then
+        if args.type == 'win_deck' and get_deck_win_stake('b_yellow') then
             return true
         end
         return false
@@ -258,7 +258,7 @@ SMODS.Back {
         G.GAME.starting_params.no_faces = true
     end,
     check_for_unlock = function(self, args)
-        if args.type == 'win_deck' and args.deck == 'b_green' then
+        if args.type == 'win_deck' and get_deck_win_stake('b_green') > 0 then
             return true
         end
         return false
@@ -298,7 +298,7 @@ SMODS.Back {
         }))
     end,
     check_for_unlock = function(self, args)
-        if args.type == 'win_deck' and args.deck == 'b_black' then
+        if args.type == 'win_deck' and get_deck_win_stake('b_black') > 1 then
             return true
         end
         return false
@@ -341,7 +341,7 @@ SMODS.Back {
         end
     end,
     check_for_unlock = function(self, args)
-        if args.type == 'win_stake' and args.stake >= 2 then
+        if args.type == 'win_stake' and get_deck_win_stake() >= 2 then
             return true
         end
         return false
@@ -370,7 +370,7 @@ SMODS.Back {
         G.GAME.starting_params.joker_slots = G.GAME.starting_params.joker_slots + self.config.extra.joker_slot
     end,
     check_for_unlock = function(self, args)
-        if args.type == 'win_stake' and args.stake >= 3 then
+        if args.type == 'win_stake' and get_deck_win_stake() >= 3 then
             return true
         end
         return false
@@ -409,7 +409,7 @@ SMODS.Back {
         end
     end,
     check_for_unlock = function(self, args)
-        if args.type == 'win_stake' and args.stake >= 4 then
+        if args.type == 'win_stake' and get_deck_win_stake() >= 4 then
             return true
         end
         return false
@@ -486,7 +486,7 @@ SMODS.Back {
         G.GAME.starting_params.ante_scaling = self.config.extra.ante_scaling
     end,
     check_for_unlock = function(self, args)
-        if args.type == 'win_stake' and args.stake >= 5 then
+        if args.type == 'win_stake' and get_deck_win_stake() >= 5 then
             return true
         end
         return false
@@ -514,7 +514,7 @@ SMODS.Back {
         G.GAME.starting_params.erratic_suits_and_ranks = true
     end,
     check_for_unlock = function(self, args)
-        if args.type == 'win_stake' and args.stake >= 7 then
+        if args.type == 'win_stake' and get_deck_win_stake() >= 7 then
             return true
         end
         return false
