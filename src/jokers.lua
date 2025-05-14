@@ -645,7 +645,7 @@ SMODS.Joker {
                             G.E_MANAGER:add_event(Event({
                                 func = (function()
                                     SMODS.add_card {
-                                        set = 'vremade_Tarot',
+                                        set = 'Tarot',
                                         key_append = 'vremade_8_ball' -- Optional, useful for checking the source of the creation in `in_pool`.
                                     }
                                     G.GAME.consumeable_buffer = 0
@@ -1611,7 +1611,7 @@ SMODS.Joker {
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         SMODS.add_card {
-                            set = 'vremade_Tarot',
+                            set = 'Tarot',
                             key_append = 'vremade_superposition' -- Optional, useful for checking the source of the creation in `in_pool`.
                         }
                         G.GAME.consumeable_buffer = 0
@@ -2036,7 +2036,7 @@ SMODS.Joker {
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         SMODS.add_card {
-                            set = 'vremade_Tarot',
+                            set = 'Tarot',
                             key_append = 'vremade_vagabond' -- Optional, useful for checking the source of the creation in `in_pool`.
                         }
                         G.GAME.consumeable_buffer = 0
@@ -2516,7 +2516,7 @@ SMODS.Joker {
                     delay = 0.0,
                     func = (function()
                         SMODS.add_card {
-                            set = 'vremade_Tarot',
+                            set = 'Tarot',
                             key_append = 'vremade_hallucination' -- Optional, useful for checking the source of the creation in `in_pool`.
                         }
                         G.GAME.consumeable_buffer = 0
@@ -4608,7 +4608,7 @@ SMODS.Joker {
                             G.E_MANAGER:add_event(Event({
                                 func = function()
                                     SMODS.add_card {
-                                        set = 'vremade_Tarot',
+                                        set = 'Tarot',
                                         key_append = 'vremade_cartomancer' -- Optional, useful for checking the source of the creation in `in_pool`.
                                     }
                                     G.GAME.consumeable_buffer = 0

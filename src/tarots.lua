@@ -6,6 +6,10 @@ SMODS.ConsumableType {
     collection_rows = { 5, 6 },
     shop_rate = 4
 }
+--[[
+    You can add a card from this ConsumableType just like you would do a normal consumable using
+    `SMODS.add_card{set = "vremade_Tarot"}
+--]]
 
 SMODS.Consumable {
     key = 'fool',
@@ -951,7 +955,7 @@ SMODS.Consumable {
     pos = { x = 7, y = 1 },
     config = { extra = { max_highlighted = 3, suit = 'Diamonds' } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = {G.C.SUITS[card.ability.extra.suit]} } }
+        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = { G.C.SUITS[card.ability.extra.suit] } } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -1018,7 +1022,7 @@ SMODS.Consumable {
     pos = { x = 8, y = 1 },
     config = { extra = { max_highlighted = 3, suit = 'Clubs' } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = {G.C.SUITS[card.ability.extra.suit]} } }
+        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = { G.C.SUITS[card.ability.extra.suit] } } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -1085,7 +1089,7 @@ SMODS.Consumable {
     pos = { x = 9, y = 1 },
     config = { extra = { max_highlighted = 3, suit = 'Hearts' } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = {G.C.SUITS[card.ability.extra.suit]} } }
+        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = { G.C.SUITS[card.ability.extra.suit] } } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -1156,7 +1160,7 @@ SMODS.Consumable {
             delay = 0.4,
             func = function()
                 play_sound('timpani')
-                SMODS.add_card({set = 'Joker'})
+                SMODS.add_card({ set = 'Joker' })
                 card:juice_up(0.3, 0.5)
                 return true
             end
@@ -1174,7 +1178,7 @@ SMODS.Consumable {
     pos = { x = 1, y = 2 },
     config = { extra = { max_highlighted = 3, suit = 'Spades' } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = {G.C.SUITS[card.ability.extra.suit]} } }
+        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = { G.C.SUITS[card.ability.extra.suit] } } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
