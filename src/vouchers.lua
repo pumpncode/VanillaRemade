@@ -217,9 +217,7 @@ SMODS.Voucher {
     end
 }
 
--- Omen Globe | Omen Globe does not have a redeem function, instead the pack open function checks
--- if the player has it and rolls a chance to replace a Tarot card with a Spectral card.
--- A Lovely patch or taking ownership of a booster would be used to replicate this functionality
+-- Omen Globe
 SMODS.Voucher {
     key = 'omen_globe',
     pos = { x = 2, y = 3 },
@@ -233,13 +231,57 @@ SMODS.Voucher {
     end
 }
 
--- Telescope | Telescope does not have a redeem function, instead the pack open function checks
--- if the player has it and replaces the first card in the pack with the planet of your most used hand
--- A Lovely patch or taking ownership of a booster would be used to replicate this functionality
+SMODS.Booster:take_ownership_by_kind('Arcana', {
+    create_card = function(self, card, i)
+        local _card
+        if (G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8) or (G.GAME.used_vouchers.v_vremade_omen_globe and pseudorandom('vremade_omen_globe') > 0.8) then
+            _card = { set = "Spectral", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ar2" }
+        else
+            _card = { set = "Tarot", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ar1" }
+        end
+        return _card
+    end,
+})
+
+-- Telescope
 SMODS.Voucher {
     key = 'telescope',
     pos = { x = 3, y = 2 },
 }
+
+SMODS.Booster:take_ownership_by_kind('Celestial', {
+    create_card = function(self, card, i)
+        local _card
+        if (G.GAME.used_vouchers.v_telescope or G.GAME.used_vouchers.v_vremade_telescope) and i == 1 then
+            local _planet, _hand, _tally = nil, nil, 0
+            for _, v in ipairs(G.handlist) do
+                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                    _hand = v
+                    _tally = G.GAME.hands[v].played
+                end
+            end
+            if _hand then
+                for _, v in pairs(G.P_CENTER_POOLS.Planet) do
+                    if v.config.hand_type == _hand then
+                        _planet = v.key
+                    end
+                end
+            end
+            _card = {
+                set = "Planet",
+                area = G.pack_cards,
+                skip_materialize = true,
+                soulable = true,
+                key = _planet,
+                key_append = "pl1"
+            }
+        else
+            _card = { set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "pl1" }
+        end
+        return _card
+    end,
+    loc_vars = pack_loc_vars,
+})
 
 -- Observatory
 SMODS.Voucher {
@@ -529,7 +571,7 @@ SMODS.Voucher {
 }
 
 -- Illusion | The enhancement portion of Illusion is handled in functions/UI_definitions.lua
--- and would require a Lovely patch or a hook to replicate the functionality of
+-- and would require a Lovely patch or a hook to replicate
 SMODS.Voucher {
     key = 'illusion',
     pos = { x = 4, y = 3 },
@@ -605,7 +647,7 @@ SMODS.Voucher {
 }
 
 -- Director's Cut | Director's Cut and Retcon both do not have a redeem functions. The game handles
--- their functions in functions/button_callbacks.lua and specificall in G.FUNCS.reroll_boss_button
+-- their functions inside G.FUNCS.reroll_boss_button in functions/button_callbacks.lua
 SMODS.Voucher {
     key = 'directors_cut',
     pos = { x = 6, y = 2 },
@@ -615,7 +657,7 @@ SMODS.Voucher {
     end
 }
 
---  Retcon
+-- Retcon
 SMODS.Voucher {
     key = 'retcon',
     pos = { x = 6, y = 3 },
