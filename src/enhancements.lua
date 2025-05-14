@@ -70,7 +70,7 @@ SMODS.Enhancement {
 SMODS.Enhancement {
     key = 'lucky',
     pos = { x = 4, y = 1 },
-    -- We can't use 'mult' or 'p_dollars' here because they would be scored unconditionally if they were
+    -- We can't use 'mult' or 'p_dollars' here because they would be scored unconditionally if we did
     config = { mult_amt = 20, dollars_amt = 20, mult_odds = 5, dollars_odds = 15 },
     loc_vars = function(self, info_queue, card)
         return { vars = { G.GAME.probabilities.normal, card.ability.mult_amt, card.ability.mult_odds, card.ability.dollars_amt, card.ability.dollars_odds} }
