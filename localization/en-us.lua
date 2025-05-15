@@ -1740,7 +1740,7 @@ return {
                 },
             },
         },
-        vremade_Tarot={
+        vremade_Tarot={ -- If you're making regular Tarots the key will be "Tarot"
             c_vremade_chariot={
                 name="The Chariot",
                 text={
