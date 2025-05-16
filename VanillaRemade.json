@@ -2,12 +2,12 @@
   "id": "VanillaRemade",
   "name": "VanillaRemade",
   "display_name": "VanillaRemade",
-  "author": ["nh6574", "Astra"],
+  "author": ["nh6574", "Astra", "BakersDozenBagels"],
   "description": "Remakes vanilla objects using SMODS and simple hooks.",
   "prefix": "vremade",
   "main_file": "VanillaRemade.lua",
   "priority": 0,
   "badge_colour": "F4A6C7",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": ["Steamodded (>=1.0.0~BETA-0509c)"]
 }
