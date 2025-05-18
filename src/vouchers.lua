@@ -534,20 +534,22 @@ SMODS.Voucher {
     end,
     config = { extra = { slots = 1 } },
     unlocked = false,
-    requires = { 'v_vremade_seed_money' },
+    requires = { 'v_vremade_blank' },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.slots } }
     end,
     redeem = function(self, card)
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.GAME.interest_cap = card.ability.extra.cap
+                if G.jokers then
+                    G.jokers.config.card_limit = G.jokers.config.card_limit + 1
+                end
                 return true
-            end
+            end,
         }))
     end,
     locked_loc_vars = function(self, info_queue, card)
-        return { vars = { 10, G.PROFILES[G.SETTINGS.profile].career_stats.c_round_interest_cap_streak } }
+        return { vars = { 10, G.PROFILES[G.SETTINGS.profile].voucher_usage.v_vremade_blank and G.PROFILES[G.SETTINGS.profile].voucher_usage.v_vremade_blank.count or 0 } }
     end,
     check_for_unlock = function(self, args)
         return args.type == 'vremade_blank_redeems' and G.PROFILES[G.SETTINGS.profile].voucher_usage['v_vremade_blank'] and
