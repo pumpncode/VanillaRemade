@@ -1781,7 +1781,7 @@ return {
                 },
             },
         },
-        vremade_Spectral = {
+        vremade_Spectral = { -- If you're making regular Spectrals the key will be "Spectral"
             c_vremade_ankh={
                 name="Ankh",
                 text={
@@ -1931,7 +1931,7 @@ return {
                 },
             },
         },
-        vremade_Tarot = {
+        vremade_Tarot = { -- If you're making regular Tarots the key will be "Tarot"
             c_vremade_chariot = {
                 name = "The Chariot",
                 text = {
