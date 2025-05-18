@@ -194,62 +194,94 @@ return {
                 }
             },
         },
-        Enhanced={
-            m_vremade_bonus={
-                name="Bonus Card",
-                text={
+        Edition = {
+            e_vremade_foil = {
+                name = "Foil",
+                text = {
+                    "{C:chips}+#1#{} chips",
+                },
+            },
+            e_vremade_holo = {
+                name = "Holographic",
+                text = {
+                    "{C:mult}+#1#{} Mult",
+                },
+            },
+            e_vremade_negative = {
+                name = "Negative",
+                text = {
+                    "{C:dark_edition}+#1#{} Joker slot",
+                },
+            },
+            e_vremade_negative_consumable = {
+                name = "Negative",
+                text = {
+                    "{C:dark_edition}+#1#{} consumable slot",
+                },
+            },
+            e_vremade_polychrome = {
+                name = "Polychrome",
+                text = {
+                    "{X:mult,C:white} X#1# {} Mult",
+                },
+            },
+        },
+        Enhanced = {
+            m_vremade_bonus = {
+                name = "Bonus Card",
+                text = {
                     "{C:chips}+#1#{} extra chips",
                 },
             },
-            m_vremade_glass={
-                name="Glass Card",
-                text={
+            m_vremade_glass = {
+                name = "Glass Card",
+                text = {
                     "{X:mult,C:white} X#1# {} Mult",
                     "{C:green}#2# in #3#{} chance to",
                     "destroy card",
                 },
             },
-            m_vremade_gold={
-                name="Gold Card",
-                text={
+            m_vremade_gold = {
+                name = "Gold Card",
+                text = {
                     "{C:money}$#1#{} if this",
                     "card is held in hand",
                     "at end of round",
                 },
             },
-            m_vremade_lucky={
-                name="Lucky Card",
-                text={
+            m_vremade_lucky = {
+                name = "Lucky Card",
+                text = {
                     "{C:green}#1# in #3#{} chance",
                     "for {C:mult}+#2#{} Mult",
                     "{C:green}#1# in #5#{} chance",
                     "to win {C:money}$#4#",
                 },
             },
-            m_vremade_mult={
-                name="Mult Card",
-                text={
+            m_vremade_mult = {
+                name = "Mult Card",
+                text = {
                     "{C:mult}+#1#{} Mult",
                 },
             },
-            m_vremade_steel={
-                name="Steel Card",
-                text={
+            m_vremade_steel = {
+                name = "Steel Card",
+                text = {
                     "{X:mult,C:white} X#1# {} Mult",
                     "while this card",
                     "stays in hand",
                 },
             },
-            m_vremade_stone={
-                name="Stone Card",
-                text={
+            m_vremade_stone = {
+                name = "Stone Card",
+                text = {
                     "{C:chips}+#1#{} Chips",
                     "no rank or suit",
                 },
             },
-            m_vremade_wild={
-                name="Wild Card",
-                text={
+            m_vremade_wild = {
+                name = "Wild Card",
+                text = {
                     "Can be used",
                     "as any suit",
                 },
@@ -1730,518 +1762,677 @@ return {
                     "card {C:attention}#1#{} time",
                 },
             },
+            undiscovered_vremade_spectral = {
+                name = "Not Discovered",
+                text={
+                    "Purchase or use",
+                    "this card in an",
+                    "unseeded run to",
+                    "learn what it does",
+                },
+            },
             undiscovered_vremade_tarot = {
                 name = "Not Discovered",
-                text = {
-                    "Purchase this",
-                    "card in an",
+                text={
+                    "Purchase or use",
+                    "this card in an",
                     "unseeded run to",
                     "learn what it does",
                 },
             },
         },
-        vremade_Tarot={ -- If you're making regular Tarots the key will be "Tarot"
-            c_vremade_chariot={
-                name="The Chariot",
+        vremade_Spectral = { -- If you're making regular Spectrals the key will be "Spectral"
+            c_vremade_ankh={
+                name="Ankh",
                 text={
+                    "Create a copy of a",
+                    "random {C:attention}Joker{}, destroy",
+                    "all other Jokers",
+                },
+            },
+            c_vremade_aura={
+                name="Aura",
+                text={
+                    "Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},",
+                    "or {C:dark_edition}Polychrome{} effect to",
+                    "{C:attention}#1#{} selected card in hand",
+                },
+            },
+            c_vremade_black_hole={
+                name="Black Hole",
+                text={
+                    "Upgrade every",
+                    "{C:legendary,E:1}poker hand",
+                    "by {C:attention}1{} level",
+                },
+            },
+            c_vremade_cryptid={
+                name="Cryptid",
+                text={
+                    "Create {C:attention}#1#{} copies of",
+                    "{C:attention}#2#{} selected card",
+                    "in your hand",
+                },
+            },
+            c_vremade_deja_vu={
+                name="Deja Vu",
+                text={
+                    "Add a {C:red}Red Seal{}",
+                    "to {C:attention}1{} selected",
+                    "card in your hand",
+                },
+            },
+            c_vremade_ectoplasm={
+                name="Ectoplasm",
+                text={
+                    "Add {C:dark_edition}Negative{} to",
+                    "a random {C:attention}Joker,",
+                    "{C:red}-#1#{} hand size",
+                },
+            },
+            c_vremade_familiar={
+                name="Familiar",
+                text={
+                    "Destroy {C:attention}#1#{} random",
+                    "card in your hand, add",
+                    "{C:attention}#2#{} random {C:attention}Enhanced face",
+                    "{C:attention}cards{} to your hand",
+                },
+            },
+            c_vremade_grim={
+                name="Grim",
+                text={
+                    "Destroy {C:attention}#1#{} random",
+                    "card in your hand,",
+                    "add {C:attention}#2#{} random {C:attention}Enhanced",
+                    "{C:attention}Aces{} to your hand",
+                },
+            },
+            c_vremade_hex={
+                name="Hex",
+                text={
+                    "Add {C:dark_edition}Polychrome{} to a",
+                    "random {C:attention}Joker{}, destroy",
+                    "all other Jokers",
+                },
+            },
+            c_vremade_immolate={
+                name="Immolate",
+                text={
+                    "Destroys {C:attention}#1#{} random",
+                    "cards in hand,",
+                    "gain {C:money}$#2#",
+                },
+            },
+            c_vremade_incantation={
+                name="Incantation",
+                text={
+                    "Destroy {C:attention}#1#{} random",
+                    "card in your hand, add {C:attention}#2#",
+                    "random {C:attention}Enhanced numbered",
+                    "{C:attention}cards{} to your hand",
+                },
+            },
+            c_vremade_medium={
+                name="Medium",
+                text={
+                    "Add a {C:purple}Purple Seal{}",
+                    "to {C:attention}1{} selected",
+                    "card in your hand",
+                },
+            },
+            c_vremade_ouija={
+                name="Ouija",
+                text={
+                    "Converts all cards",
+                    "in hand to a single",
+                    "random {C:attention}rank",
+                    "{C:red}-1{} hand size",
+                },
+            },
+            c_vremade_sigil={
+                name="Sigil",
+                text={
+                    "Converts all cards",
+                    "in hand to a single",
+                    "random {C:attention}suit",
+                },
+            },
+            c_vremade_soul={
+                name="The Soul",
+                text={
+                    "Creates a",
+                    "{C:legendary,E:1}Legendary{} Joker",
+                    "{C:inactive}(Must have room)",
+                },
+            },
+            c_vremade_talisman={
+                name="Talisman",
+                text={
+                    "Add a {C:attention}Gold Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "card in your hand",
+                },
+            },
+            c_vremade_trance={
+                name="Trance",
+                text={
+                    "Add a {C:blue}Blue Seal{}",
+                    "to {C:attention}1{} selected",
+                    "card in your hand",
+                },
+            },
+            c_vremade_wraith={
+                name="Wraith",
+                text={
+                    "Creates a random",
+                    "{C:red}Rare{C:attention} Joker{},",
+                    "sets money to {C:money}$0",
+                },
+            },
+        },
+        vremade_Tarot = { -- If you're making regular Tarots the key will be "Tarot"
+            c_vremade_chariot = {
+                name = "The Chariot",
+                text = {
                     "Enhances {C:attention}#1#{} selected",
                     "card into a",
                     "{C:attention}#2#",
                 },
             },
-            c_vremade_death={
-                name="Death",
-                text={
+            c_vremade_death = {
+                name = "Death",
+                text = {
                     "Select {C:attention}#1#{} cards,",
                     "convert the {C:attention}left{} card",
                     "into the {C:attention}right{} card",
                     "{C:inactive}(Drag to rearrange)",
                 },
             },
-            c_vremade_devil={
-                name="The Devil",
-                text={
+            c_vremade_devil = {
+                name = "The Devil",
+                text = {
                     "Enhances {C:attention}#1#{} selected",
                     "card into a",
                     "{C:attention}#2#",
                 },
             },
-            c_vremade_emperor={
-                name="The Emperor",
-                text={
+            c_vremade_emperor = {
+                name = "The Emperor",
+                text = {
                     "Creates up to {C:attention}#1#",
                     "random {C:tarot}Tarot{} cards",
                     "{C:inactive}(Must have room)",
                 },
             },
-            c_vremade_empress={
-                name="The Empress",
-                text={
+            c_vremade_empress = {
+                name = "The Empress",
+                text = {
                     "Enhances {C:attention}#1#",
                     "selected cards to",
                     "{C:attention}#2#s",
                 },
             },
-            c_vremade_fool={
-                name="The Fool",
-                text={
+            c_vremade_fool = {
+                name = "The Fool",
+                text = {
                     "Creates the last",
                     "{C:tarot}Tarot{} or {C:planet}Planet{} card",
                     "used during this run",
                     "{s:0.8,C:tarot}The Fool{s:0.8} excluded",
                 },
             },
-            c_vremade_hanged_man={
-                name="The Hanged Man",
-                text={
+            c_vremade_hanged_man = {
+                name = "The Hanged Man",
+                text = {
                     "Destroys up to",
                     "{C:attention}#1#{} selected cards",
                 },
             },
-            c_vremade_heirophant={
-                name="The Hierophant",
-                text={
+            c_vremade_heirophant = {
+                name = "The Hierophant",
+                text = {
                     "Enhances {C:attention}#1#",
                     "selected cards to",
                     "{C:attention}#2#s",
                 },
             },
-            c_vremade_hermit={
-                name="The Hermit",
-                text={
+            c_vremade_hermit = {
+                name = "The Hermit",
+                text = {
                     "Doubles money",
                     "{C:inactive}(Max of {C:money}$#1#{C:inactive})",
                 },
             },
-            c_vremade_high_priestess={
-                name="The High Priestess",
-                text={
+            c_vremade_high_priestess = {
+                name = "The High Priestess",
+                text = {
                     "Creates up to {C:attention}#1#",
                     "random {C:planet}Planet{} cards",
                     "{C:inactive}(Must have room)",
                 },
             },
-            c_vremade_judgement={
-                name="Judgement",
-                text={
+            c_vremade_judgement = {
+                name = "Judgement",
+                text = {
                     "Creates a random",
                     "{C:attention}Joker{} card",
                     "{C:inactive}(Must have room)",
                 },
             },
-            c_vremade_justice={
-                name="Justice",
-                text={
+            c_vremade_justice = {
+                name = "Justice",
+                text = {
                     "Enhances {C:attention}#1#{} selected",
                     "card into a",
                     "{C:attention}#2#",
                 },
             },
-            c_vremade_lovers={
-                name="The Lovers",
-                text={
+            c_vremade_lovers = {
+                name = "The Lovers",
+                text = {
                     "Enhances {C:attention}#1#{} selected",
                     "card into a",
                     "{C:attention}#2#",
                 },
             },
-            c_vremade_magician={
-                name="The Magician",
-                text={
+            c_vremade_magician = {
+                name = "The Magician",
+                text = {
                     "Enhances {C:attention}#1#{}",
                     "selected cards to",
                     "{C:attention}#2#s",
                 },
             },
-            c_vremade_moon={
-                name="The Moon",
-                text={
+            c_vremade_moon = {
+                name = "The Moon",
+                text = {
                     "Converts up to",
                     "{C:attention}#1#{} selected cards",
                     "to {V:1}#2#{}",
                 },
             },
-            c_vremade_star={
-                name="The Star",
-                text={
+            c_vremade_star = {
+                name = "The Star",
+                text = {
                     "Converts up to",
                     "{C:attention}#1#{} selected cards",
                     "to {V:1}#2#{}",
                 },
             },
-            c_vremade_strength={
-                name="Strength",
-                text={
+            c_vremade_strength = {
+                name = "Strength",
+                text = {
                     "Increases rank of",
                     "up to {C:attention}#1#{} selected",
                     "cards by {C:attention}1",
                 },
             },
-            c_vremade_sun={
-                name="The Sun",
-                text={
+            c_vremade_sun = {
+                name = "The Sun",
+                text = {
                     "Converts up to",
                     "{C:attention}#1#{} selected cards",
                     "to {V:1}#2#{}",
                 },
             },
-            c_vremade_temperance={
-                name="Temperance",
-                text={
+            c_vremade_temperance = {
+                name = "Temperance",
+                text = {
                     "Gives the total sell",
                     "value of all current",
                     "Jokers {C:inactive}(Max of {C:money}$#1#{C:inactive})",
                     "{C:inactive}(Currently {C:money}$#2#{C:inactive})",
                 },
             },
-            c_vremade_tower={
-                name="The Tower",
-                text={
+            c_vremade_tower = {
+                name = "The Tower",
+                text = {
                     "Enhances {C:attention}#1#{} selected",
                     "card into a",
                     "{C:attention}#2#",
                 },
             },
-            c_vremade_wheel_of_fortune={
-                name="The Wheel of Fortune",
-                text={
+            c_vremade_wheel_of_fortune = {
+                name = "The Wheel of Fortune",
+                text = {
                     "{C:green}#1# in #2#{} chance to add",
                     "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
                     "{C:dark_edition}Polychrome{} edition",
                     "to a random {C:attention}Joker",
                 },
             },
-            c_vremade_world={
-                name="The World",
-                text={
+            c_vremade_world = {
+                name = "The World",
+                text = {
                     "Converts up to",
                     "{C:attention}#1#{} selected cards",
                     "to {V:1}#2#{}",
                 },
             },
         },
-        Voucher={
-            v_vremade_antimatter={
-                name="Antimatter",
-                text={
+        Voucher = {
+            v_vremade_antimatter = {
+                name = "Antimatter",
+                text = {
                     "{C:dark_edition}+#1#{} Joker Slot",
                 },
-                unlock={
+                unlock = {
                     "Redeem {C:voucher}Blank{}",
                     "{C:attention}#1#{} total times",
                     "{C:inactive}(#2#)",
                 },
             },
-            v_vremade_blank={
-                name="Blank",
-                text={
+            v_vremade_blank = {
+                name = "Blank",
+                text = {
                     "{C:inactive}Does nothing?",
                 },
             },
-            v_vremade_clearance_sale={
-                name="Clearance Sale",
-                text={
+            v_vremade_clearance_sale = {
+                name = "Clearance Sale",
+                text = {
                     "All cards and packs in",
                     "shop are {C:attention}#1#%{} off",
                 },
             },
-            v_vremade_crystal_ball={
-                name="Crystal Ball",
-                text={
+            v_vremade_crystal_ball = {
+                name = "Crystal Ball",
+                text = {
                     "{C:attention}+#1#{} consumable slot",
                 },
             },
-            v_vremade_directors_cut={
-                name="Director's Cut",
-                text={
+            v_vremade_directors_cut = {
+                name = "Director's Cut",
+                text = {
                     "Reroll Boss Blind",
                     "{C:attention}1{} time per Ante,",
                     "{C:money}$#1#{} per roll",
                 },
             },
-            v_vremade_glow_up={
-                name="Glow Up",
-                text={
+            v_vremade_glow_up = {
+                name = "Glow Up",
+                text = {
                     "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, and",
                     "{C:dark_edition}Polychrome{} cards",
                     "appear {C:attention}#1#X{} more often",
                 },
-                unlock={
+                unlock = {
                     "Have at least {C:attention}#1#",
                     "{C:attention}Joker{} cards with",
                     "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
                     "{C:dark_edition}Polychrome{} edition",
                 },
             },
-            v_vremade_grabber={
-                name="Grabber",
-                text={
+            v_vremade_grabber = {
+                name = "Grabber",
+                text = {
                     "Permanently",
                     "gain {C:blue}+#1#{} hand",
                     "per round",
                 },
             },
-            v_vremade_hieroglyph={
-                name="Hieroglyph",
-                text={
+            v_vremade_hieroglyph = {
+                name = "Hieroglyph",
+                text = {
                     "{C:attention}-#1#{} Ante,",
                     "{C:blue}-#1#{} hand",
                     "each round",
                 },
             },
-            v_vremade_hone={
-                name="Hone",
-                text={
+            v_vremade_hone = {
+                name = "Hone",
+                text = {
                     "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, and",
                     "{C:dark_edition}Polychrome{} cards",
                     "appear {C:attention}#1#X{} more often",
                 },
             },
-            v_vremade_illusion={
-                name="Illusion",
-                text={
+            v_vremade_illusion = {
+                name = "Illusion",
+                text = {
                     "{C:attention}Playing cards{} in shop",
                     "may have an {C:enhanced}Enhancement{},",
                     "{C:dark_edition}Edition{}, and/or a {C:attention}Seal{}",
                 },
-                unlock={
+                unlock = {
                     "Buy a total of",
                     "{C:attention}#1#{} playing cards",
                     "from the shop",
                     "{C:inactive}(#2#)",
                 },
             },
-            v_vremade_liquidation={
-                name="Liquidation",
-                text={
+            v_vremade_liquidation = {
+                name = "Liquidation",
+                text = {
                     "All cards and packs in",
                     "shop are {C:attention}#1#%{} off",
                 },
-                unlock={
+                unlock = {
                     "Redeem at least",
                     "{C:attention}#1#{C:voucher} Voucher{} cards",
                     "in one run",
                 },
             },
-            v_vremade_magic_trick={
-                name="Magic Trick",
-                text={
+            v_vremade_magic_trick = {
+                name = "Magic Trick",
+                text = {
                     "{C:attention}Playing cards{} can",
                     "be purchased",
                     "from the {C:attention}shop",
                 },
             },
-            v_vremade_money_tree={
-                name="Money Tree",
-                text={
+            v_vremade_money_tree = {
+                name = "Money Tree",
+                text = {
                     "Raise the cap on",
                     "interest earned in",
                     "each round to {C:money}$#1#{}",
                 },
-                unlock={
+                unlock = {
                     "Max out the interest",
                     "per round earnings for",
                     "{C:attention}#1#{} consecutive rounds",
                     "{C:inactive}(#2#)",
                 },
             },
-            v_vremade_nacho_tong={
-                name="Nacho Tong",
-                text={
+            v_vremade_nacho_tong = {
+                name = "Nacho Tong",
+                text = {
                     "Permanently",
                     "gain {C:blue}+#1#{} hand",
                     "per round",
                 },
-                unlock={
+                unlock = {
                     "Play a total",
                     "of {C:attention}#1#{} cards",
                     "{C:inactive}(#2#)",
                 },
             },
-            v_vremade_observatory={
-                name="Observatory",
-                text={
+            v_vremade_observatory = {
+                name = "Observatory",
+                text = {
                     "{C:planet}Planet{} cards in your",
                     "{C:attention}consumable{} area give",
                     "{X:red,C:white} X#1# {} Mult for their",
                     "specified {C:attention}poker hand",
                 },
-                unlock={
+                unlock = {
                     "Use a total of {C:attention}#1#",
                     "{C:planet}Planet{} cards from any",
                     "{C:planet}Celestial Pack",
                     "{C:inactive}(#2#)",
                 },
             },
-            v_vremade_omen_globe={
-                name="Omen Globe",
-                text={
+            v_vremade_omen_globe = {
+                name = "Omen Globe",
+                text = {
                     "{C:spectral}Spectral{} cards may",
                     "appear in any of",
                     "the {C:attention}Arcana Packs",
                 },
-                unlock={
+                unlock = {
                     "Use a total of {C:attention}#1#",
                     "{C:tarot}Tarot{} cards from any",
                     "{C:tarot}Arcana Pack",
                     "{C:inactive}(#2#)",
                 },
             },
-            v_vremade_overstock_norm={
-                name="Overstock",
-                text={
+            v_vremade_overstock_norm = {
+                name = "Overstock",
+                text = {
                     "{C:attention}+#1#{} card slot",
                     "available in shop",
                 },
             },
-            v_vremade_overstock_plus={
-                name="Overstock Plus",
-                text={
+            v_vremade_overstock_plus = {
+                name = "Overstock Plus",
+                text = {
                     "{C:attention}+#1#{} card slot",
                     "available in shop",
                 },
-                unlock={
+                unlock = {
                     "Spend a total of",
                     "{C:money}$#1#{} at the shop",
                     "{C:inactive}($#2#)",
                 },
             },
-            v_vremade_paint_brush={
-                name="Paint Brush",
-                text={
+            v_vremade_paint_brush = {
+                name = "Paint Brush",
+                text = {
                     "{C:attention}+#1#{} hand size",
                 },
             },
-            v_vremade_palette={
-                name="Palette",
-                text={
+            v_vremade_palette = {
+                name = "Palette",
+                text = {
                     "{C:attention}+#1#{} hand size",
                 },
-                unlock={
+                unlock = {
                     "Reduce hand size",
                     "down to {C:attention}#1#{} cards",
                 },
             },
-            v_vremade_petroglyph={
-                name="Petroglyph",
-                text={
+            v_vremade_petroglyph = {
+                name = "Petroglyph",
+                text = {
                     "{C:attention}-#1#{} Ante,",
                     "{C:red}-#1#{} discard",
                     "each round",
                 },
-                unlock={
+                unlock = {
                     "Reach Ante",
                     "level {E:1,C:attention}#1#",
                 },
             },
-            v_vremade_planet_merchant={
-                name="Planet Merchant",
-                text={
+            v_vremade_planet_merchant = {
+                name = "Planet Merchant",
+                text = {
                     "{C:planet}Planet{} cards appear",
                     "{C:attention}#1#X{} more frequently",
                     "in the shop",
                 },
             },
-            v_vremade_planet_tycoon={
-                name="Planet Tycoon",
-                text={
+            v_vremade_planet_tycoon = {
+                name = "Planet Tycoon",
+                text = {
                     "{C:planet}Planet{} cards appear",
                     "{C:attention}#1#X{} more frequently",
                     "in the shop",
                 },
-                unlock={
+                unlock = {
                     "Buy a total of",
                     "{C:attention}#1#{C:planet} Planet{} cards",
                     "from the shop",
                     "{C:inactive}(#2#)",
                 },
             },
-            v_vremade_recyclomancy={
-                name="Recyclomancy",
-                text={
+            v_vremade_recyclomancy = {
+                name = "Recyclomancy",
+                text = {
                     "Permanently",
                     "gain {C:red}+#1#{} discard",
                     "each round",
                 },
-                unlock={
+                unlock = {
                     "Discard a total",
                     "of {C:attention}#1#{} cards",
                     "{C:inactive}(#2#)",
                 },
             },
-            v_vremade_reroll_glut={
-                name="Reroll Glut",
-                text={
+            v_vremade_reroll_glut = {
+                name = "Reroll Glut",
+                text = {
                     "Rerolls cost",
                     "{C:money}$#1#{} less",
                 },
-                unlock={
+                unlock = {
                     "Reroll the shop a",
                     "total of {C:attention}#1#{} times",
                     "{C:inactive}(#2#)",
                 },
             },
-            v_vremade_reroll_surplus={
-                name="Reroll Surplus",
-                text={
+            v_vremade_reroll_surplus = {
+                name = "Reroll Surplus",
+                text = {
                     "Rerolls cost",
                     "{C:money}$#1#{} less",
                 },
             },
-            v_vremade_retcon={
-                name="Retcon",
-                text={
+            v_vremade_retcon = {
+                name = "Retcon",
+                text = {
                     "Reroll Boss Blind",
                     "{C:attention}unlimited{} times,",
                     "{C:money}$#1#{} per roll",
                 },
-                unlock={
+                unlock = {
                     "Discover",
                     "{C:attention}#1#{} Blinds",
                 },
             },
-            v_vremade_seed_money={
-                name="Seed Money",
-                text={
+            v_vremade_seed_money = {
+                name = "Seed Money",
+                text = {
                     "Raise the cap on",
                     "interest earned in",
                     "each round to {C:money}$#1#{}",
                 },
             },
-            v_vremade_tarot_merchant={
-                name="Tarot Merchant",
-                text={
+            v_vremade_tarot_merchant = {
+                name = "Tarot Merchant",
+                text = {
                     "{C:tarot}Tarot{} cards appear",
                     "{C:attention}#1#X{} more frequently",
                     "in the shop",
                 },
             },
-            v_vremade_tarot_tycoon={
-                name="Tarot Tycoon",
-                text={
+            v_vremade_tarot_tycoon = {
+                name = "Tarot Tycoon",
+                text = {
                     "{C:tarot}Tarot{} cards appear",
                     "{C:attention}#1#X{} more frequently",
                     "in the shop",
                 },
-                unlock={
+                unlock = {
                     "Buy a total of",
                     "{C:attention}#1#{C:tarot} Tarot{} cards",
                     "from the shop",
                     "{C:inactive}(#2#)",
                 },
             },
-            v_vremade_telescope={
-                name="Telescope",
-                text={
+            v_vremade_telescope = {
+                name = "Telescope",
+                text = {
                     "{C:attention}Celestial Packs{} always",
                     "contain the {C:planet}Planet{}",
                     "card for your most",
                     "played {C:attention}poker hand",
                 },
             },
-            v_vremade_wasteful={
-                name="Wasteful",
-                text={
+            v_vremade_wasteful = {
+                name = "Wasteful",
+                text = {
                     "Permanently",
                     "gain {C:red}+#1#{} discard",
                     "each round",
@@ -2251,14 +2442,21 @@ return {
     },
     misc = {
         dictionary = {
+            b_vremade_spectral_cards = "Spectral Cards",
             b_vremade_tarot_cards = "Tarot Cards",
+            k_vremade_spectral = "Spectral",
             k_vremade_tarot = "Tarot",
         },
         labels = {
-            vremade_blue_seal="Blue Seal",
-            vremade_gold_seal="Gold Seal",
-            vremade_purple_seal="Purple Seal",
-            vremade_red_seal="Red Seal",
+            vremade_blue_seal = "Blue Seal",
+            vremade_foil="Foil",
+            vremade_gold_seal = "Gold Seal",
+            vremade_holo="Holographic",
+            vremade_negative="Negative",
+            vremade_polychrome="Polychrome",
+            vremade_purple_seal = "Purple Seal",
+            vremade_red_seal = "Red Seal",
+            vremade_spectral = "Spectral",
             vremade_tarot = "Tarot",
         }
     }
