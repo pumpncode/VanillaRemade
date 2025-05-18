@@ -1,6 +1,11 @@
 SMODS.Edition {
     key = 'foil',
     shader = 'foil',
+    prefix_config = {
+        -- This allows using the vanilla shader
+        -- Not needed when using your own
+        shader = false
+    },
     config = { extra = { chips = 50 } },
     in_shop = true,
     weight = 20,
@@ -17,6 +22,11 @@ SMODS.Edition {
 SMODS.Edition {
     key = 'holo',
     shader = 'holo',
+    prefix_config = {
+        -- This allows using the vanilla shader
+        -- Not needed when using your own
+        shader = false
+    },
     config = { extra = { mult = 10 } },
     in_shop = true,
     weight = 14,
@@ -33,6 +43,11 @@ SMODS.Edition {
 SMODS.Edition {
     key = 'polychrome',
     shader = 'polychrome',
+    prefix_config = {
+        -- This allows using the vanilla shader
+        -- Not needed when using your own
+        shader = false
+    },
     config = { extra = { x_mult = 1.5 } },
     in_shop = true,
     weight = 3,
@@ -48,7 +63,12 @@ SMODS.Edition {
 
 SMODS.Edition {
     key = 'negative',
-    shader = 'negative',
+    shader = 'negative_shine',
+    prefix_config = {
+        -- This allows using the vanilla shader
+        -- Not needed when using your own
+        shader = false
+    },
     config = { extra = { card_limit = 1 } },
     in_shop = true,
     weight = 3,

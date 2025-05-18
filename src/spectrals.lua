@@ -36,11 +36,11 @@ SMODS.Consumable {
             delay = 0.1,
             func = function()
                 for i = #destroyed_cards, 1, -1 do
-                    local card = destroyed_cards[i]
-                    if card.ability.name == 'Glass Card' then
-                        card:shatter()
+                    local playing_card = destroyed_cards[i]
+                    if SMODS.shatters(playing_card) then
+                        playing_card:shatter()
                     else
-                        card:start_dissolve(nil, i ~= #destroyed_cards)
+                        playing_card:start_dissolve(nil, i ~= #destroyed_cards)
                     end
                 end
                 return true
@@ -53,17 +53,17 @@ SMODS.Consumable {
                 local cards = {}
                 for i = 1, card.ability.extra do
                     local faces = {}
-                    for _, v in ipairs(SMODS.Rank.obj_buffer) do
-                        local r = SMODS.Ranks[v]
-                        if r.face then table.insert(faces, r) end
+                    for _, rank_key in ipairs(SMODS.Rank.obj_buffer) do
+                        local rank = SMODS.Ranks[rank_key]
+                        if rank.face then table.insert(faces, rank) end
                     end
                     local _suit, _rank =
                         pseudorandom_element(SMODS.Suits, pseudoseed('familiar_create')).card_key,
                         pseudorandom_element(faces, pseudoseed('familiar_create')).card_key
                     local cen_pool = {}
-                    for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                        if v.key ~= 'm_stone' and not v.overrides_base_rank then
-                            cen_pool[#cen_pool + 1] = v
+                    for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
+                        if enhancement_center.key ~= 'm_stone' and not enhancement_center.overrides_base_rank then
+                            cen_pool[#cen_pool + 1] = enhancement_center
                         end
                     end
                     cards[i] = create_playing_card({
@@ -71,7 +71,7 @@ SMODS.Consumable {
                         center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
                     }, G.hand, nil, i ~= 1, { G.C.SECONDARY_SET.Spectral })
                 end
-                playing_card_joker_effects(cards)
+                SMODS.calculate_context({ playing_card_added = true, cards = cards })
                 return true
             end
         }))
@@ -109,11 +109,11 @@ SMODS.Consumable {
             delay = 0.1,
             func = function()
                 for i = #destroyed_cards, 1, -1 do
-                    local card = destroyed_cards[i]
-                    if card.ability.name == 'Glass Card' then
-                        card:shatter()
+                    local playing_card = destroyed_cards[i]
+                    if SMODS.shatters(playing_card) then
+                        playing_card:shatter()
                     else
-                        card:start_dissolve(nil, i ~= #destroyed_cards)
+                        playing_card:start_dissolve(nil, i ~= #destroyed_cards)
                     end
                 end
                 return true
@@ -128,9 +128,9 @@ SMODS.Consumable {
                     local _suit, _rank =
                         pseudorandom_element(SMODS.Suits, pseudoseed('grim_create')).card_key, 'A'
                     local cen_pool = {}
-                    for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                        if v.key ~= 'm_stone' and not v.overrides_base_rank then
-                            cen_pool[#cen_pool + 1] = v
+                    for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
+                        if enhancement_center.key ~= 'm_stone' and not enhancement_center.overrides_base_rank then
+                            cen_pool[#cen_pool + 1] = enhancement_center
                         end
                     end
                     cards[i] = create_playing_card({
@@ -138,7 +138,7 @@ SMODS.Consumable {
                         center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
                     }, G.hand, nil, i ~= 1, { G.C.SECONDARY_SET.Spectral })
                 end
-                playing_card_joker_effects(cards)
+                SMODS.calculate_context({ playing_card_added = true, cards = cards })
                 return true
             end
         }))
@@ -176,11 +176,11 @@ SMODS.Consumable {
             delay = 0.1,
             func = function()
                 for i = #destroyed_cards, 1, -1 do
-                    local card = destroyed_cards[i]
-                    if card.ability.name == 'Glass Card' then
-                        card:shatter()
+                    local playing_card = destroyed_cards[i]
+                    if SMODS.shatters(playing_card) then
+                        playing_card:shatter()
                     else
-                        card:start_dissolve(nil, i ~= #destroyed_cards)
+                        playing_card:start_dissolve(nil, i ~= #destroyed_cards)
                     end
                 end
                 return true
@@ -193,17 +193,17 @@ SMODS.Consumable {
                 local cards = {}
                 for i = 1, card.ability.extra do
                     local numbers = {}
-                    for _, v in ipairs(SMODS.Rank.obj_buffer) do
-                        local r = SMODS.Ranks[v]
-                        if v ~= 'Ace' and not r.face then table.insert(numbers, r) end
+                    for _, rank_key in ipairs(SMODS.Rank.obj_buffer) do
+                        local rank = SMODS.Ranks[rank_key]
+                        if rank_key ~= 'Ace' and not rank.face then table.insert(numbers, rank) end
                     end
                     local _suit, _rank =
                         pseudorandom_element(SMODS.Suits, pseudoseed('incantation_create')).card_key,
                         pseudorandom_element(numbers, pseudoseed('incantation_create')).card_key
                     local cen_pool = {}
-                    for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                        if v.key ~= 'm_stone' and not v.overrides_base_rank then
-                            cen_pool[#cen_pool + 1] = v
+                    for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
+                        if enhancement_center.key ~= 'm_stone' and not enhancement_center.overrides_base_rank then
+                            cen_pool[#cen_pool + 1] = enhancement_center
                         end
                     end
                     cards[i] = create_playing_card({
@@ -211,7 +211,7 @@ SMODS.Consumable {
                         center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
                     }, G.hand, nil, i ~= 1, { G.C.SECONDARY_SET.Spectral })
                 end
-                playing_card_joker_effects(cards)
+                SMODS.calculate_context({ playing_card_added = true, cards = cards })
                 return true
             end
         }))
@@ -305,7 +305,7 @@ SMODS.Consumable {
             delay = 0.4,
             func = function()
                 play_sound('timpani')
-                SMODS.add_card({ set = 'Jokers', rarity = 0.99 })
+                SMODS.add_card({ set = 'Joker', rarity = 'Rare' })
                 card:juice_up(0.3, 0.5)
                 if G.GAME.dollars ~= 0 then
                     ease_dollars(-G.GAME.dollars, true)
@@ -316,7 +316,7 @@ SMODS.Consumable {
         delay(0.6)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted <= card.config.extra.max_highlighted and #G.hand.highlighted > 0
+        return #G.jokers.cards < G.jokers.config.card_limit or card.area == G.jokers
     end
 }
 
@@ -341,7 +341,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.cards[i]:flip(); play_sound('card1', percent); G.hand.cards[i]:juice_up(0.3, 0.3); return true
+                    G.hand.cards[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.cards[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -361,7 +364,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.cards[i]:flip(); play_sound('tarot2', percent, 0.6); G.hand.cards[i]:juice_up(0.3, 0.3); return true
+                    G.hand.cards[i]:flip()
+                    play_sound('tarot2', percent, 0.6)
+                    G.hand.cards[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -393,7 +399,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.cards[i]:flip(); play_sound('card1', percent); G.hand.cards[i]:juice_up(0.3, 0.3); return true
+                    G.hand.cards[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.cards[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -414,7 +423,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.cards[i]:flip(); play_sound('tarot2', percent, 0.6); G.hand.cards[i]:juice_up(0.3, 0.3); return true
+                    G.hand.cards[i]:flip()
+                    play_sound('tarot2', percent, 0.6)
+                    G.hand.cards[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -434,12 +446,7 @@ SMODS.Consumable {
         return { vars = { G.GAME.ecto_minus or 1 } }
     end,
     use = function(self, card, area, copier)
-        local editionless_jokers = {}
-        for k, v in pairs(G.jokers.cards) do
-            if v.ability.set == 'Joker' and (not v.edition) then
-                table.insert(editionless_jokers, v)
-            end
-        end
+        local editionless_jokers = SMODS.Edition:get_edition_cards(G.jokers, true)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
@@ -452,19 +459,12 @@ SMODS.Consumable {
                 G.GAME.ecto_minus = G.GAME.ecto_minus + 1
 
                 card:juice_up(0.3, 0.5)
-                return true;
+                return true
             end
         }))
     end,
     can_use = function(self, card)
-        local editionless_jokers = {}
-        for k, v in pairs(G.jokers.cards) do
-            if v.ability.set == 'Joker' and (not v.edition) then
-                table.insert(editionless_jokers, v)
-            end
-        end
-
-        return next(editionless_jokers)
+        return next(SMODS.Edition:get_edition_cards(G.jokers, true))
     end
 }
 
@@ -480,7 +480,7 @@ SMODS.Consumable {
         local destroyed_cards = {}
         local temp_hand = {}
 
-        for k, v in ipairs(G.hand.cards) do temp_hand[#temp_hand + 1] = v end
+        for _, playing_card in ipairs(G.hand.cards) do temp_hand[#temp_hand + 1] = playing_card end
         table.sort(temp_hand,
             function(a, b)
                 return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card
@@ -505,11 +505,11 @@ SMODS.Consumable {
             delay = 0.1,
             func = function()
                 for i = #destroyed_cards, 1, -1 do
-                    local card = destroyed_cards[i]
-                    if SMODS.shatters(card) then
-                        card:shatter()
+                    local playing_card = destroyed_cards[i]
+                    if SMODS.shatters(playing_card) then
+                        playing_card:shatter()
                     else
-                        card:start_dissolve(nil, i == #destroyed_cards)
+                        playing_card:start_dissolve(nil, i == #destroyed_cards)
                     end
                 end
                 return true
@@ -531,8 +531,8 @@ SMODS.Consumable {
     pos = { x = 0, y = 5 },
     use = function(self, card, area, copier)
         local deletable_jokers = {}
-        for k, v in pairs(G.jokers.cards) do
-            if not v.ability.eternal then deletable_jokers[#deletable_jokers + 1] = v end
+        for _, joker in pairs(G.jokers.cards) do
+            if not joker.ability.eternal then deletable_jokers[#deletable_jokers + 1] = joker end
         end
 
         local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('ankh_choice'))
@@ -541,9 +541,9 @@ SMODS.Consumable {
             trigger = 'before',
             delay = 0.75,
             func = function()
-                for k, v in pairs(deletable_jokers) do
-                    if v ~= chosen_joker then
-                        v:start_dissolve(nil, _first_dissolve)
+                for _, joker in pairs(deletable_jokers) do
+                    if joker ~= chosen_joker then
+                        joker:start_dissolve(nil, _first_dissolve)
                         _first_dissolve = true
                     end
                 end
@@ -554,14 +554,14 @@ SMODS.Consumable {
             trigger = 'before',
             delay = 0.4,
             func = function()
-                local card = copy_card(chosen_joker, nil, nil, nil,
+                local copied_joker = copy_card(chosen_joker, nil, nil, nil,
                     chosen_joker.edition and chosen_joker.edition.negative)
-                card:start_materialize()
-                card:add_to_deck()
-                if card.edition and card.edition.negative then
-                    card:set_edition(nil, true)
+                copied_joker:start_materialize()
+                copied_joker:add_to_deck()
+                if copied_joker.edition and copied_joker.edition.negative then
+                    copied_joker:set_edition(nil, true)
                 end
-                G.jokers:emplace(card)
+                G.jokers:emplace(copied_joker)
                 return true
             end
         }))
@@ -623,12 +623,7 @@ SMODS.Consumable {
         return { vars = { G.GAME.ecto_minus or 1 } }
     end,
     use = function(self, card, area, copier)
-        local editionless_jokers = {}
-        for k, v in pairs(G.jokers.cards) do
-            if v.ability.set == 'Joker' and (not v.edition) then
-                table.insert(editionless_jokers, v)
-            end
-        end
+        local editionless_jokers = SMODS.Edition:get_edition_cards(G.jokers, true)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
@@ -637,27 +632,20 @@ SMODS.Consumable {
                 eligible_card:set_edition({ polychrome = true })
 
                 local _first_dissolve = nil
-                for k, v in pairs(G.jokers.cards) do
-                    if v ~= eligible_card and (not v.ability.eternal) then
-                        v:start_dissolve(nil, _first_dissolve)
+                for _, joker in pairs(G.jokers.cards) do
+                    if joker ~= eligible_card and (not joker.ability.eternal) then
+                        joker:start_dissolve(nil, _first_dissolve)
                         _first_dissolve = true
                     end
                 end
 
                 card:juice_up(0.3, 0.5)
-                return true;
+                return true
             end
         }))
     end,
     can_use = function(self, card)
-        local editionless_jokers = {}
-        for k, v in pairs(G.jokers.cards) do
-            if v.ability.set == 'Joker' and (not v.edition) then
-                table.insert(editionless_jokers, v)
-            end
-        end
-
-        return next(editionless_jokers)
+        return next(SMODS.Edition:get_edition_cards(G.jokers, true))
     end
 }
 
@@ -771,51 +759,13 @@ SMODS.Consumable {
                     _first_dissolve = true
                     new_cards[#new_cards + 1] = _card
                 end
-                playing_card_joker_effects(new_cards)
+                SMODS.calculate_context({ playing_card_added = true, cards = new_cards })
                 return true
             end
         }))
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.highlighted <= card.config.extra.max_highlighted and #G.hand.highlighted > 0
-    end
-}
-
-SMODS.Consumable {
-    key = 'soul',
-    set = 'vremade_Spectral',
-    pos = { x = 2, y = 2 },
-    hidden = true,
-    use = function(self, card, area, copier)
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.4,
-            func = function()
-                play_sound('timpani')
-                SMODS.add_card({ set = 'Joker', legendary = true })
-                check_for_unlock { type = 'spawn_legendary' }
-                card:juice_up(0.3, 0.5)
-                return true
-            end
-        }))
-        delay(0.6)
-    end,
-    can_use = function(self, card)
-        return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
-    end,
-    draw = function(self, card, layer)
-        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' and (card.config.center.discovered or card.bypass_discovery_center) then
-            local scale_mod = 0.05 + 0.05 * math.sin(1.8 * G.TIMERS.REAL) +
-                0.07 * math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL)) * math.pi * 14) *
-                (1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL))) ^ 3
-            local rotate_mod = 0.1 * math.sin(1.219 * G.TIMERS.REAL) +
-                0.07 * math.sin((G.TIMERS.REAL) * math.pi * 5) * (1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL))) ^ 2
-
-            G.shared_soul.role.draw_major = card
-            G.shared_soul:draw_shader('dissolve', 0, nil, nil, card.children.center, scale_mod, rotate_mod, nil,
-                0.1 + 0.03 * math.sin(1.8 * G.TIMERS.REAL), nil, 0.6)
-            G.shared_soul:draw_shader('dissolve', nil, nil, nil, card.children.center, scale_mod, rotate_mod)
-        end
     end
 }
 
@@ -900,8 +850,8 @@ SMODS.Consumable {
         }))
         update_hand_text({ sound = 'button', volume = 0.7, pitch = 0.9, delay = 0 }, { level = '+1' })
         delay(1.3)
-        for k, v in pairs(G.GAME.hands) do
-            level_up_hand(card, k, true)
+        for poker_hand_key, _ in pairs(G.GAME.hands) do
+            level_up_hand(card, poker_hand_key, true)
         end
         update_hand_text({ sound = 'button', volume = 0.7, pitch = 1.1, delay = 0 },
             { mult = 0, chips = 0, handname = '', level = '' })
