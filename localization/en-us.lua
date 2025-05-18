@@ -2449,7 +2449,11 @@ return {
         },
         labels = {
             vremade_blue_seal = "Blue Seal",
+            vremade_foil="Foil",
             vremade_gold_seal = "Gold Seal",
+            vremade_holo="Holographic",
+            vremade_negative="Negative",
+            vremade_polychrome="Polychrome",
             vremade_purple_seal = "Purple Seal",
             vremade_red_seal = "Red Seal",
             vremade_spectral = "Spectral",
