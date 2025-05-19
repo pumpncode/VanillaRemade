@@ -10,6 +10,7 @@ SMODS.ConsumableType {
     `SMODS.add_card{set = "vremade_Spectral"}
 --]]
 
+-- Familiar
 SMODS.Consumable {
     key = 'familiar',
     set = 'vremade_Spectral',
@@ -83,6 +84,7 @@ SMODS.Consumable {
     end
 }
 
+-- Grim
 SMODS.Consumable {
     key = 'grim',
     set = 'vremade_Spectral',
@@ -150,6 +152,7 @@ SMODS.Consumable {
     end
 }
 
+-- Incantation
 SMODS.Consumable {
     key = 'incantation',
     set = 'vremade_Spectral',
@@ -223,14 +226,15 @@ SMODS.Consumable {
     end
 }
 
+-- Talisman
 SMODS.Consumable {
     key = 'talisman',
     set = 'vremade_Spectral',
     pos = { x = 3, y = 4 },
-    config = { extra = { seal = 'Gold', max_highlighted = 1 } },
+    config = { extra = { seal = 'Gold' }, max_highlighted = 1 },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return { vars = { card.ability.extra.max_highlighted } }
+        return { vars = { card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
         local conv_card = G.hand.highlighted[1]
@@ -261,28 +265,34 @@ SMODS.Consumable {
             end
         }))
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted <= card.config.extra.max_highlighted and #G.hand.highlighted > 0
+        return G.hand and #G.hand.highlighted <= card.config.max_highlighted and #G.hand.highlighted > 0
     end
+    ]] --
 }
 
+-- Aura
 SMODS.Consumable {
     key = 'aura',
     set = 'vremade_Spectral',
     pos = { x = 4, y = 4 },
-    config = { extra = { max_highlighted = 1 } },
+    config = { max_highlighted = 1 },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
         info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
         info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
-        return { vars = { card.ability.extra.max_highlighted } }
+        return { vars = { card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
             func = function()
-                local edition = poll_edition('aura', nil, true, true)
+                local edition = poll_edition('vremade_aura', nil, true, true,
+                    { 'e_vremade_polychrome', 'e_vremade_holo', 'e_vremade_foil' })
                 local aura_card = G.hand.highlighted[1]
                 aura_card:set_edition(edition, true)
                 card:juice_up(0.3, 0.5)
@@ -290,11 +300,16 @@ SMODS.Consumable {
             end
         }))
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted <= card.config.extra.max_highlighted and #G.hand.highlighted > 0
+        return G.hand and #G.hand.highlighted <= card.config.max_highlighted and #G.hand.highlighted > 0
     end
+    --]]
 }
 
+-- Wraith
 SMODS.Consumable {
     key = 'wraith',
     set = 'vremade_Spectral',
@@ -320,6 +335,7 @@ SMODS.Consumable {
     end
 }
 
+-- Sigil
 SMODS.Consumable {
     key = 'sigil',
     set = 'vremade_Spectral',
@@ -378,6 +394,7 @@ SMODS.Consumable {
     end
 }
 
+-- Ouija
 SMODS.Consumable {
     key = 'ouija',
     set = 'vremade_Spectral',
@@ -437,6 +454,7 @@ SMODS.Consumable {
     end
 }
 
+-- Ectoplasm
 SMODS.Consumable {
     key = 'ectoplasm',
     set = 'vremade_Spectral',
@@ -468,6 +486,7 @@ SMODS.Consumable {
     end
 }
 
+-- Immolate
 SMODS.Consumable {
     key = 'immolate',
     set = 'vremade_Spectral',
@@ -525,6 +544,7 @@ SMODS.Consumable {
     end
 }
 
+-- Ankh
 SMODS.Consumable {
     key = 'ankh',
     set = 'vremade_Spectral',
@@ -571,14 +591,15 @@ SMODS.Consumable {
     end
 }
 
+-- Deja vu
 SMODS.Consumable {
     key = 'deja_vu',
     set = 'vremade_Spectral',
     pos = { x = 1, y = 5 },
-    config = { extra = { seal = 'Red', max_highlighted = 1 } },
+    config = { extra = { seal = 'Red' }, max_highlighted = 1 },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return { vars = { card.ability.extra.max_highlighted } }
+        return { vars = { card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
         local conv_card = G.hand.highlighted[1]
@@ -609,11 +630,16 @@ SMODS.Consumable {
             end
         }))
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted <= card.config.extra.max_highlighted and #G.hand.highlighted > 0
+        return G.hand and #G.hand.highlighted <= card.config.max_highlighted and #G.hand.highlighted > 0
     end
+    --]]
 }
 
+-- Hex
 SMODS.Consumable {
     key = 'hex',
     set = 'vremade_Spectral',
@@ -649,14 +675,15 @@ SMODS.Consumable {
     end
 }
 
+-- Trance
 SMODS.Consumable {
     key = 'trance',
     set = 'vremade_Spectral',
     pos = { x = 3, y = 5 },
-    config = { extra = { seal = 'Blue', max_highlighted = 1 } },
+    config = { extra = { seal = 'Blue' }, max_highlighted = 1 },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return { vars = { card.ability.extra.max_highlighted } }
+        return { vars = { card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
         local conv_card = G.hand.highlighted[1]
@@ -687,19 +714,24 @@ SMODS.Consumable {
             end
         }))
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted <= card.config.extra.max_highlighted and #G.hand.highlighted > 0
+        return G.hand and #G.hand.highlighted <= card.config.max_highlighted and #G.hand.highlighted > 0
     end
+    --]]
 }
 
+-- Medium
 SMODS.Consumable {
     key = 'medium',
     set = 'vremade_Spectral',
     pos = { x = 4, y = 5 },
-    config = { extra = { seal = 'Purple', max_highlighted = 1 } },
+    config = { max_highlighted = 1, extra = { seal = 'Purple' } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
-        return { vars = { card.ability.extra.max_highlighted } }
+        return { vars = { card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
         local conv_card = G.hand.highlighted[1]
@@ -730,18 +762,23 @@ SMODS.Consumable {
             end
         }))
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted <= card.config.extra.max_highlighted and #G.hand.highlighted > 0
+        return G.hand and #G.hand.highlighted <= card.config.max_highlighted and #G.hand.highlighted > 0
     end
+    --]]
 }
 
+-- Cryptid
 SMODS.Consumable {
     key = 'cryptid',
     set = 'vremade_Spectral',
     pos = { x = 5, y = 5 },
-    config = { extra = { cards = 2, max_highlighted = 1 } },
+    config = { max_highlighted = 1, extra = { cards = 2 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.cards, card.ability.extra.max_highlighted } }
+        return { vars = { card.ability.extra.cards, card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -764,11 +801,16 @@ SMODS.Consumable {
             end
         }))
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted <= card.config.extra.max_highlighted and #G.hand.highlighted > 0
+        return G.hand and #G.hand.highlighted <= card.config.max_highlighted and #G.hand.highlighted > 0
     end
+    --]]
 }
 
+-- The Soul
 SMODS.Consumable {
     key = 'soul',
     set = 'vremade_Spectral',
@@ -808,6 +850,7 @@ SMODS.Consumable {
     end
 }
 
+-- Black Hole
 SMODS.Consumable {
     key = 'black_hole',
     set = 'vremade_Spectral',
