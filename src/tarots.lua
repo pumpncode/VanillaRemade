@@ -11,11 +11,13 @@ SMODS.ConsumableType {
     `SMODS.add_card{set = "vremade_Tarot"}
 --]]
 
+-- The Fool
 SMODS.Consumable {
     key = 'fool',
     set = 'vremade_Tarot',
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, card)
+        -- This vanilla variable only checks for vanilla Tarots and Planets, you would have to keep track on your own for any custom consumables
         local fool_c = G.GAME.last_tarot_planet and G.P_CENTERS[G.GAME.last_tarot_planet] or nil
         local last_tarot_planet = fool_c and localize { type = 'name_text', key = fool_c.key, set = fool_c.set } or
             localize('k_none')
@@ -63,15 +65,19 @@ SMODS.Consumable {
     end
 }
 
+-- The Magician
 SMODS.Consumable {
     key = 'magician',
     set = 'vremade_Tarot',
     pos = { x = 1, y = 0 },
-    config = { extra = { max_highlighted = 2, enh_key = 'm_vremade_lucky' } },
+    config = { max_highlighted = 2, mod_conv = 'm_vremade_lucky' },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enh_key]
-        return { vars = { card.ability.extra.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.extra.enh_key } } }
-    end,
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
+    end
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -88,7 +94,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -98,7 +107,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.extra.enh_key]); return true
+                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.mod_conv])
+                    return true
                 end
             }))
         end
@@ -126,10 +136,12 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- The High Priestess
 SMODS.Consumable {
     key = 'high_priestess',
     set = 'vremade_Tarot',
@@ -160,15 +172,19 @@ SMODS.Consumable {
     end
 }
 
+-- The Empress
 SMODS.Consumable {
     key = 'empress',
     set = 'vremade_Tarot',
     pos = { x = 3, y = 0 },
-    config = { extra = { max_highlighted = 2, enh_key = 'm_vremade_mult' } },
+    config = { max_highlighted = 2, mod_conv = 'm_vremade_mult' },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enh_key]
-        return { vars = { card.ability.extra.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.extra.enh_key } } }
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -185,7 +201,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -195,7 +214,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.extra.enh_key]); return true
+                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.mod_conv])
+                    return true
                 end
             }))
         end
@@ -223,10 +243,12 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- The Emperor
 SMODS.Consumable {
     key = 'emperor',
     set = 'vremade_Tarot',
@@ -257,15 +279,19 @@ SMODS.Consumable {
     end
 }
 
+-- The Hierophant
 SMODS.Consumable {
     key = 'heirophant',
     set = 'vremade_Tarot',
     pos = { x = 5, y = 0 },
-    config = { extra = { max_highlighted = 2, enh_key = 'm_vremade_bonus' } },
+    config = { max_highlighted = 2, mod_conv = 'm_vremade_bonus' },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enh_key]
-        return { vars = { card.ability.extra.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.extra.enh_key } } }
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -282,7 +308,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -292,7 +321,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.extra.enh_key]); return true
+                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.mod_conv])
+                    return true
                 end
             }))
         end
@@ -320,19 +350,24 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- The Lovers
 SMODS.Consumable {
     key = 'lovers',
     set = 'vremade_Tarot',
     pos = { x = 6, y = 0 },
-    config = { extra = { max_highlighted = 1, enh_key = 'm_vremade_wild' } },
+    config = { max_highlighted = 1, mod_conv = 'm_vremade_wild' },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enh_key]
-        return { vars = { card.ability.extra.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.extra.enh_key } } }
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -349,7 +384,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -359,7 +397,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.extra.enh_key]); return true
+                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.mod_conv])
+                    return true
                 end
             }))
         end
@@ -387,19 +426,24 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- The Chariot
 SMODS.Consumable {
     key = 'chariot',
     set = 'vremade_Tarot',
     pos = { x = 7, y = 0 },
-    config = { extra = { max_highlighted = 1, enh_key = 'm_vremade_steel' } },
+    config = { max_highlighted = 1, mod_conv = 'm_vremade_steel' },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enh_key]
-        return { vars = { card.ability.extra.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.extra.enh_key } } }
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -416,7 +460,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -426,7 +473,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.extra.enh_key]); return true
+                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.mod_conv])
+                    return true
                 end
             }))
         end
@@ -454,19 +502,24 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- Judgement
 SMODS.Consumable {
     key = 'judgement',
     set = 'vremade_Tarot',
     pos = { x = 8, y = 0 },
-    config = { extra = { max_highlighted = 2, enh_key = 'm_vremade_glass' } },
+    config = { max_highlighted = 2, mod_conv = 'm_vremade_glass' },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enh_key]
-        return { vars = { card.ability.extra.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.extra.enh_key } } }
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -483,7 +536,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -493,7 +549,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.extra.enh_key]); return true
+                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.mod_conv])
+                    return true
                 end
             }))
         end
@@ -521,10 +578,12 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- The Hermit
 SMODS.Consumable {
     key = 'hermit',
     set = 'vremade_Tarot',
@@ -551,6 +610,7 @@ SMODS.Consumable {
     end
 }
 
+-- The Wheel of Fortune
 SMODS.Consumable {
     key = 'wheel_of_fortune',
     set = 'vremade_Tarot',
@@ -560,36 +620,60 @@ SMODS.Consumable {
         return { vars = { G.GAME.probabilities.normal, card.ability.extra.odds } }
     end,
     use = function(self, card, area, copier)
-        local temp_pool = {}
-        for k, v in pairs(G.jokers.cards) do
-            if not v.edition then
-                temp_pool[#temp_pool + 1] = v
-            end
-        end
+        if pseudorandom('vremade_wheel_of_fortune') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            local editionless_jokers = SMODS.Edition:get_edition_cards(G.jokers, true)
 
-        local eligible_card = pseudorandom_element(temp_pool, pseudoseed("wheel_of_fortune"))
-        local edition = poll_edition('wheel_of_fortune', nil, true, true)
-        eligible_card:set_edition(edition, true)
-        check_for_unlock({ type = 'have_edition' })
+            local eligible_card = pseudorandom_element(editionless_jokers, pseudoseed("vremade_wheel_of_fortune"))
+            local edition = poll_edition('vremade_wheel_of_fortune', nil, true, true,
+                { 'e_vremade_polychrome', 'e_vremade_holo', 'e_vremade_foil' })
+            eligible_card:set_edition(edition, true)
+            check_for_unlock({ type = 'have_edition' })
+        else
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    attention_text({
+                        text = localize('k_nope_ex'),
+                        scale = 1.3,
+                        hold = 1.4,
+                        major = card,
+                        backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                        align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) and
+                            'tm' or 'cm',
+                        offset = { x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) and -0.2 or 0 },
+                        silent = true
+                    })
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.06 * G.SETTINGS.GAMESPEED,
+                        blockable = false,
+                        blocking = false,
+                        func = function()
+                            play_sound('tarot2', 0.76, 0.4)
+                            return true
+                        end
+                    }))
+                    play_sound('tarot2', 1, 0.4)
+                    card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+        end
     end,
     can_use = function(self, card)
-        local temp_pool = {}
-        for k, v in pairs(G.jokers.cards) do
-            if not v.edition then
-                temp_pool[#temp_pool + 1] = v
-            end
-        end
-        return next(temp_pool)
+        return next(SMODS.Edition:get_edition_cards(G.jokers, true))
     end
 }
 
+-- Strength
 SMODS.Consumable {
     key = 'strength',
     set = 'vremade_Tarot',
     pos = { x = 1, y = 1 },
-    config = { extra = { max_highlighted = 2 } },
+    config = { max_highlighted = 2 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted } }
+        return { vars = { card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -607,7 +691,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -645,18 +732,23 @@ SMODS.Consumable {
         }))
         delay(0.5)
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- The Hanged Man
 SMODS.Consumable {
     key = 'hanged_man',
     set = 'vremade_Tarot',
     pos = { x = 2, y = 1 },
-    config = { extra = { max_highlighted = 2 } },
+    config = { max_highlighted = 2 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted } }
+        return { vars = { card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
         local destroyed_cards = {}
@@ -677,11 +769,11 @@ SMODS.Consumable {
             delay = 0.2,
             func = function()
                 for i = #G.hand.highlighted, 1, -1 do
-                    local card = G.hand.highlighted[i]
-                    if SMODS.shatters(card) then
-                        card:shatter()
+                    local playing_card = G.hand.highlighted[i]
+                    if SMODS.shatters(playing_card) then
+                        playing_card:shatter()
                     else
-                        card:start_dissolve(nil, i == #G.hand.highlighted)
+                        playing_card:start_dissolve(nil, i == #G.hand.highlighted)
                     end
                 end
                 return true
@@ -690,18 +782,23 @@ SMODS.Consumable {
         delay(0.3)
         SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- Death
 SMODS.Consumable {
     key = 'death',
     set = 'vremade_Tarot',
     pos = { x = 3, y = 1 },
-    config = { extra = { max_highlighted = 2, min_highlighted = 2 } },
+    config = { max_highlighted = 2, min_highlighted = 2 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted } }
+        return { vars = { card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
@@ -719,7 +816,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -765,12 +865,17 @@ SMODS.Consumable {
         }))
         delay(0.5)
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     can_use = function(self, card)
         return G.hand and #G.hand.highlighted >= card.ability.extra.min_highlighted and
-            #G.hand.highlighted <= card.ability.extra.max_highlighted
+            #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- Temperance
 SMODS.Consumable {
     key = 'temperance',
     set = 'vremade_Tarot',
@@ -815,15 +920,19 @@ SMODS.Consumable {
     end
 }
 
+-- The Devil
 SMODS.Consumable {
     key = 'devil',
     set = 'vremade_Tarot',
     pos = { x = 5, y = 1 },
-    config = { extra = { max_highlighted = 1, enh_key = 'm_vremade_gold' } },
+    config = { max_highlighted = 1, mod_conv = 'm_vremade_gold' },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enh_key]
-        return { vars = { card.ability.extra.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.extra.enh_key } } }
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -840,7 +949,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -850,7 +962,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.extra.enh_key]); return true
+                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.mod_conv])
+                    return true
                 end
             }))
         end
@@ -878,19 +991,24 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- The Tower
 SMODS.Consumable {
     key = 'tower',
     set = 'vremade_Tarot',
     pos = { x = 6, y = 1 },
-    config = { extra = { max_highlighted = 1, enh_key = 'm_vremade_stone' } },
+    config = { max_highlighted = 1, mod_conv = 'm_vremade_stone' },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enh_key]
-        return { vars = { card.ability.extra.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.extra.enh_key } } }
+        info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -907,7 +1025,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -917,7 +1038,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.extra.enh_key]); return true
+                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[card.ability.mod_conv])
+                    return true
                 end
             }))
         end
@@ -945,18 +1067,23 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- The Star
 SMODS.Consumable {
     key = 'star',
     set = 'vremade_Tarot',
     pos = { x = 7, y = 1 },
-    config = { extra = { max_highlighted = 3, suit = 'Diamonds' } },
+    config = { max_highlighted = 3, suit_conv = 'Diamonds' },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = { G.C.SUITS[card.ability.extra.suit] } } }
+        return { vars = { card.ability.max_highlighted, localize(card.ability.suit_conv, 'suits_plural'), colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -973,7 +1100,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -983,7 +1113,7 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:change_suit(card.ability.extra.suit)
+                    SMODS.change_base(G.hand.highlighted[i], card.ability.suit_conv)
                     return true
                 end
             }))
@@ -1012,18 +1142,23 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- The Moon
 SMODS.Consumable {
     key = 'moon',
     set = 'vremade_Tarot',
     pos = { x = 8, y = 1 },
-    config = { extra = { max_highlighted = 3, suit = 'Clubs' } },
+    config = { max_highlighted = 3, suit_conv = 'Clubs' },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = { G.C.SUITS[card.ability.extra.suit] } } }
+        return { vars = { card.ability.max_highlighted, localize(card.ability.suit_conv, 'suits_plural'), colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -1040,7 +1175,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -1050,7 +1188,7 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:change_suit(card.ability.extra.suit)
+                    SMODS.change_base(G.hand.highlighted[i], card.ability.suit_conv)
                     return true
                 end
             }))
@@ -1079,18 +1217,23 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- The Sun
 SMODS.Consumable {
     key = 'sun',
     set = 'vremade_Tarot',
     pos = { x = 9, y = 1 },
-    config = { extra = { max_highlighted = 3, suit = 'Hearts' } },
+    config = { max_highlighted = 3, suit_conv = 'Hearts' },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = { G.C.SUITS[card.ability.extra.suit] } } }
+        return { vars = { card.ability.max_highlighted, localize(card.ability.suit_conv, 'suits_plural'), colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -1107,7 +1250,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -1117,7 +1263,7 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:change_suit(card.ability.extra.suit)
+                    SMODS.change_base(G.hand.highlighted[i], card.ability.suit_conv)
                     return true
                 end
             }))
@@ -1146,10 +1292,12 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
 
+-- Judgement
 SMODS.Consumable {
     key = 'judgement',
     set = 'vremade_Tarot',
@@ -1172,14 +1320,18 @@ SMODS.Consumable {
     end
 }
 
+-- The World
 SMODS.Consumable {
     key = 'world',
     set = 'vremade_Tarot',
     pos = { x = 1, y = 2 },
-    config = { extra = { max_highlighted = 3, suit = 'Spades' } },
+    config = { max_highlighted = 3, suit_conv = 'Spades' },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.max_highlighted, localize(card.ability.extra.suit, 'suits_plural'), colours = { G.C.SUITS[card.ability.extra.suit] } } }
+        return { vars = { card.ability.max_highlighted, localize(card.ability.suit_conv, 'suits_plural'), colours = { G.C.SUITS[card.ability.suit_conv] } } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -1196,7 +1348,10 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.15,
                 func = function()
-                    G.hand.highlighted[i]:flip(); play_sound('card1', percent); G.hand.highlighted[i]:juice_up(0.3, 0.3); return true
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
                 end
             }))
         end
@@ -1206,7 +1361,7 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.1,
                 func = function()
-                    G.hand.highlighted[i]:change_suit(card.ability.extra.suit)
+                    SMODS.change_base(G.hand.highlighted[i], card.ability.suit_conv)
                     return true
                 end
             }))
@@ -1235,6 +1390,7 @@ SMODS.Consumable {
         delay(0.5)
     end,
     can_use = function(self, card)
-        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
     end
+    --]]
 }
