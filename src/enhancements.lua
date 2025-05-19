@@ -1,3 +1,4 @@
+-- Bonus
 SMODS.Enhancement {
     key = 'bonus',
     pos = { x = 1, y = 1 },
@@ -7,6 +8,7 @@ SMODS.Enhancement {
     end,
 }
 
+-- Mult
 SMODS.Enhancement {
     key = 'mult',
     pos = { x = 2, y = 1 },
@@ -16,12 +18,14 @@ SMODS.Enhancement {
     end,
 }
 
+-- Wild
 SMODS.Enhancement {
     key = 'wild',
     pos = { x = 3, y = 1 },
     any_suit = true
 }
 
+-- Glass
 SMODS.Enhancement {
     key = 'glass',
     pos = { x = 5, y = 1 },
@@ -37,6 +41,7 @@ SMODS.Enhancement {
     end,
 }
 
+-- Steel
 SMODS.Enhancement {
     key = 'steel',
     pos = { x = 6, y = 1 },
@@ -46,6 +51,7 @@ SMODS.Enhancement {
     end,
 }
 
+-- Stone
 SMODS.Enhancement {
     key = 'stone',
     pos = { x = 5, y = 0 },
@@ -59,6 +65,7 @@ SMODS.Enhancement {
     end,
 }
 
+-- Gold
 SMODS.Enhancement {
     key = 'gold',
     pos = { x = 6, y = 0 },
@@ -68,6 +75,7 @@ SMODS.Enhancement {
     end,
 }
 
+-- Lucky
 SMODS.Enhancement {
     key = 'lucky',
     pos = { x = 4, y = 1 },
