@@ -751,10 +751,6 @@ SMODS.Consumable {
         return { vars = { card.ability.max_highlighted } }
     end,
     use = function(self, card, area, copier)
-        local destroyed_cards = {}
-        for i = #G.hand.highlighted, 1, -1 do
-            destroyed_cards[#destroyed_cards + 1] = G.hand.highlighted[i]
-        end
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
@@ -768,19 +764,11 @@ SMODS.Consumable {
             trigger = 'after',
             delay = 0.2,
             func = function()
-                for i = #G.hand.highlighted, 1, -1 do
-                    local playing_card = G.hand.highlighted[i]
-                    if SMODS.shatters(playing_card) then
-                        playing_card:shatter()
-                    else
-                        playing_card:start_dissolve(nil, i == #G.hand.highlighted)
-                    end
-                end
+                SMODS.destroy_cards(G.hand.highlighted)
                 return true
             end
         }))
         delay(0.3)
-        SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
     end,
     -- The config field already handles the functionality so it doesn't need to be implemented
     -- The following is how the implementation would be

@@ -21,8 +21,7 @@ SMODS.Consumable {
     end,
     use = function(self, card, area, copier)
         local used_tarot = copier or card
-        local destroyed_cards = {}
-        destroyed_cards[#destroyed_cards + 1] = pseudorandom_element(G.hand.cards, pseudoseed('random_destroy'))
+        local card_to_destroy = pseudorandom_element(G.hand.cards, pseudoseed('random_destroy'))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
@@ -36,14 +35,7 @@ SMODS.Consumable {
             trigger = 'after',
             delay = 0.1,
             func = function()
-                for i = #destroyed_cards, 1, -1 do
-                    local playing_card = destroyed_cards[i]
-                    if SMODS.shatters(playing_card) then
-                        playing_card:shatter()
-                    else
-                        playing_card:start_dissolve(nil, i ~= #destroyed_cards)
-                    end
-                end
+                SMODS.destroy_cards(card_to_destroy)
                 return true
             end
         }))
@@ -52,7 +44,7 @@ SMODS.Consumable {
             delay = 0.7,
             func = function()
                 local cards = {}
-                for i = 1, card.ability.extra do
+                for i = 1, card.ability.extra.cards do
                     local faces = {}
                     for _, rank_key in ipairs(SMODS.Rank.obj_buffer) do
                         local rank = SMODS.Ranks[rank_key]
@@ -77,7 +69,6 @@ SMODS.Consumable {
             end
         }))
         delay(0.3)
-        SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.cards > 1
@@ -95,8 +86,7 @@ SMODS.Consumable {
     end,
     use = function(self, card, area, copier)
         local used_tarot = copier or card
-        local destroyed_cards = {}
-        destroyed_cards[#destroyed_cards + 1] = pseudorandom_element(G.hand.cards, pseudoseed('random_destroy'))
+        local card_to_destroy = pseudorandom_element(G.hand.cards, pseudoseed('random_destroy'))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
@@ -110,14 +100,7 @@ SMODS.Consumable {
             trigger = 'after',
             delay = 0.1,
             func = function()
-                for i = #destroyed_cards, 1, -1 do
-                    local playing_card = destroyed_cards[i]
-                    if SMODS.shatters(playing_card) then
-                        playing_card:shatter()
-                    else
-                        playing_card:start_dissolve(nil, i ~= #destroyed_cards)
-                    end
-                end
+                SMODS.destroy_cards(card_to_destroy)
                 return true
             end
         }))
@@ -126,7 +109,7 @@ SMODS.Consumable {
             delay = 0.7,
             func = function()
                 local cards = {}
-                for i = 1, card.ability.extra do
+                for i = 1, card.ability.extra.cards do
                     local _suit, _rank =
                         pseudorandom_element(SMODS.Suits, pseudoseed('grim_create')).card_key, 'A'
                     local cen_pool = {}
@@ -145,7 +128,6 @@ SMODS.Consumable {
             end
         }))
         delay(0.3)
-        SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.cards > 1
@@ -163,8 +145,7 @@ SMODS.Consumable {
     end,
     use = function(self, card, area, copier)
         local used_tarot = copier or card
-        local destroyed_cards = {}
-        destroyed_cards[#destroyed_cards + 1] = pseudorandom_element(G.hand.cards, pseudoseed('random_destroy'))
+        local card_to_destroy = pseudorandom_element(G.hand.cards, pseudoseed('random_destroy'))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
@@ -178,14 +159,7 @@ SMODS.Consumable {
             trigger = 'after',
             delay = 0.1,
             func = function()
-                for i = #destroyed_cards, 1, -1 do
-                    local playing_card = destroyed_cards[i]
-                    if SMODS.shatters(playing_card) then
-                        playing_card:shatter()
-                    else
-                        playing_card:start_dissolve(nil, i ~= #destroyed_cards)
-                    end
-                end
+                SMODS.destroy_cards(card_to_destroy)
                 return true
             end
         }))
@@ -219,7 +193,6 @@ SMODS.Consumable {
             end
         }))
         delay(0.3)
-        SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.cards > 1
@@ -523,21 +496,13 @@ SMODS.Consumable {
             trigger = 'after',
             delay = 0.1,
             func = function()
-                for i = #destroyed_cards, 1, -1 do
-                    local playing_card = destroyed_cards[i]
-                    if SMODS.shatters(playing_card) then
-                        playing_card:shatter()
-                    else
-                        playing_card:start_dissolve(nil, i == #destroyed_cards)
-                    end
-                end
+                SMODS.destroy_cards(destroyed_cards)
                 return true
             end
         }))
         delay(0.5)
         ease_dollars(card.ability.extra.dollars)
         delay(0.3)
-        SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.cards > 0
