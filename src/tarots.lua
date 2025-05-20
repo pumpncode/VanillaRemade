@@ -507,9 +507,9 @@ SMODS.Consumable {
     --]]
 }
 
--- Judgement
+-- Justice
 SMODS.Consumable {
-    key = 'judgement',
+    key = 'justice',
     set = 'vremade_Tarot',
     pos = { x = 8, y = 0 },
     config = { max_highlighted = 2, mod_conv = 'm_vremade_glass' },
