@@ -706,6 +706,7 @@ SMODS.Consumable {
                 func = function()
                     -- SMODS.modify_rank will increment/decrement a given card's rank by a given amount
                     assert(SMODS.modify_rank(G.hand.highlighted[i], 1))
+                    return true
                 end
             }))
         end
