@@ -4427,7 +4427,7 @@ SMODS.Joker {
     pos = { x = 7, y = 7 },
     loc_vars = function(self, info_queue, card)
         local compatible = G.jokers.cards[1] and G.jokers.cards[1] ~= card and
-            other_joker.config.center.blueprint_compat
+            G.jokers.cards[1].config.center.blueprint_compat
         main_end = (card.area and card.area == G.jokers) and {
             {
                 n = G.UIT.C,
