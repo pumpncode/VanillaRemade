@@ -365,60 +365,13 @@ SMODS.Joker {
     pos = { x = 6, y = 6 },
 }
 
-SMODS.PokerHandPart:take_ownership('_straight',
-    {
-        func = function(hand)
-            return get_straight(hand,
-                (next(SMODS.find_card('j_four_fingers')) or next(SMODS.find_card('j_vremade_four_fingers'))) and 4 or 5,
-                not not (next(SMODS.find_card('j_shortcut')) or next(SMODS.find_card('j_vremade_shortcut')))
-            )
-        end,
-    },
-    true
-)
-
---- This overrides get_flush
---- Consider a Lovely patch for this
----@param hand Card[]|table[] Played cards in hand
----@param min_length integer Minimum amount of cards. Added in this override
----@return table[] - All combinations of flushes
-function get_flush(hand, min_length)
-    local ret = {}
-    local suits = SMODS.Suit.obj_buffer
-    min_length = min_length or 5
-    if min_length < 2 then min_length = 2 end
-    if #hand < min_length then
-        return ret
-    else
-        for j = 1, #suits do
-            local t = {}
-            local suit = suits[j]
-            local flush_count = 0
-            for i = 1, #hand do
-                if hand[i]:is_suit(suit, nil, true) then
-                    flush_count = flush_count + 1
-                    t[#t + 1] = hand[i]
-                end
-            end
-            if flush_count >= min_length then
-                table.insert(ret, t)
-                return ret
-            end
-        end
-        return {}
+local smods_four_fingers_ref = SMODS.four_fingers
+function SMODS.four_fingers()
+    if next(SMODS.find_card('j_vremade_four_fingers')) then
+        return 4
     end
+    return smods_four_fingers_ref()
 end
-
-SMODS.PokerHandPart:take_ownership('_flush',
-    {
-        func = function(hand)
-            return get_flush(hand,
-                (next(SMODS.find_card('j_four_fingers')) or next(SMODS.find_card('j_vremade_four_fingers'))) and 4 or 5
-            )
-        end,
-    },
-    true
-)
 
 -- Mime
 SMODS.Joker {
@@ -1972,7 +1925,6 @@ SMODS.Joker {
 }
 
 -- Shortcut
--- For the effect, see Four Fingers
 SMODS.Joker {
     key = "shortcut",
     blueprint_compat = false,
@@ -1980,6 +1932,14 @@ SMODS.Joker {
     cost = 7,
     pos = { x = 3, y = 12 }
 }
+
+local smods_shortcut_ref = SMODS.shortcut
+function SMODS.shortcut()
+    if next(SMODS.find_card('j_vremade_shortcut')) then
+        return true
+    end
+    return smods_shortcut_ref()
+end
 
 -- Hologram
 SMODS.Joker {
