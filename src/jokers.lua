@@ -2570,7 +2570,7 @@ SMODS.Joker {
         info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
 
         local stone_tally = 0
-        if G.playing_card then
+        if G.playing_cards then
             for _, playing_card in ipairs(G.playing_cards) do
                 if SMODS.has_enhancement(playing_card, 'm_stone') then stone_tally = stone_tally + 1 end
             end
