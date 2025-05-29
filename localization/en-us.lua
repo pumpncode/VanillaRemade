@@ -1739,12 +1739,35 @@ return {
                     "{C:inactive}(Must have room)",
                 },
             },
+            vremade_eternal = {
+                name = "Eternal",
+                text = {
+                    "Can't be sold",
+                    "or destroyed",
+                },
+            },
             vremade_gold_seal = {
                 name = "Gold Seal",
                 text = {
                     "Earn {C:money}$#1#{} when this",
                     "card is played",
                     "and scores",
+                },
+            },
+            vremade_perishable = {
+                name = "Perishable",
+                text = {
+                    "Debuffed after",
+                    "{C:attention}#1#{} rounds",
+                    "{C:inactive}({C:attention}#2#{C:inactive} remaining)",
+                },
+            },
+            vremade_pinned = {
+                name = "Pinned",
+                text = {
+                    "This Joker stays",
+                    "pinned to the",
+                    "leftmost position",
                 },
             },
             vremade_purple_seal = {
@@ -1762,9 +1785,16 @@ return {
                     "card {C:attention}#1#{} time",
                 },
             },
+            vremade_rental = {
+                name = "Rental",
+                text = {
+                    "Lose {C:money}$#1#{} at",
+                    "end of round",
+                },
+            },
             undiscovered_vremade_spectral = {
                 name = "Not Discovered",
-                text={
+                text = {
                     "Purchase or use",
                     "this card in an",
                     "unseeded run to",
@@ -1773,7 +1803,7 @@ return {
             },
             undiscovered_vremade_tarot = {
                 name = "Not Discovered",
-                text={
+                text = {
                     "Purchase or use",
                     "this card in an",
                     "unseeded run to",
@@ -1782,152 +1812,215 @@ return {
             },
         },
         vremade_Spectral = { -- If you're making regular Spectrals the key will be "Spectral"
-            c_vremade_ankh={
-                name="Ankh",
-                text={
+            c_vremade_ankh = {
+                name = "Ankh",
+                text = {
                     "Create a copy of a",
                     "random {C:attention}Joker{}, destroy",
                     "all other Jokers",
                 },
             },
-            c_vremade_aura={
-                name="Aura",
-                text={
+            c_vremade_aura = {
+                name = "Aura",
+                text = {
                     "Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},",
                     "or {C:dark_edition}Polychrome{} effect to",
                     "{C:attention}#1#{} selected card in hand",
                 },
             },
-            c_vremade_black_hole={
-                name="Black Hole",
-                text={
+            c_vremade_black_hole = {
+                name = "Black Hole",
+                text = {
                     "Upgrade every",
                     "{C:legendary,E:1}poker hand",
                     "by {C:attention}1{} level",
                 },
             },
-            c_vremade_cryptid={
-                name="Cryptid",
-                text={
+            c_vremade_cryptid = {
+                name = "Cryptid",
+                text = {
                     "Create {C:attention}#1#{} copies of",
                     "{C:attention}#2#{} selected card",
                     "in your hand",
                 },
             },
-            c_vremade_deja_vu={
-                name="Deja Vu",
-                text={
+            c_vremade_deja_vu = {
+                name = "Deja Vu",
+                text = {
                     "Add a {C:red}Red Seal{}",
                     "to {C:attention}1{} selected",
                     "card in your hand",
                 },
             },
-            c_vremade_ectoplasm={
-                name="Ectoplasm",
-                text={
+            c_vremade_ectoplasm = {
+                name = "Ectoplasm",
+                text = {
                     "Add {C:dark_edition}Negative{} to",
                     "a random {C:attention}Joker,",
                     "{C:red}-#1#{} hand size",
                 },
             },
-            c_vremade_familiar={
-                name="Familiar",
-                text={
+            c_vremade_familiar = {
+                name = "Familiar",
+                text = {
                     "Destroy {C:attention}#1#{} random",
                     "card in your hand, add",
                     "{C:attention}#2#{} random {C:attention}Enhanced face",
                     "{C:attention}cards{} to your hand",
                 },
             },
-            c_vremade_grim={
-                name="Grim",
-                text={
+            c_vremade_grim = {
+                name = "Grim",
+                text = {
                     "Destroy {C:attention}#1#{} random",
                     "card in your hand,",
                     "add {C:attention}#2#{} random {C:attention}Enhanced",
                     "{C:attention}Aces{} to your hand",
                 },
             },
-            c_vremade_hex={
-                name="Hex",
-                text={
+            c_vremade_hex = {
+                name = "Hex",
+                text = {
                     "Add {C:dark_edition}Polychrome{} to a",
                     "random {C:attention}Joker{}, destroy",
                     "all other Jokers",
                 },
             },
-            c_vremade_immolate={
-                name="Immolate",
-                text={
+            c_vremade_immolate = {
+                name = "Immolate",
+                text = {
                     "Destroys {C:attention}#1#{} random",
                     "cards in hand,",
                     "gain {C:money}$#2#",
                 },
             },
-            c_vremade_incantation={
-                name="Incantation",
-                text={
+            c_vremade_incantation = {
+                name = "Incantation",
+                text = {
                     "Destroy {C:attention}#1#{} random",
                     "card in your hand, add {C:attention}#2#",
                     "random {C:attention}Enhanced numbered",
                     "{C:attention}cards{} to your hand",
                 },
             },
-            c_vremade_medium={
-                name="Medium",
-                text={
+            c_vremade_medium = {
+                name = "Medium",
+                text = {
                     "Add a {C:purple}Purple Seal{}",
                     "to {C:attention}1{} selected",
                     "card in your hand",
                 },
             },
-            c_vremade_ouija={
-                name="Ouija",
-                text={
+            c_vremade_ouija = {
+                name = "Ouija",
+                text = {
                     "Converts all cards",
                     "in hand to a single",
                     "random {C:attention}rank",
                     "{C:red}-1{} hand size",
                 },
             },
-            c_vremade_sigil={
-                name="Sigil",
-                text={
+            c_vremade_sigil = {
+                name = "Sigil",
+                text = {
                     "Converts all cards",
                     "in hand to a single",
                     "random {C:attention}suit",
                 },
             },
-            c_vremade_soul={
-                name="The Soul",
-                text={
+            c_vremade_soul = {
+                name = "The Soul",
+                text = {
                     "Creates a",
                     "{C:legendary,E:1}Legendary{} Joker",
                     "{C:inactive}(Must have room)",
                 },
             },
-            c_vremade_talisman={
-                name="Talisman",
-                text={
+            c_vremade_talisman = {
+                name = "Talisman",
+                text = {
                     "Add a {C:attention}Gold Seal{}",
                     "to {C:attention}#1#{} selected",
                     "card in your hand",
                 },
             },
-            c_vremade_trance={
-                name="Trance",
-                text={
+            c_vremade_trance = {
+                name = "Trance",
+                text = {
                     "Add a {C:blue}Blue Seal{}",
                     "to {C:attention}1{} selected",
                     "card in your hand",
                 },
             },
-            c_vremade_wraith={
-                name="Wraith",
-                text={
+            c_vremade_wraith = {
+                name = "Wraith",
+                text = {
                     "Creates a random",
                     "{C:red}Rare{C:attention} Joker{},",
                     "sets money to {C:money}$0",
+                },
+            },
+        },
+        Stake = {
+            stake_vremade_black = {
+                name = "Black Stake",
+                text = {
+                    "Shop can have {C:attention}Eternal{} Jokers",
+                    "{C:inactive,s:0.8}(Can't be sold or destroyed)",
+                    "{s:0.8}Applies all previous Stakes",
+                },
+            },
+            stake_vremade_blue = {
+                name = "Blue Stake",
+                text = {
+                    "{C:red}-1{} Discard",
+                    "{s:0.8}Applies all previous Stakes",
+                },
+            },
+            stake_vremade_gold = {
+                name = "Gold Stake",
+                text = {
+                    "Shop can have {C:attention}Rental{} Jokers",
+                    "{C:inactive,s:0.8}(Costs {C:money,s:0.8}$3{C:inactive,s:0.8} per round)",
+                    "{s:0.8}Applies all previous Stakes",
+                },
+            },
+            stake_vremade_green = {
+                name = "Green Stake",
+                text = {
+                    "Required score scales",
+                    "faster for each {C:attention}Ante",
+                    "{s:0.8}Applies all previous Stakes",
+                },
+            },
+            stake_vremade_orange = {
+                name = "Orange Stake",
+                text = {
+                    "Shop can have {C:attention}Perishable{} Jokers",
+                    "{C:inactive,s:0.8}(Debuffed after 5 Rounds)",
+                    "{s:0.8}Applies all previous Stakes",
+                },
+            },
+            stake_vremade_purple = {
+                name = "Purple Stake",
+                text = {
+                    "Required score scales",
+                    "faster for each {C:attention}Ante",
+                    "{s:0.8}Applies all previous Stakes",
+                },
+            },
+            stake_vremade_red = {
+                name = "Red Stake",
+                text = {
+                    "{C:attention}Small Blind{} gives",
+                    "no reward money",
+                    "{s:0.8}Applies all previous Stakes",
+                },
+            },
+            stake_vremade_white = {
+                name = "White Stake",
+                text = {
+                    "Base Difficulty",
                 },
             },
         },
@@ -2441,45 +2534,84 @@ return {
         },
     },
     misc = {
-        challenge_names={
-            c_vremade_blast_off_1="Blast Off",
-            c_vremade_bram_poker_1="Bram Poker",
-            c_vremade_city_1="15 Minute City",
-            c_vremade_cruelty_1="Cruelty",
-            c_vremade_double_nothing_1="Double or Nothing",
-            c_vremade_five_card_1="Five-Card Draw",
-            c_vremade_fragile_1="Fragile",
-            c_vremade_golden_needle_1="Golden Needle",
-            c_vremade_inflation_1="Inflation",
-            c_vremade_jokerless_1="Jokerless",
-            c_vremade_knife_1="On a Knife's Edge",
-            c_vremade_luxury_1="Luxury Tax",
-            c_vremade_mad_world_1="Mad World",
-            c_vremade_medusa_1="Medusa",
-            c_vremade_monolith_1="Monolith",
-            c_vremade_non_perishable_1="Non-Perishable",
-            c_vremade_omelette_1="The Omelette",
-            c_vremade_rich_1="Rich get Richer",
-            c_vremade_typecast_1="Typecast",
-            c_vremade_xray_1="X-ray Vision",
+        challenge_names = {
+            c_vremade_blast_off_1 = "Blast Off",
+            c_vremade_bram_poker_1 = "Bram Poker",
+            c_vremade_city_1 = "15 Minute City",
+            c_vremade_cruelty_1 = "Cruelty",
+            c_vremade_double_nothing_1 = "Double or Nothing",
+            c_vremade_five_card_1 = "Five-Card Draw",
+            c_vremade_fragile_1 = "Fragile",
+            c_vremade_golden_needle_1 = "Golden Needle",
+            c_vremade_inflation_1 = "Inflation",
+            c_vremade_jokerless_1 = "Jokerless",
+            c_vremade_knife_1 = "On a Knife's Edge",
+            c_vremade_luxury_1 = "Luxury Tax",
+            c_vremade_mad_world_1 = "Mad World",
+            c_vremade_medusa_1 = "Medusa",
+            c_vremade_monolith_1 = "Monolith",
+            c_vremade_non_perishable_1 = "Non-Perishable",
+            c_vremade_omelette_1 = "The Omelette",
+            c_vremade_rich_1 = "Rich get Richer",
+            c_vremade_typecast_1 = "Typecast",
+            c_vremade_xray_1 = "X-ray Vision",
         },
         dictionary = {
             b_vremade_spectral_cards = "Spectral Cards",
             b_vremade_tarot_cards = "Tarot Cards",
+            k_vremade_common = "Common",
+            k_vremade_legendary = "Legendary",
+            k_vremade_rare = "Rare",
             k_vremade_spectral = "Spectral",
             k_vremade_tarot = "Tarot",
+            k_vremade_uncommon = "Uncommon",
         },
         labels = {
             vremade_blue_seal = "Blue Seal",
-            vremade_foil="Foil",
+            vremade_common = "Common",
+            vremade_eternal = "Eternal",
+            vremade_foil = "Foil",
             vremade_gold_seal = "Gold Seal",
-            vremade_holo="Holographic",
-            vremade_negative="Negative",
-            vremade_polychrome="Polychrome",
+            vremade_holo = "Holographic",
+            vremade_legendary = "Legendary",
+            vremade_negative = "Negative",
+            vremade_perishable = "Perishable",
+            vremade_pinned = "Pinned",
+            vremade_polychrome = "Polychrome",
             vremade_purple_seal = "Purple Seal",
+            vremade_rare = "Rare",
             vremade_red_seal = "Red Seal",
+            vremade_rental="Rental",
             vremade_spectral = "Spectral",
             vremade_tarot = "Tarot",
-        }
+            vremade_uncommon = "Uncommon",
+        },
+        ranks = {
+            vremade_10 = "10",
+            vremade_2 = "2",
+            vremade_3 = "3",
+            vremade_4 = "4",
+            vremade_5 = "5",
+            vremade_6 = "6",
+            vremade_7 = "7",
+            vremade_8 = "8",
+            vremade_9 = "9",
+            vremade_Ace = "Ace",
+            vremade_Jack = "Jack",
+            vremade_King = "King",
+            vremade_Queen = "Queen",
+        },
+        suits_plural = {
+            vremade_Clubs = "Clubs",
+            vremade_Diamonds = "Diamonds",
+            vremade_Hearts = "Hearts",
+            vremade_Spades = "Spades",
+        },
+        suits_singular = {
+            vremade_Clubs = "Club",
+            vremade_Diamonds = "Diamond",
+            vremade_Hearts = "Heart",
+            vremade_Spades = "Spade",
+        },
     }
 }

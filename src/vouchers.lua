@@ -232,16 +232,32 @@ SMODS.Voucher {
 }
 
 SMODS.Booster:take_ownership_by_kind('Arcana', {
-    create_card = function(self, card, i)
-        local _card
-        if (G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8) or (G.GAME.used_vouchers.v_vremade_omen_globe and pseudorandom('vremade_omen_globe') > 0.8) then
-            _card = { set = "Spectral", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ar2" }
-        else
-            _card = { set = "Tarot", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "ar1" }
-        end
-        return _card
-    end,
-})
+        create_card = function(self, card, i)
+            local _card
+            if (G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8) or (G.GAME.used_vouchers.v_vremade_omen_globe and pseudorandom('vremade_omen_globe') > 0.8) then
+                _card = {
+                    set = "Spectral",
+                    area = G.pack_cards,
+                    skip_materialize = true,
+                    soulable = true,
+                    key_append =
+                    "ar2"
+                }
+            else
+                _card = {
+                    set = "Tarot",
+                    area = G.pack_cards,
+                    skip_materialize = true,
+                    soulable = true,
+                    key_append =
+                    "ar1"
+                }
+            end
+            return _card
+        end,
+    },
+    true
+)
 
 -- Telescope
 SMODS.Voucher {
@@ -250,38 +266,41 @@ SMODS.Voucher {
 }
 
 SMODS.Booster:take_ownership_by_kind('Celestial', {
-    create_card = function(self, card, i)
-        local _card
-        if (G.GAME.used_vouchers.v_telescope or G.GAME.used_vouchers.v_vremade_telescope) and i == 1 then
-            local _planet, _hand, _tally = nil, nil, 0
-            for _, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
-                end
-            end
-            if _hand then
-                for _, v in pairs(G.P_CENTER_POOLS.Planet) do
-                    if v.config.hand_type == _hand then
-                        _planet = v.key
+        create_card = function(self, card, i)
+            local _card
+            if (G.GAME.used_vouchers.v_telescope or G.GAME.used_vouchers.v_vremade_telescope) and i == 1 then
+                local _planet, _hand, _tally = nil, nil, 0
+                for _, v in ipairs(G.handlist) do
+                    if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                        _hand = v
+                        _tally = G.GAME.hands[v].played
                     end
                 end
+                if _hand then
+                    for _, v in pairs(G.P_CENTER_POOLS.Planet) do
+                        if v.config.hand_type == _hand then
+                            _planet = v.key
+                        end
+                    end
+                end
+                _card = {
+                    set = "Planet",
+                    area = G.pack_cards,
+                    skip_materialize = true,
+                    soulable = true,
+                    key = _planet,
+                    key_append = "pl1"
+                }
+            else
+                _card = { set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key_append =
+                "pl1" }
             end
-            _card = {
-                set = "Planet",
-                area = G.pack_cards,
-                skip_materialize = true,
-                soulable = true,
-                key = _planet,
-                key_append = "pl1"
-            }
-        else
-            _card = { set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "pl1" }
-        end
-        return _card
-    end,
-    loc_vars = pack_loc_vars,
-})
+            return _card
+        end,
+        loc_vars = pack_loc_vars,
+    },
+    true
+)
 
 -- Observatory
 SMODS.Voucher {
