@@ -2,27 +2,35 @@
 SMODS.Back {
     key = "red",
     pos = { x = 0, y = 0 },
-    config = { extra = { discards = 1 } },
+    config = { discards = 1 },
     loc_vars = function(self, info_queue, back)
-        return { vars = { self.config.extra.discards } }
+        return { vars = { self.config.discards } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
-        G.GAME.starting_params.discards = G.GAME.starting_params.discards + self.config.extra.discards
+        G.GAME.starting_params.discards = G.GAME.starting_params.discards + self.config.discards
     end
+    ]]
 }
 
 -- Blue Deck
 SMODS.Back {
     key = "blue",
     pos = { x = 0, y = 2 },
-    config = { extra = { hands = 1 } },
+    config = { hands = 1 },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
-        return { vars = { self.config.extra.hands } }
+        return { vars = { self.config.hands } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
         G.GAME.starting_params.hands = G.GAME.starting_params.hands + self.config.extra.hands
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         return { vars = { 20 } }
     end,
@@ -35,14 +43,18 @@ SMODS.Back {
 SMODS.Back {
     key = "yellow",
     pos = { x = 1, y = 2 },
-    config = { extra = { dollars = 10 } },
+    config = { dollars = 10 },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
-        return { vars = { self.config.extra.dollars } }
+        return { vars = { self.config.dollars } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
-        G.GAME.starting_params.dollars = G.GAME.starting_params.dollars + self.config.extra.dollars
+        G.GAME.starting_params.dollars = G.GAME.starting_params.dollars + self.config.dollars
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         return { vars = { 50 } }
     end,
@@ -55,16 +67,20 @@ SMODS.Back {
 SMODS.Back {
     key = "green",
     pos = { x = 2, y = 2 },
-    config = { extra = { extra_hand_bonus = 2, extra_discard_bonus = 1 } },
+    config = { extra_hand_bonus = 2, extra_discard_bonus = 1, no_interest = true },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
-        return { vars = { self.config.extra.extra_hand_bonus, self.config.extra.extra_discard_bonus } }
+        return { vars = { self.config.extra_hand_bonus, self.config.extra_discard_bonus } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
-        G.GAME.modifiers.money_per_hand = self.config.extra.extra_hand_bonus
-        G.GAME.modifiers.money_per_discard = self.config.extra.extra_discard_bonus
+        G.GAME.modifiers.money_per_hand = self.config.extra_hand_bonus
+        G.GAME.modifiers.money_per_discard = self.config.extra_discard_bonus
         G.GAME.modifiers.no_interest = true
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         return { vars = { 75 } }
     end,
@@ -77,15 +93,19 @@ SMODS.Back {
 SMODS.Back {
     key = "black",
     pos = { x = 3, y = 2 },
-    config = { extra = { hands = -1, joker_slot = 1 } },
+    config = { hands = -1, joker_slot = 1 },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
-        return { vars = { self.config.extra.joker_slot, self.config.extra.hands } }
+        return { vars = { self.config.joker_slot, self.config.hands } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
-        G.GAME.starting_params.hands = G.GAME.starting_params.hands + self.config.extra.hands
-        G.GAME.starting_params.joker_slots = G.GAME.starting_params.joker_slots + self.config.extra.joker_slot
+        G.GAME.starting_params.hands = G.GAME.starting_params.hands + self.config.hands
+        G.GAME.starting_params.joker_slots = G.GAME.starting_params.joker_slots + self.config.joker_slot
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         return { vars = { 100 } }
     end,
@@ -98,22 +118,25 @@ SMODS.Back {
 SMODS.Back {
     key = "magic",
     pos = { x = 0, y = 3 },
-    config = { extra = { voucher = 'v_crystal_ball', consumables = { 'c_fool', 'c_fool' } } },
+    config = { voucher = 'v_crystal_ball', consumables = { 'c_fool', 'c_fool' } },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
         return {
-            vars = { localize { type = 'name_text', key = self.config.extra.voucher, set = 'Voucher' },
-                localize { type = 'name_text', key = self.config.extra.consumables[1], set = 'Tarot' }
+            vars = { localize { type = 'name_text', key = self.config.voucher, set = 'Voucher' },
+                localize { type = 'name_text', key = self.config.consumables[1], set = 'Tarot' }
             }
         }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
         -- Apply the voucher
-        G.GAME.used_vouchers[self.config.extra.voucher] = true
+        G.GAME.used_vouchers[self.config.voucher] = true
         G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
         G.E_MANAGER:add_event(Event({ -- Adding back objects of any type from a deck MUST be done within an event
             func = function()
-                back.apply_to_run(nil, G.P_CENTERS[self.config.extra.voucher])
+                back.apply_to_run(nil, G.P_CENTERS[self.config.voucher])
                 return true
             end
         }))
@@ -122,13 +145,14 @@ SMODS.Back {
         delay(0.4)
         G.E_MANAGER:add_event(Event({
             func = function()
-                for k, v in ipairs(self.config.extra.consumables) do
+                for k, v in ipairs(self.config.consumables) do
                     SMODS.add_card({ key = v })
                 end
                 return true
             end
         }))
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         local other_name = localize('k_unknown')
         if G.P_CENTERS['b_red'].unlocked then
@@ -146,26 +170,30 @@ SMODS.Back {
 SMODS.Back {
     key = "nebula",
     pos = { x = 3, y = 0 },
-    config = { extra = { voucher = 'v_telescope', consumable_slot = -1 } },
+    config = { voucher = 'v_telescope', consumable_slot = -1 },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
-        return { vars = { localize { type = 'name_text', key = self.config.extra.voucher, set = 'Voucher' }, self.config.extra.consumable_slot } }
+        return { vars = { localize { type = 'name_text', key = self.config.voucher, set = 'Voucher' }, self.config.consumable_slot } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
         -- Apply the voucher
-        G.GAME.used_vouchers[self.config.extra.voucher] = true
+        G.GAME.used_vouchers[self.config.voucher] = true
         G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
         G.E_MANAGER:add_event(Event({
             func = function()
-                back.apply_to_run(nil, G.P_CENTERS[self.config.extra.voucher])
+                back.apply_to_run(nil, G.P_CENTERS[self.config.voucher])
                 return true
             end
         }))
 
         -- Apply the consumable slot deduction
         G.GAME.starting_params.consumable_slots = G.GAME.starting_params.consumable_slots +
-            self.config.extra.consumable_slot
+            self.config.consumable_slot
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         local other_name = localize('k_unknown')
         if G.P_CENTERS['b_blue'].unlocked then
@@ -183,11 +211,14 @@ SMODS.Back {
 SMODS.Back {
     key = "ghost",
     pos = { x = 6, y = 2 },
-    config = { extra = { spectral_rate = 2, consumables = { 'c_hex' } } },
+    config = { spectral_rate = 2, consumables = { 'c_hex' } },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
-        return { vars = { self.config.extra.spectral_rate, self.config.extra.consumables[1] } }
+        return { vars = { self.config.spectral_rate, self.config.consumables[1] } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
         -- Apply the spectral rate
         G.GAME.spectral_rate = self.config.extra.spectral_rate
@@ -203,6 +234,7 @@ SMODS.Back {
             end
         }))
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         local other_name = localize('k_unknown')
         if G.P_CENTERS['b_yellow'].unlocked then
@@ -221,9 +253,14 @@ SMODS.Back {
     key = "abandoned",
     pos = { x = 3, y = 3 },
     unlocked = false,
+    config = { no_faces = true },
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
         G.GAME.starting_params.no_faces = true
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         local other_name = localize('k_unknown')
         if G.P_CENTERS['b_green'].unlocked then
@@ -274,18 +311,21 @@ SMODS.Back {
 SMODS.Back {
     key = "zodiac",
     pos = { x = 3, y = 4 },
-    config = { extra = { vouchers = { 'v_tarot_merchant', 'v_planet_merchant', 'v_overstock_norm' } } },
+    config = { vouchers = { 'v_tarot_merchant', 'v_planet_merchant', 'v_overstock_norm' } },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
         return {
-            vars = { localize { type = 'name_text', key = self.config.extra.vouchers[1], set = 'Voucher' },
-                localize { type = 'name_text', key = self.config.extra.vouchers[2], set = 'Voucher' },
-                localize { type = 'name_text', key = self.config.extra.vouchers[3], set = 'Voucher' }
+            vars = { localize { type = 'name_text', key = self.config.vouchers[1], set = 'Voucher' },
+                localize { type = 'name_text', key = self.config.vouchers[2], set = 'Voucher' },
+                localize { type = 'name_text', key = self.config.vouchers[3], set = 'Voucher' }
             }
         }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
-        for k, v in pairs(self.config.extra.vouchers) do
+        for k, v in pairs(self.config.vouchers) do
             G.GAME.used_vouchers[v] = true
             G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
             G.E_MANAGER:add_event(Event({
@@ -296,6 +336,7 @@ SMODS.Back {
             }))
         end
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         return {
             vars = {
@@ -314,15 +355,19 @@ SMODS.Back {
 SMODS.Back {
     key = "painted",
     pos = { x = 4, y = 3 },
-    config = { extra = { hand_size = 2, joker_slot = -1 } },
+    config = { hand_size = 2, joker_slot = -1 },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
-        return { vars = { self.config.extra.hand_size, self.config.extra.joker_slot } }
+        return { vars = { self.config.hand_size, self.config.joker_slot } }
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
         G.GAME.starting_params.hand_size = G.GAME.starting_params.hand_size + self.config.extra.hand_size
         G.GAME.starting_params.joker_slots = G.GAME.starting_params.joker_slots + self.config.extra.joker_slot
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         return {
             vars = {
@@ -375,7 +420,7 @@ SMODS.Back {
 SMODS.Back {
     key = "plasma",
     pos = { x = 4, y = 2 },
-    config = { extra = { ante_scaling = 2 } },
+    config = { ante_scaling = 2 },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
         return { vars = { self.config.extra.ante_scaling } }
@@ -387,9 +432,13 @@ SMODS.Back {
             }
         end
     end,
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
-        G.GAME.starting_params.ante_scaling = self.config.extra.ante_scaling
+        G.GAME.starting_params.ante_scaling = self.config.ante_scaling
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         return {
             vars = {
@@ -408,9 +457,14 @@ SMODS.Back {
     key = "erratic",
     pos = { x = 2, y = 3 },
     unlocked = false,
+    config = { ante_scaling = 2 },
+    -- The config field already handles the functionality so it doesn't need to be implemented
+    -- The following is how the implementation would be
+    --[[
     apply = function(self, back)
         G.GAME.starting_params.erratic_suits_and_ranks = true
     end,
+    ]]
     locked_loc_vars = function(self, info_queue, back)
         return {
             vars = {
