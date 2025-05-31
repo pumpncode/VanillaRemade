@@ -1,3 +1,5 @@
+-- This defines a new type of consumable with key "vremade_Tarot",
+-- if you want to create a regular Tarot ignore this and use set = "Tarot"
 SMODS.ConsumableType {
     key = 'vremade_Tarot',
     default = 'c_vremade_fool',
