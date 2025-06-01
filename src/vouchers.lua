@@ -313,7 +313,7 @@ SMODS.Voucher {
         return { vars = { card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.consumeable and context.other_consumable.ability.set == 'Planet' and context.other_consumable.ability.consumeable.hand_type == context.scoring_name then
+        if context.other_consumeable and context.other_consumable.ability.set == 'Planet' and context.other_consumable.ability.consumeable.hand_type == context.scoring_name then
             return {
                 x_mult = card.ability.extra.Xmult,
                 message_card = context.other_consumable
