@@ -208,9 +208,6 @@ SMODS.Blind {
     pos = { x = 0, y = 5 },
     boss = { min = 2 },
     boss_colour = HEX("3e85bd"),
-    set_blind = function(self)
-        G.GAME.blind.prepped = nil
-    end,
     calculate = function(self, blind, context)
         if not blind.disabled then
             if context.press_play then
@@ -222,7 +219,7 @@ SMODS.Blind {
                 }
             end
         end
-        if context.hand_drawn then
+        if context.setting_blind or context.hand_drawn then
             blind.prepped = nil
         end
     end,
@@ -268,9 +265,13 @@ SMODS.Blind {
     pos = { x = 0, y = 14 },
     boss = { min = 2 },
     boss_colour = HEX("c6e0eb"),
-    set_blind = function(self)
-        G.GAME.blind.discards_sub = G.GAME.current_round.discards_left
-        ease_discard(-G.GAME.blind.discards_sub)
+    calculate = function(self, blind, context)
+        if not blind.disabled then
+            if context.setting_blind then
+                blind.discards_sub = G.GAME.current_round.discards_left
+                ease_discard(-blind.discards_sub)
+            end
+        end
     end,
     disable = function(self)
         ease_discard(G.GAME.blind.discards_sub)
@@ -296,8 +297,12 @@ SMODS.Blind {
     pos = { x = 0, y = 8 },
     boss = { min = 1 },
     boss_colour = HEX("575757"),
-    set_blind = function(self)
-        G.hand:change_size(-1)
+    calculate = function(self, blind, context)
+        if not blind.disabled then
+            if context.setting_blind then
+                G.hand:change_size(-1)
+            end
+        end
     end,
     disable = function(self)
         G.hand:change_size(1)
@@ -317,14 +322,14 @@ SMODS.Blind {
     pos = { x = 0, y = 17 },
     boss = { min = 3 },
     boss_colour = HEX("4b71e4"),
-    set_blind = function(self)
-        G.GAME.blind.hands = {}
-        for _, poker_hand in ipairs(G.handlist) do
-            G.GAME.blind.hands[poker_hand] = false
-        end
-    end,
     calculate = function(self, blind, context)
         if not blind.disabled then
+            if context.setting_blind then
+                blind.hands = {}
+                for _, poker_hand in ipairs(G.handlist) do
+                    blind.hands[poker_hand] = false
+                end
+            end
             if context.debuff_hand then
                 if blind.hands[context.scoring_name] then
                     blind.triggered = true
@@ -352,11 +357,11 @@ SMODS.Blind {
         return G.GAME.blind.loc_debuff_text ..
             (G.GAME.blind.only_hand and ' [' .. localize(G.GAME.blind.only_hand, 'poker_hands') .. ']' or '')
     end,
-    set_blind = function(self)
-        G.GAME.blind.only_hand = false
-    end,
     calculate = function(self, blind, context)
         if not blind.disabled then
+            if context.setting_blind then
+                blind.only_hand = false
+            end
             if context.debuff_hand then
                 if blind.only_hand and blind.only_hand ~= context.scoring_name then
                     blind.triggered = true
@@ -429,9 +434,13 @@ SMODS.Blind {
     pos = { x = 0, y = 20 },
     boss = { min = 2 },
     boss_colour = HEX("5c6e31"),
-    set_blind = function(self)
-        G.GAME.blind.hands_sub = G.GAME.round_resets.hands - 1
-        ease_discard(-G.GAME.blind.hands_sub)
+    calculate = function(self, blind, context)
+        if not blind.disabled then
+            if context.setting_blind then
+                G.GAME.blind.hands_sub = G.GAME.round_resets.hands - 1
+                ease_discard(-G.GAME.blind.hands_sub)
+            end
+        end
     end,
     disable = function(self)
         ease_discard(G.GAME.blind.hands_sub)
@@ -562,47 +571,51 @@ SMODS.Blind {
     pos = { x = 0, y = 27 },
     boss = { showdown = true },
     boss_colour = HEX("fda200"),
-    set_blind = function(self)
-        if #G.jokers.cards > 0 then
-            G.jokers:unhighlight_all()
-            for _, joker in ipairs(G.jokers.cards) do
-                joker:flip()
-            end
-            if #G.jokers.cards > 1 then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.2,
-                    func = function()
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                G.jokers:shuffle('aajk')
-                                play_sound('cardSlide1', 0.85)
-                                return true
-                            end,
-                        }))
-                        delay(0.15)
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                G.jokers:shuffle('aajk')
-                                play_sound('cardSlide1', 1.15)
-                                return true
-                            end
-                        }))
-                        delay(0.15)
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                G.jokers:shuffle('aajk')
-                                play_sound('cardSlide1', 1)
-                                return true
-                            end
-                        }))
-                        delay(0.5)
-                        return true
+    calculate = function(self, blind, context)
+        if not blind.disabled then
+            if context.setting_blind then
+                if #G.jokers.cards > 0 then
+                    G.jokers:unhighlight_all()
+                    for _, joker in ipairs(G.jokers.cards) do
+                        joker:flip()
                     end
-                }))
+                    if #G.jokers.cards > 1 then
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.2,
+                            func = function()
+                                G.E_MANAGER:add_event(Event({
+                                    func = function()
+                                        G.jokers:shuffle('aajk')
+                                        play_sound('cardSlide1', 0.85)
+                                        return true
+                                    end,
+                                }))
+                                delay(0.15)
+                                G.E_MANAGER:add_event(Event({
+                                    func = function()
+                                        G.jokers:shuffle('aajk')
+                                        play_sound('cardSlide1', 1.15)
+                                        return true
+                                    end
+                                }))
+                                delay(0.15)
+                                G.E_MANAGER:add_event(Event({
+                                    func = function()
+                                        G.jokers:shuffle('aajk')
+                                        play_sound('cardSlide1', 1)
+                                        return true
+                                    end
+                                }))
+                                delay(0.5)
+                                return true
+                            end
+                        }))
+                    end
+                end
             end
         end
-    end
+    end,
 }
 
 -- Verdant Leaf
