@@ -194,6 +194,209 @@ return {
                 }
             },
         },
+        Blind = {
+            bl_vremade_small = {
+                name = "Small Blind_test",
+                text = {
+                },
+            },
+            bl_vremade_big = {
+                name = "Big Blind_test",
+                text = {
+                },
+            },
+            bl_vremade_hook = {
+                name = "The Hook_test",
+                text = {
+                    "Discards 2 random",
+                    "cards per hand played",
+                },
+            },
+            bl_vremade_ox = {
+                name = "The Ox_test",
+                text = {
+                    "Playing a #1#",
+                    "sets money to $0",
+                },
+            },
+            bl_vremade_house = {
+                name = "The House_test",
+                text = {
+                    "First hand is",
+                    "drawn face down",
+                },
+            },
+            bl_vremade_wall = {
+                name = "The Wall_test",
+                text = {
+                    "Extra large blind",
+                },
+            },
+            bl_vremade_wheel = {
+                name = "The Wheel_test",
+                text = {
+                    "#1# in 7 cards get",
+                    "drawn face down",
+                },
+            },
+            bl_vremade_arm = {
+                name = "The Arm_test",
+                text = {
+                    "Decrease level of",
+                    "played poker hand",
+                },
+            },
+            bl_vremade_club = {
+                name = "The Club_test",
+                text = {
+                    "All Club cards",
+                    "are debuffed",
+                },
+            },
+            bl_vremade_fish = {
+                name = "The Fish_test",
+                text = {
+                    "Cards drawn face down",
+                    "after each hand played",
+                },
+            },
+            bl_vremade_psychic = {
+                name = "The Psychic_test",
+                text = {
+                    "Must play 5 cards",
+                },
+            },
+            bl_vremade_goad = {
+                name = "The Goad_test",
+                text = {
+                    "All Spade cards",
+                    "are debuffed",
+                },
+            },
+            bl_vremade_water = {
+                name = "The Water_test",
+                text = {
+                    "Start with",
+                    "0 discards",
+                },
+            },
+            bl_vremade_window = {
+                name = "The Window_test",
+                text = {
+                    "All Diamond cards",
+                    "are debuffed",
+                },
+            },
+            bl_vremade_manacle = {
+                name = "The Manacle_test",
+                text = {
+                    "-1 Hand Size",
+                },
+            },
+            bl_vremade_eye = {
+                name = "The Eye_test",
+                text = {
+                    "No repeat hand",
+                    "types this round",
+                },
+            },
+            bl_vremade_mouth = {
+                name = "The Mouth_test",
+                text = {
+                    "Play only 1 hand",
+                    "type this round",
+                },
+            },
+            bl_vremade_plant = {
+                name = "The Plant_test",
+                text = {
+                    "All face cards",
+                    "are debuffed",
+                },
+            },
+            bl_vremade_serpent = {
+                name = "The Serpent_test",
+                text = {
+                    "After Play or Discard,",
+                    "always draw 3 cards",
+                },
+            },
+            bl_vremade_pillar = {
+                name = "The Pillar_test",
+                text = {
+                    "Cards played previously",
+                    "this Ante are debuffed",
+                },
+            },
+            bl_vremade_needle = {
+                name = "The Needle_test",
+                text = {
+                    "Play only 1 hand",
+                },
+            },
+            bl_vremade_head = {
+                name = "The Head_test",
+                text = {
+                    "All Heart cards",
+                    "are debuffed",
+                },
+            },
+            bl_vremade_tooth = {
+                name = "The Tooth_test",
+                text = {
+                    "Lose $1 per",
+                    "card played",
+                },
+            },
+            bl_vremade_flint = {
+                name = "The Flint_test",
+                text = {
+                    "Base Chips and",
+                    "Mult are halved",
+                },
+            },
+            bl_vremade_mark = {
+                name = "The Mark_test",
+                text = {
+                    "All face cards are",
+                    "drawn face down",
+                },
+            },
+            bl_vremade_final_acorn = {
+                name = "Amber Acorn_test",
+                text = {
+                    "Flips and shuffles",
+                    "all Joker cards",
+                },
+            },
+            bl_vremade_final_leaf = {
+                name = "Verdant Leaf_test",
+                text = {
+                    "All cards debuffed",
+                    "until 1 Joker sold",
+                },
+            },
+            bl_vremade_final_vessel = {
+                name = "Violet Vessel_test",
+                text = {
+                    "Very large blind",
+                },
+            },
+            bl_vremade_final_heart = {
+                name = "Crimson Heart_test",
+                text = {
+                    "One random Joker",
+                    "disabled every hand",
+                },
+            },
+            bl_vremade_final_bell = {
+                name = "Cerulean Bell_test",
+                text = {
+                    "Forces 1 card to",
+                    "always be selected",
+                },
+            },
+        },
         Edition = {
             e_vremade_foil = {
                 name = "Foil",
@@ -2581,7 +2784,7 @@ return {
             vremade_purple_seal = "Purple Seal",
             vremade_rare = "Rare",
             vremade_red_seal = "Red Seal",
-            vremade_rental="Rental",
+            vremade_rental = "Rental",
             vremade_spectral = "Spectral",
             vremade_tarot = "Tarot",
             vremade_uncommon = "Uncommon",
