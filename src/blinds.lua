@@ -525,9 +525,7 @@ SMODS.Blind {
                 blind.triggered = true
                 mult = math.max(math.floor(mult * 0.5 + 0.5), 1)
                 hand_chips = math.max(math.floor(hand_chips * 0.5 + 0.5), 0)
-                return {
-                    calculated = true
-                }
+                update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
             end
         end
     end
