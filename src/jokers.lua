@@ -599,7 +599,7 @@ SMODS.Joker {
                                 func = (function()
                                     SMODS.add_card {
                                         set = 'Tarot',
-                                        key_append = 'vremade_8_ball' -- Optional, useful for checking the source of the creation in `in_pool`.
+                                        key_append = 'vremade_8_ball' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
                                     }
                                     G.GAME.consumeable_buffer = 0
                                     return true
@@ -1400,7 +1400,7 @@ SMODS.Joker {
                         func = (function()
                             SMODS.add_card {
                                 set = 'Spectral',
-                                key_append = 'vremade_sixth_sense' -- Optional, useful for checking the source of the creation in `in_pool`.
+                                key_append = 'vremade_sixth_sense' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
                             }
                             G.GAME.consumeable_buffer = 0
                             return true
@@ -1565,7 +1565,7 @@ SMODS.Joker {
                     func = (function()
                         SMODS.add_card {
                             set = 'Tarot',
-                            key_append = 'vremade_superposition' -- Optional, useful for checking the source of the creation in `in_pool`.
+                            key_append = 'vremade_superposition' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
                         }
                         G.GAME.consumeable_buffer = 0
                         return true
@@ -1828,7 +1828,7 @@ SMODS.Joker {
                 func = (function()
                     SMODS.add_card {
                         set = 'Spectral',
-                        key_append = 'vremade_seance' -- Optional, useful for checking the source of the creation in `in_pool`.
+                        key_append = 'vremade_seance' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
                     }
                     G.GAME.consumeable_buffer = 0
                     return true
@@ -1863,7 +1863,7 @@ SMODS.Joker {
                         SMODS.add_card {
                             set = 'Joker',
                             rarity = 'Common',
-                            key_append = 'vremade_riff_raff' -- Optional, useful for checking the source of the creation in `in_pool`.
+                            key_append = 'vremade_riff_raff' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
                         }
                         G.GAME.joker_buffer = 0
                     end
@@ -1997,7 +1997,7 @@ SMODS.Joker {
                     func = (function()
                         SMODS.add_card {
                             set = 'Tarot',
-                            key_append = 'vremade_vagabond' -- Optional, useful for checking the source of the creation in `in_pool`.
+                            key_append = 'vremade_vagabond' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
                         }
                         G.GAME.consumeable_buffer = 0
                         return true
@@ -2477,7 +2477,7 @@ SMODS.Joker {
                     func = (function()
                         SMODS.add_card {
                             set = 'Tarot',
-                            key_append = 'vremade_hallucination' -- Optional, useful for checking the source of the creation in `in_pool`.
+                            key_append = 'vremade_hallucination' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
                         }
                         G.GAME.consumeable_buffer = 0
                         return true
@@ -4573,7 +4573,7 @@ SMODS.Joker {
                                 func = function()
                                     SMODS.add_card {
                                         set = 'Tarot',
-                                        key_append = 'vremade_cartomancer' -- Optional, useful for checking the source of the creation in `in_pool`.
+                                        key_append = 'vremade_cartomancer' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
                                     }
                                     G.GAME.consumeable_buffer = 0
                                     return true
