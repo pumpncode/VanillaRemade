@@ -45,7 +45,7 @@ SMODS.Consumable {
             }
         }
 
-        return { vars = { last_tarot_planet, main_end = main_end } }
+        return { vars = { last_tarot_planet }, main_end = main_end }
     end,
     use = function(self, card, area, copier)
         G.E_MANAGER:add_event(Event({
