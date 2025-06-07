@@ -63,7 +63,8 @@ SMODS.Consumable {
         delay(0.6)
     end,
     can_use = function(self, card)
-        return G.consumeables.config.card_limit > #G.consumeables.cards and G.GAME.last_tarot_planet ~= nil
+        return G.consumeables.config.card_limit > #G.consumeables.cards and G.GAME.last_tarot_planet and
+            G.GAME.last_tarot_planet ~= 'c_fool'
     end
 }
 
