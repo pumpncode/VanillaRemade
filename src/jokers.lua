@@ -4859,8 +4859,8 @@ SMODS.Joker {
         if context.ending_shop and G.consumeables.cards[1] then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local copied_card = copy_card(
-                        pseudorandom_element(G.consumeables.cards, pseudoseed('vremade_perkeo')))
+                    local card_to_copy, _ = pseudorandom_element(G.consumeables.cards, pseudoseed('vremade_perkeo'))
+                    local copied_card = copy_card(card_to_copy)
                     copied_card:set_edition("e_negative", true)
                     copied_card:add_to_deck()
                     G.consumeables:emplace(copied_card)
