@@ -438,12 +438,12 @@ SMODS.Blind {
         if not blind.disabled then
             if context.setting_blind then
                 G.GAME.blind.hands_sub = G.GAME.round_resets.hands - 1
-                ease_discard(-G.GAME.blind.hands_sub)
+                ease_hands_played(-G.GAME.blind.hands_sub)
             end
         end
     end,
     disable = function(self)
-        ease_discard(G.GAME.blind.hands_sub)
+        ease_hands_played(G.GAME.blind.hands_sub)
     end
 }
 
