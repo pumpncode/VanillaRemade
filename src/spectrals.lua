@@ -33,14 +33,8 @@ SMODS.Consumable {
                 return true
             end
         }))
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.1,
-            func = function()
-                SMODS.destroy_cards(card_to_destroy)
-                return true
-            end
-        }))
+        SMODS.destroy_cards(card_to_destroy)
+
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.7,
@@ -52,19 +46,15 @@ SMODS.Consumable {
                         local rank = SMODS.Ranks[rank_key]
                         if rank.face then table.insert(faces, rank) end
                     end
-                    local _suit, _rank =
-                        pseudorandom_element(SMODS.Suits, pseudoseed('familiar_create')).card_key,
-                        pseudorandom_element(faces, pseudoseed('familiar_create')).card_key
+                    local _rank = pseudorandom_element(faces, pseudoseed('familiar_create')).card_key
                     local cen_pool = {}
                     for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
                         if enhancement_center.key ~= 'm_stone' and not enhancement_center.overrides_base_rank then
                             cen_pool[#cen_pool + 1] = enhancement_center
                         end
                     end
-                    cards[i] = create_playing_card({
-                        front = G.P_CARDS[_suit .. '_' .. _rank],
-                        center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
-                    }, G.hand, nil, i ~= 1, { G.C.SECONDARY_SET.Spectral })
+                    local enhancement = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
+                    cards[i] = SMODS.add_card { set = "Base", rank = _rank, enhancement = enhancement.key }
                 end
                 SMODS.calculate_context({ playing_card_added = true, cards = cards })
                 return true
@@ -98,32 +88,22 @@ SMODS.Consumable {
                 return true
             end
         }))
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.1,
-            func = function()
-                SMODS.destroy_cards(card_to_destroy)
-                return true
-            end
-        }))
+        SMODS.destroy_cards(card_to_destroy)
+
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.7,
             func = function()
                 local cards = {}
                 for i = 1, card.ability.extra.cards do
-                    local _suit, _rank =
-                        pseudorandom_element(SMODS.Suits, pseudoseed('grim_create')).card_key, 'A'
                     local cen_pool = {}
                     for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
                         if enhancement_center.key ~= 'm_stone' and not enhancement_center.overrides_base_rank then
                             cen_pool[#cen_pool + 1] = enhancement_center
                         end
                     end
-                    cards[i] = create_playing_card({
-                        front = G.P_CARDS[_suit .. '_' .. _rank],
-                        center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
-                    }, G.hand, nil, i ~= 1, { G.C.SECONDARY_SET.Spectral })
+                    local enhancement = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
+                    cards[i] = SMODS.add_card { set = "Base", rank = 'Ace', enhancement = enhancement.key }
                 end
                 SMODS.calculate_context({ playing_card_added = true, cards = cards })
                 return true
@@ -157,38 +137,27 @@ SMODS.Consumable {
                 return true
             end
         }))
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.1,
-            func = function()
-                SMODS.destroy_cards(card_to_destroy)
-                return true
-            end
-        }))
+        SMODS.destroy_cards(card_to_destroy)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.7,
             func = function()
                 local cards = {}
-                for i = 1, card.ability.extra do
+                for i = 1, card.ability.extra.cards do
                     local numbers = {}
                     for _, rank_key in ipairs(SMODS.Rank.obj_buffer) do
                         local rank = SMODS.Ranks[rank_key]
                         if rank_key ~= 'Ace' and not rank.face then table.insert(numbers, rank) end
                     end
-                    local _suit, _rank =
-                        pseudorandom_element(SMODS.Suits, pseudoseed('incantation_create')).card_key,
-                        pseudorandom_element(numbers, pseudoseed('incantation_create')).card_key
+                    local _rank = pseudorandom_element(numbers, pseudoseed('incantation_create')).card_key
                     local cen_pool = {}
                     for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
                         if enhancement_center.key ~= 'm_stone' and not enhancement_center.overrides_base_rank then
                             cen_pool[#cen_pool + 1] = enhancement_center
                         end
                     end
-                    cards[i] = create_playing_card({
-                        front = G.P_CARDS[_suit .. '_' .. _rank],
-                        center = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
-                    }, G.hand, nil, i ~= 1, { G.C.SECONDARY_SET.Spectral })
+                    local enhancement = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
+                    cards[i] = SMODS.add_card { set = "Base", rank = _rank, enhancement = enhancement.key }
                 end
                 SMODS.calculate_context({ playing_card_added = true, cards = cards })
                 return true
@@ -494,14 +463,8 @@ SMODS.Consumable {
                 return true
             end
         }))
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.1,
-            func = function()
-                SMODS.destroy_cards(destroyed_cards)
-                return true
-            end
-        }))
+        SMODS.destroy_cards(destroyed_cards)
+
         delay(0.5)
         ease_dollars(card.ability.extra.dollars)
         delay(0.3)

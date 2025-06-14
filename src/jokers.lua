@@ -511,8 +511,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.setting_blind then
-            local stone_card = create_playing_card({ center = G.P_CENTERS.m_stone }, G.discard, true, false,
-                nil, true)
+            local stone_card = SMODS.create_card { set = "Base", enhancement = "m_stone", area = G.discard }
             G.E_MANAGER:add_event(Event({
                 func = function()
                     stone_card:start_materialize({ G.C.SECONDARY_SET.Enhanced })
@@ -1167,22 +1166,17 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.setting_blind then
-            return {
+            G.E_MANAGER:add_event(Event({
                 func = function()
-                    -- This is for retrigger purposes, Jokers need to return something to retrigger
-                    -- You can also do this outside the return and `return nil, true` instead
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            ease_discard(-G.GAME.current_round.discards_left, nil, true)
-                            ease_hands_played(card.ability.extra.hands)
-                            SMODS.calculate_effect(
-                                { message = localize { type = 'variable', key = 'a_hands', vars = { card.ability.extra.hands } } },
-                                context.blueprint_card or card)
-                            return true
-                        end
-                    }))
+                    ease_discard(-G.GAME.current_round.discards_left, nil, true)
+                    ease_hands_played(card.ability.extra.hands)
+                    SMODS.calculate_effect(
+                        { message = localize { type = 'variable', key = 'a_hands', vars = { card.ability.extra.hands } } },
+                        context.blueprint_card or card)
+                    return true
                 end
-            }
+            }))
+            return nil, true -- This is for Joker retrigger purposes
         end
     end
 }
@@ -1855,7 +1849,8 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.setting_blind and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-            local jokers_to_create = math.min(card.ability.extra.creates, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+            local jokers_to_create = math.min(card.ability.extra.creates,
+                G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
             G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -2707,20 +2702,15 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.selling_self then
-            return {
-                func = function()
-                    -- This is for retrigger purposes, Jokers need to return something to retrigger
-                    -- You can also do this outside the return and `return nil, true` instead
-                    G.E_MANAGER:add_event(Event({
-                        func = (function()
-                            add_tag(Tag('tag_double'))
-                            play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
-                            play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
-                            return true
-                        end)
-                    }))
-                end
-            }
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    add_tag(Tag('tag_double'))
+                    play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+                    return true
+                end)
+            }))
+            return nil, true -- This is for Joker retrigger purposes
         end
     end,
 }
@@ -3373,32 +3363,23 @@ SMODS.Joker {
     pos = { x = 8, y = 8 },
     calculate = function(self, card, context)
         if context.first_hand_drawn then
-            local _card = create_playing_card({
-                front = pseudorandom_element(G.P_CARDS, pseudoseed('vremade_certificate')),
-                center = G.P_CENTERS.c_base
-            }, G.discard, true, nil, { G.C.SECONDARY_SET.Enhanced }, true)
-            _card:set_seal(SMODS.poll_seal({ guaranteed = true, type_key = 'vremade_certificate_seal' }))
-            return {
+            local _card = SMODS.create_card { set = "Base", seal = SMODS.poll_seal({ guaranteed = true, type_key = 'vremade_certificate_seal' }), area = G.discard }
+            G.E_MANAGER:add_event(Event({
                 func = function()
-                    -- This is for retrigger purposes, Jokers need to return something to retrigger
-                    -- You can also do this outside the return and `return nil, true` instead
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            G.hand:emplace(_card)
-                            _card:start_materialize()
-                            G.GAME.blind:debuff_card(_card)
-                            G.hand:sort()
-                            if context.blueprint_card then
-                                context.blueprint_card:juice_up()
-                            else
-                                card:juice_up()
-                            end
-                            return true
-                        end
-                    }))
-                    SMODS.calculate_context({ playing_card_added = true, cards = { _card } })
+                    G.hand:emplace(_card)
+                    _card:start_materialize()
+                    G.GAME.blind:debuff_card(_card)
+                    G.hand:sort()
+                    if context.blueprint_card then
+                        context.blueprint_card:juice_up()
+                    else
+                        card:juice_up()
+                    end
+                    return true
                 end
-            }
+            }))
+            SMODS.calculate_context({ playing_card_added = true, cards = { _card } })
+            return nil, true -- This is for Joker retrigger purposes
         end
     end,
     check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'double_gold' }`
@@ -3674,29 +3655,24 @@ SMODS.Joker {
                 if removed_card.shattered then glass_cards = glass_cards + 1 end
             end
             if glass_cards > 0 then
-                return {
+                G.E_MANAGER:add_event(Event({
                     func = function()
-                        -- This is for retrigger purposes, Jokers need to return something to retrigger
-                        -- You can also do this outside the return and `return nil, true` instead
                         G.E_MANAGER:add_event(Event({
                             func = function()
-                                G.E_MANAGER:add_event(Event({
-                                    func = function()
-                                        card.ability.extra.Xmult = card.ability.extra.Xmult +
-                                            card.ability.extra.Xmult_gain * glass_cards
-                                        return true
-                                    end
-                                }))
-                                SMODS.calculate_effect(
-                                    {
-                                        message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult +
-                                        card.ability.extra.Xmult_gain * glass_cards } }
-                                    }, card)
+                                card.ability.extra.Xmult = card.ability.extra.Xmult +
+                                    card.ability.extra.Xmult_gain * glass_cards
                                 return true
                             end
                         }))
+                        SMODS.calculate_effect(
+                            {
+                                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult +
+                                card.ability.extra.Xmult_gain * glass_cards } }
+                            }, card)
+                        return true
                     end
-                }
+                }))
+                return nil, true -- This is for Joker retrigger purposes
             end
         end
         if context.using_consumeable and not context.blueprint and context.consumeable.config.center.key == 'c_hanged_man' then
@@ -3752,17 +3728,21 @@ SMODS.Joker {
     rarity = 2,
     cost = 5,
     pos = { x = 6, y = 5 },
-    config = {},
     locked_loc_vars = function(self, info_queue, card)
         return { vars = { 4 } }
     end,
     check_for_unlock = function(self, args) -- equivalent to `unlock_condition = { type = 'ante_up', ante = 4 }`
         return args.type == 'ante_up' and args.ante == 4
-    end,
-    -- Right now there's no easy way to recreate Showman's effect without patching every instance of the code checking directly for Showman. So instead we can cheat and just let the game treat it like vanilla Showman like this:
-    name = "Showman"
+    end
 }
 
+local smods_showman_ref = SMODS.showman
+function SMODS.showman(card_key)
+    if next(SMODS.find_card('j_vremade_ring_master')) then
+        return true
+    end
+    return smods_showman_ref(card_key)
+end
 -- Flower Pot
 SMODS.Joker {
     key = "flower_pot",
@@ -4563,29 +4543,24 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            return {
-                func = function()
-                    -- This is for retrigger purposes, Jokers need to return something to retrigger
-                    -- You can also do this outside the return and `return nil, true` instead
+            G.E_MANAGER:add_event(Event({
+                func = (function()
                     G.E_MANAGER:add_event(Event({
-                        func = (function()
-                            G.E_MANAGER:add_event(Event({
-                                func = function()
-                                    SMODS.add_card {
-                                        set = 'Tarot',
-                                        key_append = 'vremade_cartomancer' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
-                                    }
-                                    G.GAME.consumeable_buffer = 0
-                                    return true
-                                end
-                            }))
-                            SMODS.calculate_effect({ message = localize('k_plus_tarot'), colour = G.C.PURPLE },
-                                context.blueprint_card or card)
+                        func = function()
+                            SMODS.add_card {
+                                set = 'Tarot',
+                                key_append = 'vremade_cartomancer' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
+                            }
+                            G.GAME.consumeable_buffer = 0
                             return true
-                        end)
+                        end
                     }))
-                end
-            }
+                    SMODS.calculate_effect({ message = localize('k_plus_tarot'), colour = G.C.PURPLE },
+                        context.blueprint_card or card)
+                    return true
+                end)
+            }))
+            return nil, true -- This is for Joker retrigger purposes
         end
     end,
     locked_loc_vars = function(self, info_queue, card)
@@ -4784,13 +4759,8 @@ SMODS.Joker {
                     colour = G.C.RED
                 }
             else
-                return {
-                    -- This is for retrigger purposes, Jokers need to return something to retrigger
-                    -- You can also do this outside the return and `return nil, true` instead
-                    func = function()
-                        card.ability.extra.discards_remaining = card.ability.extra.discards_remaining - 1
-                    end
-                }
+                card.ability.extra.discards_remaining = card.ability.extra.discards_remaining - 1
+                return nil, true -- This is for Joker retrigger purposes
             end
         end
         if context.joker_main then
@@ -4812,26 +4782,21 @@ SMODS.Joker {
     soul_pos = { x = 6, y = 9 },
     calculate = function(self, card, context)
         if context.setting_blind and not context.blueprint and context.blind.boss then
-            return {
+            G.E_MANAGER:add_event(Event({
                 func = function()
-                    -- This is for retrigger purposes, Jokers need to return something to retrigger
-                    -- You can also do this outside the return and `return nil, true` instead
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            G.E_MANAGER:add_event(Event({
-                                func = function()
-                                    G.GAME.blind:disable()
-                                    play_sound('timpani')
-                                    delay(0.4)
-                                    return true
-                                end
-                            }))
-                            SMODS.calculate_effect({ message = localize('ph_boss_disabled') }, card)
+                            G.GAME.blind:disable()
+                            play_sound('timpani')
+                            delay(0.4)
                             return true
                         end
                     }))
+                    SMODS.calculate_effect({ message = localize('ph_boss_disabled') }, card)
+                    return true
                 end
-            }
+            }))
+            return nil, true -- This is for Joker retrigger purposes
         end
     end,
     add_to_deck = function(self, card, from_debuff)

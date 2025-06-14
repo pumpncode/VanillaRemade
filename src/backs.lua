@@ -390,9 +390,7 @@ SMODS.Back {
         return { vars = { localize { type = 'name_text', key = 'tag_double', set = 'Tag' } } }
     end,
     calculate = function(self, back, context)
-        -- This context is only ever used for this deck in vanilla
-        -- The timing of this trigger is unique to this context as well
-        if context.context == 'eval' and G.GAME.last_blind and G.GAME.last_blind.boss then
+        if context.round_eval and G.GAME.last_blind and G.GAME.last_blind.boss then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     add_tag(Tag('tag_double'))
