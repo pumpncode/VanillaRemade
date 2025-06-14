@@ -626,9 +626,9 @@ SMODS.Consumable {
         if pseudorandom('vremade_wheel_of_fortune') < G.GAME.probabilities.normal / card.ability.extra.odds then
             local editionless_jokers = SMODS.Edition:get_edition_cards(G.jokers, true)
 
-            local eligible_card = pseudorandom_element(editionless_jokers, pseudoseed("vremade_wheel_of_fortune"))
+            local eligible_card = pseudorandom_element(editionless_jokers, 'vremade_wheel_of_fortune')
             local edition = poll_edition('vremade_wheel_of_fortune', nil, true, true,
-                { 'e_vremade_polychrome', 'e_vremade_holo', 'e_vremade_foil' })
+                { 'e_polychrome', 'e_holo', 'e_foil' })
             eligible_card:set_edition(edition, true)
             check_for_unlock({ type = 'have_edition' })
         else

@@ -36,7 +36,7 @@ SMODS.Blind {
                         end
                         for i = 1, 2 do
                             if G.hand.cards[i] then
-                                local selected_card, card_index = pseudorandom_element(_cards, pseudoseed('vremade_hook'))
+                                local selected_card, card_index = pseudorandom_element(_cards, 'vremade_hook')
                                 G.hand:add_to_highlighted(selected_card, true)
                                 table.remove(_cards, card_index)
                                 any_selected = true
@@ -700,7 +700,7 @@ SMODS.Blind {
                         end
                     end
                     if #jokers == 0 then jokers = fallback_jokers end
-                    local _card = pseudorandom_element(jokers, pseudoseed('vremade_crimson_heart'))
+                    local _card = pseudorandom_element(jokers, 'vremade_crimson_heart')
                     if _card then
                         _card.ability.crimson_heart_chosen = true
                         SMODS.recalc_debuff(_card)
@@ -745,7 +745,7 @@ SMODS.Blind {
                 end
                 if not any_forced then
                     G.hand:unhighlight_all()
-                    local forced_card = pseudorandom_element(G.hand.cards, pseudoseed('vremade_cerulean_bell'))
+                    local forced_card = pseudorandom_element(G.hand.cards, 'vremade_cerulean_bell')
                     forced_card.ability.forced_selection = true
                     G.hand:add_to_highlighted(forced_card)
                 end

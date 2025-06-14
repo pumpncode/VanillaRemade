@@ -1607,7 +1607,7 @@ SMODS.Joker {
                     _poker_hands[#_poker_hands + 1] = k
                 end
             end
-            card.ability.extra.poker_hand = pseudorandom_element(_poker_hands, pseudoseed('vremade_to_do'))
+            card.ability.extra.poker_hand = pseudorandom_element(_poker_hands, 'vremade_to_do')
             return {
                 message = localize('k_reset')
             }
@@ -1621,7 +1621,7 @@ SMODS.Joker {
             end
         end
         card.ability.extra.poker_hand = pseudorandom_element(_poker_hands,
-            pseudoseed((card.area and card.area.config.type == 'title') and 'vremade_false_to_do' or 'vremade_to_do'))
+            (card.area and card.area.config.type == 'title') and 'vremade_false_to_do' or 'vremade_to_do')
     end
 }
 
@@ -1752,7 +1752,7 @@ SMODS.Joker {
                         G.jokers.cards[i]
                 end
             end
-            local joker_to_destroy = pseudorandom_element(destructable_jokers, pseudoseed('vremade_madness'))
+            local joker_to_destroy = pseudorandom_element(destructable_jokers, 'vremade_madness')
 
             if joker_to_destroy then
                 joker_to_destroy.getting_sliced = true
@@ -2424,7 +2424,7 @@ local function reset_vremade_mail_rank()
             valid_mail_cards[#valid_mail_cards + 1] = playing_card
         end
     end
-    local mail_card = pseudorandom_element(valid_mail_cards, pseudoseed('vremade_mail' .. G.GAME.round_resets.ante))
+    local mail_card = pseudorandom_element(valid_mail_cards, 'vremade_mail' .. G.GAME.round_resets.ante)
     if mail_card then
         G.GAME.current_round.vremade_mail_card.rank = mail_card.base.value
         G.GAME.current_round.vremade_mail_card.id = mail_card.base.id
@@ -2884,7 +2884,7 @@ local function reset_vremade_ancient_card()
     for k, v in ipairs({ 'Spades', 'Hearts', 'Clubs', 'Diamonds' }) do
         if v ~= G.GAME.current_round.vremade_ancient_card.suit then ancient_suits[#ancient_suits + 1] = v end
     end
-    local ancient_card = pseudorandom_element(ancient_suits, pseudoseed('vremade_ancient' .. G.GAME.round_resets.ante))
+    local ancient_card = pseudorandom_element(ancient_suits, 'vremade_ancient' .. G.GAME.round_resets.ante)
     G.GAME.current_round.vremade_ancient_card.suit = ancient_card
 end
 
@@ -3066,7 +3066,7 @@ local function reset_vremade_castle_card()
         end
     end
     local castle_card = pseudorandom_element(valid_castle_cards,
-        pseudoseed('vremade_castle' .. G.GAME.round_resets.ante))
+        'vremade_castle' .. G.GAME.round_resets.ante)
     if castle_card then
         G.GAME.current_round.vremade_castle_card.suit = castle_card.base.suit
     end
@@ -3987,7 +3987,7 @@ local function reset_vremade_idol_card()
             valid_idol_cards[#valid_idol_cards + 1] = playing_card
         end
     end
-    local idol_card = pseudorandom_element(valid_idol_cards, pseudoseed('idol' .. G.GAME.round_resets.ante))
+    local idol_card = pseudorandom_element(valid_idol_cards, 'vremade_idol' .. G.GAME.round_resets.ante)
     if idol_card then
         G.GAME.current_round.vremade_idol_card.rank = idol_card.base.value
         G.GAME.current_round.vremade_idol_card.suit = idol_card.base.suit
@@ -4327,7 +4327,7 @@ SMODS.Joker {
             end
             if #jokers > 0 then
                 if #G.jokers.cards <= G.jokers.config.card_limit then
-                    local chosen_joker = pseudorandom_element(jokers, pseudoseed('vremade_invisible'))
+                    local chosen_joker = pseudorandom_element(jokers, 'vremade_invisible')
                     local copied_joker = copy_card(chosen_joker, nil, nil, nil,
                         chosen_joker.edition and chosen_joker.edition.negative)
                     copied_joker:add_to_deck()
@@ -4824,7 +4824,7 @@ SMODS.Joker {
         if context.ending_shop and G.consumeables.cards[1] then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local card_to_copy, _ = pseudorandom_element(G.consumeables.cards, pseudoseed('vremade_perkeo'))
+                    local card_to_copy, _ = pseudorandom_element(G.consumeables.cards, 'vremade_perkeo')
                     local copied_card = copy_card(card_to_copy)
                     copied_card:set_edition("e_negative", true)
                     copied_card:add_to_deck()

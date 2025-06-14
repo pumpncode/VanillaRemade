@@ -23,7 +23,7 @@ SMODS.Consumable {
     end,
     use = function(self, card, area, copier)
         local used_tarot = copier or card
-        local card_to_destroy = pseudorandom_element(G.hand.cards, pseudoseed('random_destroy'))
+        local card_to_destroy = pseudorandom_element(G.hand.cards, 'random_destroy')
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
@@ -46,14 +46,14 @@ SMODS.Consumable {
                         local rank = SMODS.Ranks[rank_key]
                         if rank.face then table.insert(faces, rank) end
                     end
-                    local _rank = pseudorandom_element(faces, pseudoseed('familiar_create')).card_key
+                    local _rank = pseudorandom_element(faces, 'familiar_create').card_key
                     local cen_pool = {}
                     for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
                         if enhancement_center.key ~= 'm_stone' and not enhancement_center.overrides_base_rank then
                             cen_pool[#cen_pool + 1] = enhancement_center
                         end
                     end
-                    local enhancement = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
+                    local enhancement = pseudorandom_element(cen_pool, 'spe_card')
                     cards[i] = SMODS.add_card { set = "Base", rank = _rank, enhancement = enhancement.key }
                 end
                 SMODS.calculate_context({ playing_card_added = true, cards = cards })
@@ -78,7 +78,7 @@ SMODS.Consumable {
     end,
     use = function(self, card, area, copier)
         local used_tarot = copier or card
-        local card_to_destroy = pseudorandom_element(G.hand.cards, pseudoseed('random_destroy'))
+        local card_to_destroy = pseudorandom_element(G.hand.cards, 'random_destroy')
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
@@ -102,7 +102,7 @@ SMODS.Consumable {
                             cen_pool[#cen_pool + 1] = enhancement_center
                         end
                     end
-                    local enhancement = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
+                    local enhancement = pseudorandom_element(cen_pool, 'spe_card')
                     cards[i] = SMODS.add_card { set = "Base", rank = 'Ace', enhancement = enhancement.key }
                 end
                 SMODS.calculate_context({ playing_card_added = true, cards = cards })
@@ -127,7 +127,7 @@ SMODS.Consumable {
     end,
     use = function(self, card, area, copier)
         local used_tarot = copier or card
-        local card_to_destroy = pseudorandom_element(G.hand.cards, pseudoseed('random_destroy'))
+        local card_to_destroy = pseudorandom_element(G.hand.cards, 'random_destroy')
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.4,
@@ -149,14 +149,14 @@ SMODS.Consumable {
                         local rank = SMODS.Ranks[rank_key]
                         if rank_key ~= 'Ace' and not rank.face then table.insert(numbers, rank) end
                     end
-                    local _rank = pseudorandom_element(numbers, pseudoseed('incantation_create')).card_key
+                    local _rank = pseudorandom_element(numbers, 'incantation_create').card_key
                     local cen_pool = {}
                     for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
                         if enhancement_center.key ~= 'm_stone' and not enhancement_center.overrides_base_rank then
                             cen_pool[#cen_pool + 1] = enhancement_center
                         end
                     end
-                    local enhancement = pseudorandom_element(cen_pool, pseudoseed('spe_card'))
+                    local enhancement = pseudorandom_element(cen_pool, 'spe_card')
                     cards[i] = SMODS.add_card { set = "Base", rank = _rank, enhancement = enhancement.key }
                 end
                 SMODS.calculate_context({ playing_card_added = true, cards = cards })
@@ -308,7 +308,7 @@ SMODS.Consumable {
                 end
             }))
         end
-        local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('sigil'))
+        local _suit = pseudorandom_element(SMODS.Suits, 'sigil')
         for i = 1, #G.hand.cards do
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -367,7 +367,7 @@ SMODS.Consumable {
                 end
             }))
         end
-        local _rank = pseudorandom_element(SMODS.Ranks, pseudoseed('ouija'))
+        local _rank = pseudorandom_element(SMODS.Ranks, 'ouija')
         for i = 1, #G.hand.cards do
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -413,7 +413,7 @@ SMODS.Consumable {
             trigger = 'after',
             delay = 0.4,
             func = function()
-                local eligible_card = pseudorandom_element(editionless_jokers, pseudoseed('ectoplasm'))
+                local eligible_card = pseudorandom_element(editionless_jokers, 'ectoplasm')
                 eligible_card:set_edition({ negative = true })
 
                 G.GAME.ecto_minus = G.GAME.ecto_minus or 1
@@ -450,7 +450,7 @@ SMODS.Consumable {
             end
         )
 
-        pseudoshuffle(temp_hand, pseudoseed('immolate'))
+        pseudoshuffle(temp_hand, 'immolate')
 
         for i = 1, card.ability.extra.destroy do destroyed_cards[#destroyed_cards + 1] = temp_hand[i] end
 
@@ -485,7 +485,7 @@ SMODS.Consumable {
             if not joker.ability.eternal then deletable_jokers[#deletable_jokers + 1] = joker end
         end
 
-        local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('ankh_choice'))
+        local chosen_joker = pseudorandom_element(G.jokers.cards, 'ankh_choice')
         local _first_dissolve = nil
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
@@ -584,7 +584,7 @@ SMODS.Consumable {
             trigger = 'after',
             delay = 0.4,
             func = function()
-                local eligible_card = pseudorandom_element(editionless_jokers, pseudoseed('hex'))
+                local eligible_card = pseudorandom_element(editionless_jokers, 'hex')
                 eligible_card:set_edition({ polychrome = true })
 
                 local _first_dissolve = nil
