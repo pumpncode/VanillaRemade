@@ -421,7 +421,7 @@ SMODS.Back {
     config = { ante_scaling = 2 },
     unlocked = false,
     loc_vars = function(self, info_queue, back)
-        return { vars = { self.config.extra.ante_scaling } }
+        return { vars = { self.config.ante_scaling } }
     end,
     calculate = function(self, back, context)
         if context.final_scoring_step then
