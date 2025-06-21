@@ -580,7 +580,7 @@ SMODS.Joker {
     rarity = 1,
     cost = 5,
     pos = { x = 0, y = 5 },
-    config = { extra = { odds = 1 } },
+    config = { extra = { odds = 4 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
     end,

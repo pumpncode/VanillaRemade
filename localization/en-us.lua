@@ -32,7 +32,7 @@ return {
                 text = {
                     "{C:attention}+#1#{} Joker slot",
                     "",
-                    "{C:blue}-#2#{} hand",
+                    "{C:blue}#2#{} hand",
                     "every round",
                 },
                 unlock = {
