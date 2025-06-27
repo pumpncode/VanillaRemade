@@ -416,7 +416,7 @@ SMODS.Blind {
     boss_colour = HEX("439a4f"),
     calculate = function(self, blind, context)
         if not blind.disabled then
-            if context.drawing_cards then
+            if context.drawing_cards and (G.GAME.current_round.hands_played ~= 0 or G.GAME.current_round.discards_used ~= 0) then
                 return {
                     cards_to_draw = 3
                 }
