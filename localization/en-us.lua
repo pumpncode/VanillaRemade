@@ -2013,6 +2013,15 @@ return {
                     "learn what it does",
                 },
             },
+            undiscovered_vremade_planet = {
+                name = "Not Discovered",
+                text = {
+                    "Purchase or use",
+                    "this card in an",
+                    "unseeded run to",
+                    "learn what it does",
+                },
+            },
             p_vremade_arcana_jumbo = {
                 name = "Jumbo Arcana Pack",
                 text = {
@@ -2128,6 +2137,116 @@ return {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:attention} Playing{} cards to",
                     "add to your deck",
+                },
+            },
+        },
+        vremade_Planet = { -- If you're making regular Planets the key will be "Planet"
+            c_vremade_ceres = {
+                name = "Ceres",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_earth = {
+                name = "Earth",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_eris = {
+                name = "Eris",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_jupiter = {
+                name = "Jupiter",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_mars = {
+                name = "Mars",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_mercury = {
+                name = "Mercury",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_neptune = {
+                name = "Neptune",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_planet_x = {
+                name = "Planet X",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_pluto = {
+                name = "Pluto",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_saturn = {
+                name = "Saturn",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_uranus = {
+                name = "Uranus",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_venus = {
+                name = "Venus",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
                 },
             },
         },
@@ -3060,11 +3179,13 @@ return {
         dictionary = {
             b_vremade_spectral_cards = "Spectral Cards",
             b_vremade_tarot_cards = "Tarot Cards",
+            b_vremade_planet_cards = "Planet Cards",
             k_vremade_common = "Common",
             k_vremade_legendary = "Legendary",
             k_vremade_rare = "Rare",
             k_vremade_spectral = "Spectral",
             k_vremade_tarot = "Tarot",
+            k_vremade_planet = "Planet",
             k_vremade_uncommon = "Uncommon",
         },
         labels = {
@@ -3085,6 +3206,7 @@ return {
             vremade_rental = "Rental",
             vremade_spectral = "Spectral",
             vremade_tarot = "Tarot",
+            vremade_planet = "Planet",
             vremade_uncommon = "Uncommon",
         },
         ranks = {
