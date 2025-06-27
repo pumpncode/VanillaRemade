@@ -3209,6 +3209,70 @@ return {
             vremade_planet = "Planet",
             vremade_uncommon = "Uncommon",
         },
+        poker_hand_descriptions = {
+            ["vremade_Five of a Kind"] = {
+                "5 cards with the same rank",
+            },
+            vremade_Flush = {
+                "5 cards that share the same suit",
+            },
+            ["vremade_Flush Five"] = {
+                "5 cards with the same rank and suit",
+            },
+            ["vremade_Flush House"] = {
+                "A Three of a Kind and a Pair with",
+                "all cards sharing the same suit",
+            },
+            ["vremade_Four of a Kind"] = {
+                "4 cards with the same rank. They may",
+                "be played with 1 other unscored card",
+            },
+            ["vremade_Full House"] = {
+                "A Three of a Kind and a Pair",
+            },
+            ["vremade_High Card"] = {
+                "If the played hand is not any of the above",
+                "hands, only the highest ranked card scores",
+            },
+            vremade_Pair = {
+                "2 cards that share the same rank. They may",
+                "be played with up to 3 other unscored cards",
+            },
+            ["vremade_Royal Flush"] = {
+                "5 cards in a row (consecutive ranks) with",
+                "all cards sharing the same suit",
+            },
+            vremade_Straight = {
+                "5 cards in a row (consecutive ranks)",
+            },
+            ["vremade_Straight Flush"] = {
+                "5 cards in a row (consecutive ranks) with",
+                "all cards sharing the same suit",
+            },
+            ["vremade_Three of a Kind"] = {
+                "3 cards with the same rank. They may be",
+                "played with up to 2 other unscored cards",
+            },
+            ["vremade_Two Pair"] = {
+                "2 pairs of cards with different ranks, may",
+                "be played with 1 other unscored card",
+            },
+        },
+        poker_hands = {
+            ["vremade_Five of a Kind"] = "Five of a Kind",
+            vremade_Flush = "Flush",
+            ["vremade_Flush Five"] = "Flush Five",
+            ["vremade_Flush House"] = "Flush House",
+            ["vremade_Four of a Kind"] = "Four of a Kind",
+            ["vremade_Full House"] = "Full House",
+            ["vremade_High Card"] = "High Card",
+            vremade_Pair = "Pair",
+            ["vremade_Royal Flush"] = "Royal Flush",
+            vremade_Straight = "Straight",
+            ["vremade_Straight Flush"] = "Straight Flush",
+            ["vremade_Three of a Kind"] = "Three of a Kind",
+            ["vremade_Two Pair"] = "Two Pair",
+        },
         ranks = {
             vremade_10 = "10",
             vremade_2 = "2",
