@@ -11,6 +11,8 @@ assert(SMODS.load_file("src/challenges.lua"))()
 assert(SMODS.load_file("src/stakes.lua"))()
 assert(SMODS.load_file("src/rarities.lua"))()
 assert(SMODS.load_file("src/stickers.lua"))()
+assert(SMODS.load_file("src/tags.lua"))()
+assert(SMODS.load_file("src/boosters.lua"))()
 
 -- These are annoying (but they work)
 --assert(SMODS.load_file("src/suits.lua"))()
