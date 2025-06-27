@@ -47,8 +47,26 @@ SMODS.Blind {
                         return true
                     end
                 }))
-                blind.triggered = true
+                blind.triggered = true -- This won't trigger Matador in this context due to a Vanilla bug (a workaround is setting it in context.debuff_hand)
                 delay(0.7)
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
+                    func = (function()
+                        SMODS.juice_up_blind()
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.06 * G.SETTINGS.GAMESPEED,
+                            blockable = false,
+                            blocking = false,
+                            func = function()
+                                play_sound('tarot2', 0.76, 0.4); return true
+                            end
+                        }))
+                        play_sound('tarot2', 1, 0.4)
+                        return true
+                    end)
+                }))
+                delay(0.4)
             end
         end
     end
@@ -486,7 +504,7 @@ SMODS.Blind {
                         return true
                     end
                 }))
-                blind.triggered = true
+                blind.triggered = true -- This won't trigger Matador in this context due to a Vanilla bug (a workaround is setting it in context.debuff_hand)
                 G.E_MANAGER:add_event(Event({
                     trigger = 'immediate',
                     func = (function()
@@ -522,7 +540,7 @@ SMODS.Blind {
     calculate = function(self, blind, context)
         if not blind.disabled then
             if context.modify_hand then
-                blind.triggered = true
+                blind.triggered = true -- This won't trigger Matador in this context due to a Vanilla bug (a workaround is setting it in context.debuff_hand)
                 mult = math.max(math.floor(mult * 0.5 + 0.5), 1)
                 hand_chips = math.max(math.floor(hand_chips * 0.5 + 0.5), 0)
                 update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
@@ -676,7 +694,7 @@ SMODS.Blind {
                 end
             end
             if context.press_play and G.jokers.cards[1] then
-                blind.triggered = true
+                blind.triggered = true -- This won't trigger Matador in this context due to a Vanilla bug (a workaround is setting it in context.debuff_hand)
                 blind.prepped = true
             end
             if context.hand_drawn then

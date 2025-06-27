@@ -3743,6 +3743,7 @@ function SMODS.showman(card_key)
     end
     return smods_showman_ref(card_key)
 end
+
 -- Flower Pot
 SMODS.Joker {
     key = "flower_pot",
