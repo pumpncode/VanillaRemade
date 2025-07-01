@@ -64,6 +64,11 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.cards > 1
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
 
@@ -113,6 +118,11 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.cards > 1
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
 
@@ -167,6 +177,11 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.cards > 1
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
 
@@ -209,6 +224,11 @@ SMODS.Consumable {
             end
         }))
     end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
+    end
     -- The config field already handles the functionality so it doesn't need to be implemented
     -- The following is how the implementation would be
     --[[
@@ -244,6 +264,11 @@ SMODS.Consumable {
             end
         }))
     end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
+    end
     -- The config field already handles the functionality so it doesn't need to be implemented
     -- The following is how the implementation would be
     --[[
@@ -276,6 +301,11 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return #G.jokers.cards < G.jokers.config.card_limit or card.area == G.jokers
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
 
@@ -335,6 +365,11 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.cards > 0
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
 
@@ -395,6 +430,11 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.cards > 0
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
 
@@ -427,6 +467,11 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return next(SMODS.Edition:get_edition_cards(G.jokers, true))
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
 
@@ -471,6 +516,11 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.cards > 0
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
 
@@ -518,6 +568,11 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return G.jokers and #G.jokers.cards > 0 and #G.jokers.cards < G.jokers.config.card_limit
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
 
@@ -560,6 +615,11 @@ SMODS.Consumable {
             end
         }))
     end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
+    end
     -- The config field already handles the functionality so it doesn't need to be implemented
     -- The following is how the implementation would be
     --[[
@@ -602,6 +662,11 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return next(SMODS.Edition:get_edition_cards(G.jokers, true))
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
 
@@ -644,6 +709,11 @@ SMODS.Consumable {
             end
         }))
     end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
+    end
     -- The config field already handles the functionality so it doesn't need to be implemented
     -- The following is how the implementation would be
     --[[
@@ -692,6 +762,11 @@ SMODS.Consumable {
             end
         }))
     end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
+    end
     -- The config field already handles the functionality so it doesn't need to be implemented
     -- The following is how the implementation would be
     --[[
@@ -731,6 +806,11 @@ SMODS.Consumable {
             end
         }))
     end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
+    end
     -- The config field already handles the functionality so it doesn't need to be implemented
     -- The following is how the implementation would be
     --[[
@@ -766,6 +846,18 @@ SMODS.Consumable {
     end,
     draw = function(self, card, layer)
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
+    end
+}
+
+-- Adds soul sprite to The Soul
+-- We can't use `draw` due to some draw order issues
+SMODS.DrawStep {
+    key = 'vremade_soul',
+    order = 50,
+    func = function(card)
+        if card.config.center.key == "c_vremade_soul" and (card.config.center.discovered or card.bypass_discovery_center) then
             local scale_mod = 0.05 + 0.05 * math.sin(1.8 * G.TIMERS.REAL) +
                 0.07 * math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL)) * math.pi * 14) *
                 (1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL))) ^ 3
@@ -777,7 +869,8 @@ SMODS.Consumable {
                 0.1 + 0.03 * math.sin(1.8 * G.TIMERS.REAL), nil, 0.6)
             G.shared_soul:draw_shader('dissolve', nil, nil, nil, card.children.center, scale_mod, rotate_mod)
         end
-    end
+    end,
+    conditions = { vortex = false, facing = 'front' },
 }
 
 -- Black Hole
@@ -831,5 +924,10 @@ SMODS.Consumable {
     end,
     can_use = function(self, card)
         return true
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
+        end
     end
 }
