@@ -1602,9 +1602,9 @@ SMODS.Joker {
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             local _poker_hands = {}
-            for k, v in pairs(G.GAME.hands) do
-                if v.visible and k ~= card.ability.extra.poker_hand then
-                    _poker_hands[#_poker_hands + 1] = k
+            for handname, _ in pairs(G.GAME.hands) do
+                if SMODS.is_poker_hand_visible(handname) and handname ~= card.ability.extra.poker_hand then
+                    _poker_hands[#_poker_hands + 1] = handname
                 end
             end
             card.ability.extra.poker_hand = pseudorandom_element(_poker_hands, 'vremade_to_do')
@@ -1615,9 +1615,9 @@ SMODS.Joker {
     end,
     set_ability = function(self, card, initial, delay_sprites)
         local _poker_hands = {}
-        for k, v in pairs(G.GAME.hands) do
-            if v.visible and k ~= card.ability.extra.poker_hand then
-                _poker_hands[#_poker_hands + 1] = k
+        for handname, _ in pairs(G.GAME.hands) do
+            if SMODS.is_poker_hand_visible(handname) and handname ~= card.ability.extra.poker_hand then
+                _poker_hands[#_poker_hands + 1] = handname
             end
         end
         card.ability.extra.poker_hand = pseudorandom_element(_poker_hands,
@@ -2101,8 +2101,8 @@ SMODS.Joker {
         if context.before and context.main_eval and not context.blueprint then
             local reset = true
             local play_more_than = (G.GAME.hands[context.scoring_name].played or 0)
-            for k, v in pairs(G.GAME.hands) do
-                if k ~= context.scoring_name and v.played >= play_more_than and v.visible then
+            for handname, values in pairs(G.GAME.hands) do
+                if handname ~= context.scoring_name and values.played >= play_more_than and SMODS.is_poker_hand_visible(handname) then
                     reset = false
                     break
                 end
