@@ -511,7 +511,23 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.setting_blind then
+            --[[
+                All of this can be replaced by the following if you don't care about the animation
+
+                local stone_card = SMODS.add_card { set = "Base", enhancement = "m_stone", area = G.deck }
+                return {
+                    message = localize('k_plus_stone'),
+                    colour = G.C.SECONDARY_SET.Enhanced,
+                    func = function()
+                        SMODS.calculate_context({ playing_card_added = true, cards = { stone_card } })
+                    end
+                }
+            ]]
             local stone_card = SMODS.create_card { set = "Base", enhancement = "m_stone", area = G.discard }
+            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+            stone_card.playing_card = G.playing_card
+            table.insert(G.playing_cards, stone_card)
+
             G.E_MANAGER:add_event(Event({
                 func = function()
                     stone_card:start_materialize({ G.C.SECONDARY_SET.Enhanced })
@@ -3363,7 +3379,19 @@ SMODS.Joker {
     pos = { x = 8, y = 8 },
     calculate = function(self, card, context)
         if context.first_hand_drawn then
+            --[[
+                All of this can be replaced by the following if you don't care about the animation
+
+                local _card = SMODS.add_card { set = "Base", seal = SMODS.poll_seal({ guaranteed = true, type_key = 'vremade_certificate_seal' }) }
+                G.GAME.blind:debuff_card(_card)
+                G.hand:sort()
+                SMODS.calculate_context({ playing_card_added = true, cards = { _card } })
+            ]]
             local _card = SMODS.create_card { set = "Base", seal = SMODS.poll_seal({ guaranteed = true, type_key = 'vremade_certificate_seal' }), area = G.discard }
+            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+            _card.playing_card = G.playing_card
+            table.insert(G.playing_cards, _card)
+
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.hand:emplace(_card)
