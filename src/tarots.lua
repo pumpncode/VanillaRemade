@@ -620,7 +620,8 @@ SMODS.Consumable {
     pos = { x = 0, y = 1 },
     config = { extra = { odds = 4 } },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+            'vremade_wheel_of_fortune')
         return { vars = { numerator, denominator } }
     end,
     use = function(self, card, area, copier)

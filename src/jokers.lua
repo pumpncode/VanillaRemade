@@ -582,13 +582,13 @@ SMODS.Joker {
     pos = { x = 0, y = 5 },
     config = { extra = { odds = 4 } },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_8ball')
         return { vars = { numerator, denominator } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and
             #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            if (context.other_card:get_id() == 8) and SMODS.pseudorandom_probability(card, 'vremade_8_ball', 1, card.ability.extra.odds) then
+            if (context.other_card:get_id() == 8) and SMODS.pseudorandom_probability(card, 'vremade_8ball', 1, card.ability.extra.odds) then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 return {
                     extra = {
@@ -904,7 +904,7 @@ SMODS.Joker {
     pos = { x = 7, y = 6 },
     config = { extra = { odds = 6, mult = 15 } },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_gros_michel')
         return { vars = { card.ability.extra.mult, numerator, denominator } }
     end,
     calculate = function(self, card, context)
@@ -1032,7 +1032,7 @@ SMODS.Joker {
     pos = { x = 1, y = 4 },
     config = { extra = { odds = 2, dollars = 2 } },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_business')
         return { vars = { numerator, denominator, card.ability.extra.dollars } }
     end,
     calculate = function(self, card, context)
@@ -1121,7 +1121,7 @@ SMODS.Joker {
     pos = { x = 3, y = 5 },
     config = { extra = { odds = 4 } },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_space')
         return { vars = { numerator, denominator } }
     end,
     calculate = function(self, card, context)
@@ -1639,7 +1639,7 @@ SMODS.Joker {
     pos = { x = 5, y = 11 },
     config = { extra = { odds = 1000, Xmult = 3 } },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_cavendish')
         return { vars = { card.ability.extra.Xmult, numerator, denominator } }
     end,
     calculate = function(self, card, context)
@@ -2358,7 +2358,8 @@ SMODS.Joker {
     pos = { x = 6, y = 13 },
     config = { extra = { odds = 2, dollars = 1 } },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+            'vremade_reserved_parking')
         return { vars = { card.ability.extra.dollars, numerator, denominator } }
     end,
     calculate = function(self, card, context)
@@ -2466,7 +2467,8 @@ SMODS.Joker {
     pos = { x = 9, y = 13 },
     config = { extra = { odds = 2 } },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+            'vremade_hallucination' .. G.GAME.round_resets.ante)
         return { vars = { numerator, denominator } }
     end,
     calculate = function(self, card, context)
@@ -3542,7 +3544,7 @@ SMODS.Joker {
     pos = { x = 0, y = 8 },
     config = { extra = { odds = 2, Xmult = 1.5 } },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_bloodstone')
         return { vars = { numerator, denominator, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)

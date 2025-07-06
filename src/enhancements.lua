@@ -32,7 +32,7 @@ SMODS.Enhancement {
     config = { Xmult = 2, extra = { odds = 4 } },
     shatters = true,
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_glass')
         return { vars = { card.ability.Xmult, numerator, denominator } }
     end,
     calculate = function(self, card, context)
@@ -84,9 +84,10 @@ SMODS.Enhancement {
     -- We can't use 'mult' or 'p_dollars' outside of 'extra' here because they would be scored unconditionally if we did
     config = { extra = { mult = 20, dollars = 20, mult_odds = 5, dollars_odds = 15 } },
     loc_vars = function(self, info_queue, card)
-        local mult_numerator, mult_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.mult_odds)
+        local mult_numerator, mult_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.mult_odds,
+            'vremade_lucky_mult')
         local dollars_numerator, dollars_denominator = SMODS.get_probability_vars(card, 1,
-            card.ability.extra.dollars_odds)
+            card.ability.extra.dollars_odds, 'vremade_lucky_money')
         return { vars = { mult_numerator, dollars_numerator, card.ability.extra.mult, mult_denominator, card.ability.extra.dollars, dollars_denominator } }
     end,
     calculate = function(self, card, context)

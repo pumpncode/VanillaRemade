@@ -137,7 +137,7 @@ SMODS.Blind {
     boss = { min = 2 },
     boss_colour = HEX("50bf7c"),
     loc_vars = function(self)
-        local numerator, denominator = SMODS.get_probability_vars(self, 1, 7)
+        local numerator, denominator = SMODS.get_probability_vars(self, 1, 7, 'vremade_wheel')
         return { vars = { numerator, denominator } }
     end,
     collection_loc_vars = function(self)
