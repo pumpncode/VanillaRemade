@@ -511,7 +511,23 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.setting_blind then
+            --[[
+                All of this can be replaced by the following if you don't care about the animation
+
+                local stone_card = SMODS.add_card { set = "Base", enhancement = "m_stone", area = G.deck }
+                return {
+                    message = localize('k_plus_stone'),
+                    colour = G.C.SECONDARY_SET.Enhanced,
+                    func = function()
+                        SMODS.calculate_context({ playing_card_added = true, cards = { stone_card } })
+                    end
+                }
+            ]]
             local stone_card = SMODS.create_card { set = "Base", enhancement = "m_stone", area = G.discard }
+            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+            stone_card.playing_card = G.playing_card
+            table.insert(G.playing_cards, stone_card)
+
             G.E_MANAGER:add_event(Event({
                 func = function()
                     stone_card:start_materialize({ G.C.SECONDARY_SET.Enhanced })
@@ -1606,9 +1622,9 @@ SMODS.Joker {
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             local _poker_hands = {}
-            for k, v in pairs(G.GAME.hands) do
-                if v.visible and k ~= card.ability.extra.poker_hand then
-                    _poker_hands[#_poker_hands + 1] = k
+            for handname, _ in pairs(G.GAME.hands) do
+                if SMODS.is_poker_hand_visible(handname) and handname ~= card.ability.extra.poker_hand then
+                    _poker_hands[#_poker_hands + 1] = handname
                 end
             end
             card.ability.extra.poker_hand = pseudorandom_element(_poker_hands, 'vremade_to_do')
@@ -1619,9 +1635,9 @@ SMODS.Joker {
     end,
     set_ability = function(self, card, initial, delay_sprites)
         local _poker_hands = {}
-        for k, v in pairs(G.GAME.hands) do
-            if v.visible and k ~= card.ability.extra.poker_hand then
-                _poker_hands[#_poker_hands + 1] = k
+        for handname, _ in pairs(G.GAME.hands) do
+            if SMODS.is_poker_hand_visible(handname) and handname ~= card.ability.extra.poker_hand then
+                _poker_hands[#_poker_hands + 1] = handname
             end
         end
         card.ability.extra.poker_hand = pseudorandom_element(_poker_hands,
@@ -2106,8 +2122,8 @@ SMODS.Joker {
         if context.before and context.main_eval and not context.blueprint then
             local reset = true
             local play_more_than = (G.GAME.hands[context.scoring_name].played or 0)
-            for k, v in pairs(G.GAME.hands) do
-                if k ~= context.scoring_name and v.played >= play_more_than and v.visible then
+            for handname, values in pairs(G.GAME.hands) do
+                if handname ~= context.scoring_name and values.played >= play_more_than and SMODS.is_poker_hand_visible(handname) then
                     reset = false
                     break
                 end
@@ -3372,7 +3388,19 @@ SMODS.Joker {
     pos = { x = 8, y = 8 },
     calculate = function(self, card, context)
         if context.first_hand_drawn then
+            --[[
+                All of this can be replaced by the following if you don't care about the animation
+
+                local _card = SMODS.add_card { set = "Base", seal = SMODS.poll_seal({ guaranteed = true, type_key = 'vremade_certificate_seal' }) }
+                G.GAME.blind:debuff_card(_card)
+                G.hand:sort()
+                SMODS.calculate_context({ playing_card_added = true, cards = { _card } })
+            ]]
             local _card = SMODS.create_card { set = "Base", seal = SMODS.poll_seal({ guaranteed = true, type_key = 'vremade_certificate_seal' }), area = G.discard }
+            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+            _card.playing_card = G.playing_card
+            table.insert(G.playing_cards, _card)
+
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.hand:emplace(_card)

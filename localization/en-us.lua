@@ -19,7 +19,7 @@ return {
                 text = {
                     "After defeating each",
                     "{C:attention}Boss Blind{}, gain a",
-                    "{C:attention,T:tag_double}#1#",
+                    "{C:attention,T:tag_vremade_double}#1#",
                 },
                 unlock = {
                     "Win a run with any",
@@ -2013,6 +2013,242 @@ return {
                     "learn what it does",
                 },
             },
+            undiscovered_vremade_planet = {
+                name = "Not Discovered",
+                text = {
+                    "Purchase or use",
+                    "this card in an",
+                    "unseeded run to",
+                    "learn what it does",
+                },
+            },
+            p_vremade_arcana_jumbo = {
+                name = "Jumbo Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_vremade_arcana_mega = {
+                name = "Mega Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_vremade_arcana_normal = {
+                name = "Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_vremade_buffoon_jumbo = {
+                name = "Jumbo Buffoon Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Joker{} cards",
+                },
+            },
+            p_vremade_buffoon_mega = {
+                name = "Mega Buffoon Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Joker{} cards",
+                },
+            },
+            p_vremade_buffoon_normal = {
+                name = "Buffoon Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:joker} Joker{} cards",
+                },
+            },
+            p_vremade_celestial_jumbo = {
+                name = "Jumbo Celestial Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:planet} Planet{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_vremade_celestial_mega = {
+                name = "Mega Celestial Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:planet} Planet{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_vremade_celestial_normal = {
+                name = "Celestial Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:planet} Planet{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_vremade_spectral_jumbo = {
+                name = "Jumbo Spectral Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:spectral} Spectral{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_vremade_spectral_mega = {
+                name = "Mega Spectral Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:spectral} Spectral{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_vremade_spectral_normal = {
+                name = "Spectral Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:spectral} Spectral{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_vremade_standard_jumbo = {
+                name = "Jumbo Standard Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:attention} Playing{} cards to",
+                    "add to your deck",
+                },
+            },
+            p_vremade_standard_mega = {
+                name = "Mega Standard Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:attention} Playing{} cards to",
+                    "add to your deck",
+                },
+            },
+            p_vremade_standard_normal = {
+                name = "Standard Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:attention} Playing{} cards to",
+                    "add to your deck",
+                },
+            },
+        },
+        vremade_Planet = { -- If you're making regular Planets the key will be "Planet"
+            c_vremade_ceres = {
+                name = "Ceres",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_earth = {
+                name = "Earth",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_eris = {
+                name = "Eris",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_jupiter = {
+                name = "Jupiter",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_mars = {
+                name = "Mars",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_mercury = {
+                name = "Mercury",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_neptune = {
+                name = "Neptune",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_planet_x = {
+                name = "Planet X",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_pluto = {
+                name = "Pluto",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_saturn = {
+                name = "Saturn",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_uranus = {
+                name = "Uranus",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
+            c_vremade_venus = {
+                name = "Venus",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#",
+                    "{C:mult}+#3#{} Mult and",
+                    "{C:chips}+#4#{} chips",
+                },
+            },
         },
         vremade_Spectral = { -- If you're making regular Spectrals the key will be "Spectral"
             c_vremade_ankh = {
@@ -2224,6 +2460,187 @@ return {
                 name = "White Stake",
                 text = {
                     "Base Difficulty",
+                },
+            },
+        },
+        Tag = {
+            tag_vremade_boss = {
+                name = "Boss Tag",
+                text = {
+                    "Rerolls the",
+                    "{C:attention}Boss Blind",
+                },
+            },
+            tag_vremade_buffoon = {
+                name = "Buffoon Tag",
+                text = {
+                    "Gives a free",
+                    "{C:attention}Mega Buffoon Pack",
+                },
+            },
+            tag_vremade_charm = {
+                name = "Charm Tag",
+                text = {
+                    "Gives a free",
+                    "{C:tarot}Mega Arcana Pack",
+                },
+            },
+            tag_vremade_coupon = {
+                name = "Coupon Tag",
+                text = {
+                    "Initial cards and",
+                    "booster packs in next",
+                    "shop are free",
+                },
+            },
+            tag_vremade_d_six = {
+                name = "D6 Tag",
+                text = {
+                    "Rerolls in next shop",
+                    "start at {C:money}$0",
+                },
+            },
+            tag_vremade_double = {
+                name = "Double Tag",
+                text = {
+                    "Gives a copy of the",
+                    "next selected {C:attention}Tag{}",
+                    "{s:0.8,C:attention}Double Tag{s:0.8} excluded",
+                },
+            },
+            tag_vremade_economy = {
+                name = "Economy Tag",
+                text = {
+                    "Doubles your money",
+                    "{C:inactive}(Max of {C:money}$#1#{C:inactive})",
+                },
+            },
+            tag_vremade_ethereal = {
+                name = "Ethereal Tag",
+                text = {
+                    "Gives a free",
+                    "{C:spectral}Spectral Pack",
+                },
+            },
+            tag_vremade_foil = {
+                name = "Foil Tag",
+                text = {
+                    "Next base edition shop",
+                    "Joker is free and",
+                    "becomes {C:dark_edition}Foil",
+                },
+            },
+            tag_vremade_garbage = {
+                name = "Garbage Tag",
+                text = {
+                    "Gives {C:money}$#1#{} per unused",
+                    "{C:red}discard{} this run",
+                    "{C:inactive}(Will give {C:money}$#2#{C:inactive})",
+                },
+            },
+            tag_vremade_handy = {
+                name = "Handy Tag",
+                text = {
+                    "Gives {C:money}$#1#{} per played",
+                    "{C:blue}hand{} this run",
+                    "{C:inactive}(Will give {C:money}$#2#{C:inactive})",
+                },
+            },
+            tag_vremade_holo = {
+                name = "Holographic Tag",
+                text = {
+                    "Next base edition shop",
+                    "Joker is free and",
+                    "becomes {C:dark_edition}Holographic",
+                },
+            },
+            tag_vremade_investment = {
+                name = "Investment Tag",
+                text = {
+                    "After defeating",
+                    "the Boss Blind,",
+                    "gain {C:money}$#1#",
+                },
+            },
+            tag_vremade_juggle = {
+                name = "Juggle Tag",
+                text = {
+                    "{C:attention}+#1#{} hand size",
+                    "next round",
+                },
+            },
+            tag_vremade_meteor = {
+                name = "Meteor Tag",
+                text = {
+                    "Gives a free",
+                    "{C:planet}Mega Celestial Pack",
+                },
+            },
+            tag_vremade_negative = {
+                name = "Negative Tag",
+                text = {
+                    "Next base edition shop",
+                    "Joker is free and",
+                    "becomes {C:dark_edition}Negative",
+                },
+            },
+            tag_vremade_orbital = {
+                name = "Orbital Tag",
+                text = {
+                    "Upgrade {C:attention}#1#",
+                    "by {C:attention}#2# levels",
+                },
+            },
+            tag_vremade_polychrome = {
+                name = "Polychrome Tag",
+                text = {
+                    "Next base edition shop",
+                    "Joker is free and",
+                    "becomes {C:dark_edition}Polychrome",
+                },
+            },
+            tag_vremade_rare = {
+                name = "Rare Tag",
+                text = {
+                    "Shop has a free",
+                    "{C:red}Rare Joker",
+                },
+            },
+            tag_vremade_skip = {
+                name = "Speed Tag",
+                text = {
+                    "Gives {C:money}$#1#{} per skipped",
+                    "Blind this run",
+                    "{C:inactive}(Will give {C:money}$#2#{C:inactive})",
+                },
+            },
+            tag_vremade_standard = {
+                name = "Standard Tag",
+                text = {
+                    "Gives a free",
+                    "{C:attention}Mega Standard Pack",
+                },
+            },
+            tag_vremade_top_up = {
+                name = "Top-up Tag",
+                text = {
+                    "Create up to {C:attention}#1#",
+                    "{C:blue}Common{} Jokers",
+                    "{C:inactive}(Must have room)",
+                },
+            },
+            tag_vremade_uncommon = {
+                name = "Uncommon Tag",
+                text = {
+                    "Shop has a free",
+                    "{C:green}Uncommon Joker",
+                },
+            },
+            tag_vremade_voucher = {
+                name = "Voucher Tag",
+                text = {
+                    "Adds one {C:voucher}Voucher",
+                    "to the next shop",
                 },
             },
         },
@@ -2762,11 +3179,13 @@ return {
         dictionary = {
             b_vremade_spectral_cards = "Spectral Cards",
             b_vremade_tarot_cards = "Tarot Cards",
+            b_vremade_planet_cards = "Planet Cards",
             k_vremade_common = "Common",
             k_vremade_legendary = "Legendary",
             k_vremade_rare = "Rare",
             k_vremade_spectral = "Spectral",
             k_vremade_tarot = "Tarot",
+            k_vremade_planet = "Planet",
             k_vremade_uncommon = "Uncommon",
         },
         labels = {
@@ -2787,7 +3206,72 @@ return {
             vremade_rental = "Rental",
             vremade_spectral = "Spectral",
             vremade_tarot = "Tarot",
+            vremade_planet = "Planet",
             vremade_uncommon = "Uncommon",
+        },
+        poker_hand_descriptions = {
+            ["vremade_Five of a Kind"] = {
+                "5 cards with the same rank",
+            },
+            vremade_Flush = {
+                "5 cards that share the same suit",
+            },
+            ["vremade_Flush Five"] = {
+                "5 cards with the same rank and suit",
+            },
+            ["vremade_Flush House"] = {
+                "A Three of a Kind and a Pair with",
+                "all cards sharing the same suit",
+            },
+            ["vremade_Four of a Kind"] = {
+                "4 cards with the same rank. They may",
+                "be played with 1 other unscored card",
+            },
+            ["vremade_Full House"] = {
+                "A Three of a Kind and a Pair",
+            },
+            ["vremade_High Card"] = {
+                "If the played hand is not any of the above",
+                "hands, only the highest ranked card scores",
+            },
+            vremade_Pair = {
+                "2 cards that share the same rank. They may",
+                "be played with up to 3 other unscored cards",
+            },
+            ["vremade_Royal Flush"] = {
+                "5 cards in a row (consecutive ranks) with",
+                "all cards sharing the same suit",
+            },
+            vremade_Straight = {
+                "5 cards in a row (consecutive ranks)",
+            },
+            ["vremade_Straight Flush"] = {
+                "5 cards in a row (consecutive ranks) with",
+                "all cards sharing the same suit",
+            },
+            ["vremade_Three of a Kind"] = {
+                "3 cards with the same rank. They may be",
+                "played with up to 2 other unscored cards",
+            },
+            ["vremade_Two Pair"] = {
+                "2 pairs of cards with different ranks, may",
+                "be played with 1 other unscored card",
+            },
+        },
+        poker_hands = {
+            ["vremade_Five of a Kind"] = "Five of a Kind",
+            vremade_Flush = "Flush",
+            ["vremade_Flush Five"] = "Flush Five",
+            ["vremade_Flush House"] = "Flush House",
+            ["vremade_Four of a Kind"] = "Four of a Kind",
+            ["vremade_Full House"] = "Full House",
+            ["vremade_High Card"] = "High Card",
+            vremade_Pair = "Pair",
+            ["vremade_Royal Flush"] = "Royal Flush",
+            vremade_Straight = "Straight",
+            ["vremade_Straight Flush"] = "Straight Flush",
+            ["vremade_Three of a Kind"] = "Three of a Kind",
+            ["vremade_Two Pair"] = "Two Pair",
         },
         ranks = {
             vremade_10 = "10",

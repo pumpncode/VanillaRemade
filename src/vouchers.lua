@@ -270,10 +270,10 @@ SMODS.Booster:take_ownership_by_kind('Celestial', {
             local _card
             if (G.GAME.used_vouchers.v_telescope or G.GAME.used_vouchers.v_vremade_telescope) and i == 1 then
                 local _planet, _hand, _tally = nil, nil, 0
-                for _, v in ipairs(G.handlist) do
-                    if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-                        _hand = v
-                        _tally = G.GAME.hands[v].played
+                for _, handname in ipairs(G.handlist) do
+                    if SMODS.SMODS.is_poker_hand_visible(handname)(handname) and G.GAME.hands[handname].played > _tally then
+                        _hand = handname
+                        _tally = G.GAME.hands[handname].played
                     end
                 end
                 if _hand then
@@ -292,8 +292,14 @@ SMODS.Booster:take_ownership_by_kind('Celestial', {
                     key_append = "pl1"
                 }
             else
-                _card = { set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key_append =
-                "pl1" }
+                _card = {
+                    set = "Planet",
+                    area = G.pack_cards,
+                    skip_materialize = true,
+                    soulable = true,
+                    key_append =
+                    "pl1"
+                }
             end
             return _card
         end,
