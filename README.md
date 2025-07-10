@@ -1,4 +1,4 @@
-# Vanilla Remade - Balatro Mod
+# VanillaRemade - Reference Balatro Mod
 
 Remakes vanilla objects using SMODS and simple hooks.
 
