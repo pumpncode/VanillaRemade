@@ -44,3 +44,4 @@ luac.out
 
 #App Specific
 .lovelyignore
+.luarc.json
