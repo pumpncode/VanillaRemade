@@ -303,7 +303,13 @@ SMODS.Booster:take_ownership_by_kind('Celestial', {
             end
             return _card
         end,
-        loc_vars = pack_loc_vars,
+        loc_vars = function(self, info_queue, card)
+            local cfg = (card and card.ability) or self.config
+            return {
+                vars = { cfg.choose, cfg.extra },
+                key = self.key:sub(1, -3), -- This uses the description key of the booster without the number at the end
+            }
+        end,
     },
     true
 )
