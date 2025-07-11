@@ -532,7 +532,7 @@ SMODS.Consumable {
     use = function(self, card, area, copier)
         local deletable_jokers = {}
         for _, joker in pairs(G.jokers.cards) do
-            if not joker.ability.eternal then deletable_jokers[#deletable_jokers + 1] = joker end
+            if not SMODS.is_eternal(joker, card) then deletable_jokers[#deletable_jokers + 1] = joker end
         end
 
         local chosen_joker = pseudorandom_element(G.jokers.cards, 'ankh_choice')
@@ -649,7 +649,7 @@ SMODS.Consumable {
 
                 local _first_dissolve = nil
                 for _, joker in pairs(G.jokers.cards) do
-                    if joker ~= eligible_card and (not joker.ability.eternal) then
+                    if joker ~= eligible_card and not SMODS.is_eternal(joker, card) then
                         joker:start_dissolve(nil, _first_dissolve)
                         _first_dissolve = true
                     end

@@ -430,7 +430,7 @@ SMODS.Joker {
                     break
                 end
             end
-            if my_pos and G.jokers.cards[my_pos + 1] and not G.jokers.cards[my_pos + 1].ability.eternal and not G.jokers.cards[my_pos + 1].getting_sliced then
+            if my_pos and G.jokers.cards[my_pos + 1] and not SMODS.is_eternal(G.jokers.cards[my_pos + 1], card) and not G.jokers.cards[my_pos + 1].getting_sliced then
                 local sliced_card = G.jokers.cards[my_pos + 1]
                 sliced_card.getting_sliced = true -- Make sure to do this on destruction effects
                 G.GAME.joker_buffer = G.GAME.joker_buffer - 1
@@ -598,12 +598,13 @@ SMODS.Joker {
     pos = { x = 0, y = 5 },
     config = { extra = { odds = 4 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_8ball')
+        return { vars = { numerator, denominator } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and
             #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            if (context.other_card:get_id() == 8) and (pseudorandom('vremade_8_ball') < G.GAME.probabilities.normal / card.ability.extra.odds) then
+            if (context.other_card:get_id() == 8) and SMODS.pseudorandom_probability(card, 'vremade_8ball', 1, card.ability.extra.odds) then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 return {
                     extra = {
@@ -919,11 +920,12 @@ SMODS.Joker {
     pos = { x = 7, y = 6 },
     config = { extra = { odds = 6, mult = 15 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult, (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_gros_michel')
+        return { vars = { card.ability.extra.mult, numerator, denominator } }
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-            if pseudorandom('vremade_gros_michel') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            if SMODS.pseudorandom_probability(card, 'vremade_gros_michel', 1, card.ability.extra.odds) then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         -- This replicates the food destruction effect
@@ -1046,12 +1048,13 @@ SMODS.Joker {
     pos = { x = 1, y = 4 },
     config = { extra = { odds = 2, dollars = 2 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { G.GAME and G.GAME.probabilities.normal or 1, card.ability.extra.odds, card.ability.extra.dollars } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_business')
+        return { vars = { numerator, denominator, card.ability.extra.dollars } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and
             context.other_card:is_face() and
-            pseudorandom('vremade_business') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            SMODS.pseudorandom_probability(card, 'vremade_business', 1, card.ability.extra.odds) then
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
@@ -1134,10 +1137,11 @@ SMODS.Joker {
     pos = { x = 3, y = 5 },
     config = { extra = { odds = 4 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { G.GAME and G.GAME.probabilities.normal or 1, card.ability.extra.odds } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_space')
+        return { vars = { numerator, denominator } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.main_eval and pseudorandom('vremade_space') < G.GAME.probabilities.normal / card.ability.extra.odds then
+        if context.before and context.main_eval and SMODS.pseudorandom_probability(card, 'vremade_space', 1, card.ability.extra.odds) then
             return {
                 level_up = true,
                 message = localize('k_level_up_ex')
@@ -1651,11 +1655,12 @@ SMODS.Joker {
     pos = { x = 5, y = 11 },
     config = { extra = { odds = 1000, Xmult = 3 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, G.GAME and G.GAME.probabilities.normal or 1, card.ability.extra.odds } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_cavendish')
+        return { vars = { card.ability.extra.Xmult, numerator, denominator } }
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-            if pseudorandom('vremade_cavendish') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            if SMODS.pseudorandom_probability(card, 'vremade_cavendish', 1, card.ability.extra.odds) then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         -- This replicates the food destruction effect
@@ -1763,7 +1768,7 @@ SMODS.Joker {
             card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
             local destructable_jokers = {}
             for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] ~= card and not G.jokers.cards[i].ability.eternal and not G.jokers.cards[i].getting_sliced then
+                if G.jokers.cards[i] ~= card and not SMODS.is_eternal(G.jokers.cards[i], card) and not G.jokers.cards[i].getting_sliced then
                     destructable_jokers[#destructable_jokers + 1] =
                         G.jokers.cards[i]
                 end
@@ -2369,12 +2374,14 @@ SMODS.Joker {
     pos = { x = 6, y = 13 },
     config = { extra = { odds = 2, dollars = 1 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.dollars, G.GAME and G.GAME.probabilities.normal or 1, card.ability.extra.odds } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+            'vremade_reserved_parking')
+        return { vars = { card.ability.extra.dollars, numerator, denominator } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and not context.end_of_round then
             if context.other_card:is_face() and
-                pseudorandom('vremade_reserved_parking') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                SMODS.pseudorandom_probability(card, 'vremade_reserved_parking', 1, card.ability.extra.odds) then
                 if context.other_card.debuff then
                     return {
                         message = localize('k_debuffed'),
@@ -2476,11 +2483,13 @@ SMODS.Joker {
     pos = { x = 9, y = 13 },
     config = { extra = { odds = 2 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { G.GAME.probabilities.normal or 1, card.ability.extra.odds } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+            'vremade_hallucination' .. G.GAME.round_resets.ante)
+        return { vars = { numerator, denominator } }
     end,
     calculate = function(self, card, context)
         if context.open_booster and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            if pseudorandom('vremade_hallucination' .. G.GAME.round_resets.ante) < G.GAME.probabilities.normal / card.ability.extra.odds then
+            if SMODS.pseudorandom_probability(card, 'vremade_hallucination' .. G.GAME.round_resets.ante, 1, card.ability.extra.odds) then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
@@ -3563,11 +3572,12 @@ SMODS.Joker {
     pos = { x = 0, y = 8 },
     config = { extra = { odds = 2, Xmult = 1.5 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { G.GAME.probabilities.normal or 1, card.ability.extra.odds, card.ability.extra.Xmult } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'vremade_bloodstone')
+        return { vars = { numerator, denominator, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_suit("Hearts") and
-            pseudorandom('vremade_bloodstone') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            SMODS.pseudorandom_probability(card, 'vremade_bloodstone', 1, card.ability.extra.odds) then
             return {
                 xmult = card.ability.extra.Xmult
             }
@@ -3957,14 +3967,11 @@ SMODS.Joker {
     rarity = 2,
     cost = 4,
     pos = { x = 5, y = 6 },
-    add_to_deck = function(self, card, from_debuff)
-        for k, v in pairs(G.GAME.probabilities) do
-            G.GAME.probabilities[k] = v * 2
-        end
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        for k, v in pairs(G.GAME.probabilities) do
-            G.GAME.probabilities[k] = v / 2
+    calculate = function(self, card, context)
+        if context.mod_probability and not context.blueprint then
+            return {
+                numerator = context.numerator * 2
+            }
         end
     end,
     locked_loc_vars = function(self, info_queue, card)
