@@ -36,6 +36,7 @@ SMODS.Enhancement {
     end,
     calculate = function(self, card, context)
         if context.destroy_card and context.cardarea == G.play and context.destroy_card == card and pseudorandom('glass') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            card.glass_trigger = true -- SMODS addition
             return { remove = true }
         end
     end,
