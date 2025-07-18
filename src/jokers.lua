@@ -929,7 +929,7 @@ SMODS.Joker {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
                         -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
@@ -1276,7 +1276,7 @@ SMODS.Joker {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
                         -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
@@ -1664,7 +1664,7 @@ SMODS.Joker {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
                         -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
@@ -2304,7 +2304,7 @@ SMODS.Joker {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
                         -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
@@ -2812,7 +2812,7 @@ SMODS.Joker {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
                         -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
@@ -2931,7 +2931,7 @@ SMODS.Joker {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
                         -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
@@ -3015,7 +3015,7 @@ SMODS.Joker {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do card:start_dissolve() for a dissolving animation
+                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
                         -- or just card:remove() for no animation
                         play_sound('tarot1')
                         card.T.r = -0.2
