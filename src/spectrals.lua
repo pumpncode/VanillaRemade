@@ -66,6 +66,8 @@ SMODS.Consumable {
         return G.hand and #G.hand.cards > 1
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -120,6 +122,8 @@ SMODS.Consumable {
         return G.hand and #G.hand.cards > 1
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -179,6 +183,8 @@ SMODS.Consumable {
         return G.hand and #G.hand.cards > 1
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -225,6 +231,8 @@ SMODS.Consumable {
         }))
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -265,6 +273,8 @@ SMODS.Consumable {
         }))
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -303,6 +313,8 @@ SMODS.Consumable {
         return #G.jokers.cards < G.jokers.config.card_limit or card.area == G.jokers
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -367,6 +379,8 @@ SMODS.Consumable {
         return G.hand and #G.hand.cards > 0
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -432,6 +446,8 @@ SMODS.Consumable {
         return G.hand and #G.hand.cards > 0
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -469,6 +485,8 @@ SMODS.Consumable {
         return next(SMODS.Edition:get_edition_cards(G.jokers, true))
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -518,6 +536,8 @@ SMODS.Consumable {
         return G.hand and #G.hand.cards > 0
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -570,6 +590,8 @@ SMODS.Consumable {
         return G.jokers and #G.jokers.cards > 0 and #G.jokers.cards < G.jokers.config.card_limit
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -616,6 +638,8 @@ SMODS.Consumable {
         }))
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -664,6 +688,8 @@ SMODS.Consumable {
         return next(SMODS.Edition:get_edition_cards(G.jokers, true))
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -710,6 +736,8 @@ SMODS.Consumable {
         }))
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -763,6 +791,8 @@ SMODS.Consumable {
         }))
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -807,6 +837,8 @@ SMODS.Consumable {
         }))
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -845,6 +877,8 @@ SMODS.Consumable {
         return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
@@ -926,6 +960,8 @@ SMODS.Consumable {
         return true
     end,
     draw = function(self, card, layer)
+        -- This is for the Spectral shader. You don't need this with `set = "Spectral"`
+        -- Also look into SMODS.DrawStep if you make multiple cards that need the same shader
         if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
             card.children.center:draw_shader('booster', nil, card.ARGS.send_to_shader)
         end
