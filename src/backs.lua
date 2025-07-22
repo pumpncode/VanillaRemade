@@ -455,7 +455,7 @@ SMODS.Back {
     key = "erratic",
     pos = { x = 2, y = 3 },
     unlocked = false,
-    config = { ante_scaling = 2 },
+    config = { randomize_rank_suit = true },
     -- The config field already handles the functionality so it doesn't need to be implemented
     -- The following is how the implementation would be
     --[[
