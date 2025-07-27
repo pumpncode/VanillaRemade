@@ -2093,7 +2093,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.dollars, card.ability.extra.increase } }
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval and G.GAME.blind.boss then
+        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss then
             card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.increase
             return {
                 message = localize('k_upgrade_ex'),
@@ -3136,7 +3136,7 @@ SMODS.Joker {
             }
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-            if G.GAME.blind.boss and card.ability.extra.xmult > 1 then
+            if context.beat_boss and card.ability.extra.xmult > 1 then
                 card.ability.extra.xmult = 1
                 return {
                     message = localize('k_reset'),
