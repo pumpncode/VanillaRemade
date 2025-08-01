@@ -8,7 +8,6 @@ SMODS.Stake {
     pos = { x = 0, y = 0 },
     sticker_pos = { x = 1, y = 0 },
     colour = G.C.WHITE,
-    loc_txt = {}
 }
 
 SMODS.Stake {
@@ -23,7 +22,6 @@ SMODS.Stake {
         G.GAME.modifiers.no_blind_reward.Small = true
     end,
     colour = G.C.RED,
-    loc_txt = {}
 }
 
 SMODS.Stake {
@@ -37,7 +35,6 @@ SMODS.Stake {
         G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
     end,
     colour = G.C.GREEN,
-    loc_txt = {}
 }
 
 SMODS.Stake {
@@ -51,7 +48,6 @@ SMODS.Stake {
         G.GAME.modifiers.enable_eternals_in_shop = true
     end,
     colour = G.C.BLACK,
-    loc_txt = {}
 }
 
 SMODS.Stake {
@@ -65,7 +61,6 @@ SMODS.Stake {
         G.GAME.starting_params.discards = G.GAME.starting_params.discards - 1
     end,
     colour = G.C.BLUE,
-    loc_txt = {}
 }
 
 SMODS.Stake {
@@ -79,7 +74,6 @@ SMODS.Stake {
         G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
     end,
     colour = G.C.PURPLE,
-    loc_txt = {}
 }
 
 SMODS.Stake {
@@ -93,7 +87,6 @@ SMODS.Stake {
         G.GAME.modifiers.enable_perishables_in_shop = true
     end,
     colour = G.C.ORANGE,
-    loc_txt = {},
 }
 
 SMODS.Stake {
@@ -107,5 +100,4 @@ SMODS.Stake {
     end,
     colour = G.C.GOLD,
     shiny = true,
-    loc_txt = {}
 }

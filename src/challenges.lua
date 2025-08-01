@@ -1,3 +1,4 @@
+-- The Omelette
 SMODS.Challenge {
     key = 'omelette_1',
     rules = {
@@ -26,9 +27,9 @@ SMODS.Challenge {
     }
 }
 
+-- 15 Minute City
 SMODS.Challenge {
     key = 'city_1',
-    rules = {},
     jokers = {
         { id = 'j_ride_the_bus', eternal = true },
         { id = 'j_shortcut',     eternal = true },
@@ -91,6 +92,7 @@ SMODS.Challenge {
     }
 }
 
+-- Rich get Richer
 SMODS.Challenge {
     key = 'rich_1',
     rules = {
@@ -107,6 +109,7 @@ SMODS.Challenge {
     }
 }
 
+-- On a Knife's Edge
 SMODS.Challenge {
     key = 'knife_1',
     jokers = {
@@ -114,6 +117,7 @@ SMODS.Challenge {
     }
 }
 
+-- X-ray Vision
 SMODS.Challenge {
     key = 'xray_1',
     rules = {
@@ -123,6 +127,7 @@ SMODS.Challenge {
     }
 }
 
+-- Mad World
 SMODS.Challenge {
     key = 'mad_world_1',
     rules = {
@@ -132,7 +137,7 @@ SMODS.Challenge {
         }
     },
     jokers = {
-        { id = 'j_pareidolia', eternal = true, negative = true },
+        { id = 'j_pareidolia', eternal = true, edition = "negative" },
         { id = 'j_business',   eternal = true },
     },
     restrictions = {
@@ -151,6 +156,7 @@ SMODS.Challenge {
     }
 }
 
+-- Luxury Tax
 SMODS.Challenge {
     key = 'luxury_1',
     rules = {
@@ -163,6 +169,7 @@ SMODS.Challenge {
     }
 }
 
+-- Non-Perishable
 SMODS.Challenge {
     key = 'non_perishable_1',
     rules = {
@@ -190,9 +197,9 @@ SMODS.Challenge {
     }
 }
 
+-- Medusa
 SMODS.Challenge {
     key = 'medusa_1',
-    rules = {},
     jokers = {
         { id = 'j_marble', eternal = true },
     },
@@ -254,6 +261,7 @@ SMODS.Challenge {
     }
 }
 
+-- Double or Nothing
 SMODS.Challenge {
     key = 'double_nothing_1',
     rules = {
@@ -266,12 +274,13 @@ SMODS.Challenge {
     }
 }
 
+-- Typecast
 SMODS.Challenge {
     key = 'typecast_1',
     rules = {
         custom = {
             { id = 'set_eternal_ante',     value = 4 },
-            { id = 'set_joker_slots_ante', value = 0 },
+            { id = 'set_joker_slots_ante', value = 4 },
         }
     },
     restrictions = {
@@ -281,6 +290,7 @@ SMODS.Challenge {
     }
 }
 
+-- Inflation
 SMODS.Challenge {
     key = 'inflation_1',
     rules = {
@@ -299,8 +309,14 @@ SMODS.Challenge {
     },
 }
 
+-- Bram Poker
 SMODS.Challenge {
     key = 'bram_poker_1',
+    rules = {
+        custom = {
+            { id = 'no_shop_jokers' },
+        }
+    },
     jokers = {
         { id = 'j_vampire', eternal = true },
     },
@@ -314,12 +330,12 @@ SMODS.Challenge {
     }
 }
 
+-- Fragile
 SMODS.Challenge {
     key = 'fragile_1',
-    rules = {},
     jokers = {
-        { id = 'j_oops', eternal = true, negative = true },
-        { id = 'j_oops', eternal = true, negative = true },
+        { id = 'j_oops', eternal = true, edition = 'negative' },
+        { id = 'j_oops', eternal = true, edition = 'negative' },
     },
     restrictions = {
         banned_cards = {
@@ -355,15 +371,16 @@ SMODS.Challenge {
     }
 }
 
+-- Monolith
 SMODS.Challenge {
     key = 'monolith_1',
-    rules = {},
     jokers = {
         { id = 'j_obelisk', eternal = true },
-        { id = 'j_marble',  eternal = true, negative = true },
+        { id = 'j_marble',  eternal = true, edition = 'negative' },
     },
 }
 
+-- Blast Off
 SMODS.Challenge {
     key = 'blast_off_1',
     rules = {
@@ -390,6 +407,7 @@ SMODS.Challenge {
     }
 }
 
+-- Five-Card Draw
 SMODS.Challenge {
     key = 'five_card_1',
     rules = {
@@ -412,6 +430,7 @@ SMODS.Challenge {
     }
 }
 
+-- Golden Needle
 SMODS.Challenge {
     key = 'golden_needle_1',
     rules = {
@@ -436,6 +455,7 @@ SMODS.Challenge {
     },
 }
 
+-- Cruelty
 SMODS.Challenge {
     key = 'cruelty_1',
     rules = {
@@ -449,6 +469,7 @@ SMODS.Challenge {
     }
 }
 
+-- Jokerless
 SMODS.Challenge {
     key = 'jokerless_1',
     rules = {
@@ -464,11 +485,9 @@ SMODS.Challenge {
             { id = 'c_judgement' },
             { id = 'c_wraith' },
             { id = 'c_soul' },
-            { id = 'p_standard_normal_1', ids = {
-                'p_standard_normal_1', 'p_standard_normal_2',
-                'p_standard_normal_3', 'p_standard_normal_4',
-                'p_standard_jumbo_1', 'p_standard_jumbo_2',
-                'p_standard_mega_1', 'p_standard_mega_2' }
+            { id = 'p_buffoon_normal_1', ids = {
+                'p_buffoon_normal_1', 'p_buffoon_normal_2', 'p_buffoon_jumbo_1', 'p_buffoon_mega_1',
+            }
             },
         },
         banned_tags = {
