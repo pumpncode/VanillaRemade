@@ -2006,7 +2006,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main and
             #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            if G.GAME.dollars <= card.ability.extra.dollars then -- See note about Talisman compatibility at the bottom
+            if G.GAME.dollars <= card.ability.extra.dollars then -- See note about Talisman compatibility on the wiki
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
                     func = (function()
@@ -2705,7 +2705,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            return { -- TODO: Check Talisman compat
+            return {
                 chips = card.ability.extra.chips * math.max(0, (G.GAME.dollars + (G.GAME.dollar_buffer or 0)))
             }
         end
@@ -3218,7 +3218,7 @@ SMODS.Joker {
     pos = { x = 3, y = 4 },
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over and context.main_eval then
-            if G.GAME.chips / G.GAME.blind.chips >= 0.25 then -- See note about Talisman compatibility at the bottom
+            if G.GAME.chips / G.GAME.blind.chips >= 0.25 then -- See note about Talisman compatibility on the wiki
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         G.hand_text_area.blind_chips:juice_up()
@@ -3977,7 +3977,7 @@ SMODS.Joker {
         return { vars = { number_format(10000) } }
     end,
     check_for_unlock = function(self, args)                      -- equivalent to `unlock_condition = { type = 'chip_score', chips = 10000 }`
-        return args.type == 'chip_score' and args.chips >= 10000 -- See note about Talisman at the bottom
+        return args.type == 'chip_score' and args.chips >= 10000 -- See note about Talisman on the wiki
     end
 }
 
@@ -4007,7 +4007,7 @@ SMODS.Joker {
         return { vars = { number_format(1000000) } }
     end,
     check_for_unlock = function(self, args)                        -- equivalent to `unlock_condition = { type = 'chip_score', chips = 1000000 }`
-        return args.type == 'chip_score' and args.chips >= 1000000 -- See note about Talisman at the bottom
+        return args.type == 'chip_score' and args.chips >= 1000000 -- See note about Talisman on the wiki
     end
 }
 
@@ -4320,7 +4320,7 @@ SMODS.Joker {
         return { vars = { number_format(100000000) } }
     end,
     check_for_unlock = function(self, args)                          -- equivalent to `unlock_condition = { type = 'chip_score', chips = 100000000 }`
-        return args.type == 'chip_score' and args.chips >= 100000000 -- See note about Talisman at the bottom
+        return args.type == 'chip_score' and args.chips >= 100000000 -- See note about Talisman on the wiki
     end
 }
 
@@ -4473,7 +4473,7 @@ SMODS.Joker {
         return { vars = { 400 } }
     end,
     check_for_unlock = function(self, args)                   -- equivalent to `unlock_condition = { type = 'money', extra = 400 }`
-        return args.type == 'money' and G.GAME.dollars >= 400 -- See note about Talisman at the bottom
+        return args.type == 'money' and G.GAME.dollars >= 400 -- See note about Talisman on the wiki
     end
 }
 
@@ -4879,19 +4879,3 @@ function SMODS.current_mod.reset_game_globals(run_start)
     reset_vremade_castle_card()  -- See Castle
     reset_vremade_idol_card()    -- See The Idol
 end
-
---[[
-    Note about Talisman compatibility:
-    The popular mod Talisman replaces some in-game values with tables in order to be able to reach higher numbers.
-    Talisman itself handles most compatibility except for comparisons between values.
-
-    With Talisman installed `G.GAME.dollars <= 5` will cause a "trying to compare table with number" crash.
-    We can prevent this replacing that line with `to_big(G.GAME.dollars) <= to_big(card.ability.extra.dollars)`
-    This will cause crashes as well because `to_big` doesn't exist without the mod installed, so to prevent that issue we can define it as follows somewhere else in the file:
-
-    to_big = to_big or function(x) return x end
-
-    This means that `to_big` will either be the Talisman defined `to_big` if it exists or a dummy function that does nothing if not.
-
-    The values changed include scored chips, scored mult, total score, dollars and poker hand levels.
---]]
