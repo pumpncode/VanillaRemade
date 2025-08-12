@@ -3411,11 +3411,12 @@ SMODS.Joker {
                     else
                         card:juice_up()
                     end
+                    SMODS.calculate_context({ playing_card_added = true, cards = { _card } })
+                    save_run()
                     return true
                 end
             }))
-            SMODS.calculate_context({ playing_card_added = true, cards = { _card } })
-            save_run()
+
             return nil, true -- This is for Joker retrigger purposes
         end
     end,
