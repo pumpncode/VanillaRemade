@@ -3415,6 +3415,7 @@ SMODS.Joker {
                 end
             }))
             SMODS.calculate_context({ playing_card_added = true, cards = { _card } })
+            save_run()
             return nil, true -- This is for Joker retrigger purposes
         end
     end,
