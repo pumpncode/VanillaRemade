@@ -366,11 +366,11 @@ SMODS.Joker {
 }
 
 local smods_four_fingers_ref = SMODS.four_fingers
-function SMODS.four_fingers()
+function SMODS.four_fingers(hand_type)
     if next(SMODS.find_card('j_vremade_four_fingers')) then
         return 4
     end
-    return smods_four_fingers_ref()
+    return smods_four_fingers_ref(hand_type)
 end
 
 -- Mime
