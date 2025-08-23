@@ -513,7 +513,7 @@ SMODS.Consumable {
             end
         )
 
-        pseudoshuffle(temp_hand, 'immolate')
+        pseudoshuffle(temp_hand, pseudoseed('immolate'))
 
         for i = 1, card.ability.extra.destroy do destroyed_cards[#destroyed_cards + 1] = temp_hand[i] end
 
