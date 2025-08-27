@@ -437,6 +437,7 @@ SMODS.Joker {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         G.GAME.joker_buffer = 0
+                        -- See note about SMODS Scaling Manipulation on the wiki
                         card.ability.extra.mult = card.ability.extra.mult + sliced_card.sell_cost * 2
                         card:juice_up(0.8, 0.8)
                         sliced_card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
@@ -926,28 +927,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'vremade_gros_michel', 1, card.ability.extra.odds) then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
-                        -- or just card:remove() for no animation
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                card:remove()
-                                return true
-                            end
-                        }))
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
                 G.GAME.pool_flags.vremade_gros_michel_extinct = true
                 return {
                     message = localize('k_extinct_ex')
@@ -1117,6 +1097,7 @@ SMODS.Joker {
                     }
                 end
             else
+                -- See note about SMODS Scaling Manipulation on the wiki
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
             end
         end
@@ -1163,6 +1144,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra_value = card.ability.extra_value + card.ability.extra.price
             card:set_cost()
             return {
@@ -1244,6 +1226,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.before and context.main_eval and not context.blueprint and next(context.poker_hands['Straight']) then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
             return {
                 message = localize('k_upgrade_ex'),
@@ -1273,33 +1256,13 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.after and context.main_eval and not context.blueprint then
             if card.ability.extra.chips - card.ability.extra.chip_mod <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
-                        -- or just card:remove() for no animation
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                card:remove()
-                                return true
-                            end
-                        }))
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_melted_ex'),
                     colour = G.C.CHIPS
                 }
             else
+                -- See note about SMODS Scaling Manipulation on the wiki
                 card.ability.extra.chips = card.ability.extra.chips - card.ability.extra.chip_mod
                 return {
                     message = localize { type = 'variable', key = 'a_chips_minus', vars = { card.ability.extra.chip_mod } },
@@ -1448,6 +1411,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.using_consumeable and not context.blueprint and context.consumeable.ability.set == 'Planet' then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
             return {
                 message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } }
@@ -1534,6 +1498,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.discard and not context.blueprint and context.other_card == context.full_hand[#context.full_hand] then
             local prev_mult = card.ability.extra.mult
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.mult = math.max(0, card.ability.extra.mult - card.ability.extra.discard_sub)
             if card.ability.extra.mult ~= prev_mult then
                 return {
@@ -1543,6 +1508,7 @@ SMODS.Joker {
             end
         end
         if context.before and context.main_eval and not context.blueprint then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.hand_add
             return {
                 message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.hand_add } }
@@ -1660,28 +1626,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'vremade_cavendish', 1, card.ability.extra.odds) then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
-                        -- or just card:remove() for no animation
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                card:remove()
-                                return true
-                            end
-                        }))
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_extinct_ex')
                 }
@@ -1736,6 +1681,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.skipping_booster and not context.blueprint then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
             return {
                 message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } },
@@ -1764,6 +1710,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not context.blueprint and not context.blind.boss then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
             local destructable_jokers = {}
             for i = 1, #G.jokers.cards do
@@ -1809,6 +1756,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.before and context.main_eval and not context.blueprint and #context.full_hand == 4 then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
             return {
                 message = localize('k_upgrade_ex'),
@@ -1924,6 +1872,7 @@ SMODS.Joker {
             end
 
             if #enhanced > 0 then
+                -- See note about SMODS Scaling Manipulation on the wiki
                 card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain * #enhanced
                 return {
                     message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } },
@@ -1979,6 +1928,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.playing_card_added and not context.blueprint then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.Xmult = card.ability.extra.Xmult + #context.cards * card.ability.extra.Xmult_gain
             return {
                 message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } },
@@ -2093,6 +2043,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.increase
             return {
                 message = localize('k_upgrade_ex'),
@@ -2135,6 +2086,7 @@ SMODS.Joker {
                     }
                 end
             else
+                -- See note about SMODS Scaling Manipulation on the wiki
                 card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
             end
         end
@@ -2300,33 +2252,13 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             if card.ability.extra.h_size - card.ability.extra.h_mod <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
-                        -- or just card:remove() for no animation
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                card:remove()
-                                return true
-                            end
-                        }))
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.FILTER
                 }
             else
+                -- See note about SMODS Scaling Manipulation on the wiki
                 card.ability.extra.h_size = card.ability.extra.h_size - card.ability.extra.h_mod
                 G.hand:change_size(-card.ability.extra.h_mod)
                 return {
@@ -2649,6 +2581,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card.lucky_trigger and not context.blueprint then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
             return {
                 message = localize('k_upgrade_ex'),
@@ -2779,6 +2712,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.reroll_shop and not context.blueprint then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
             return {
                 message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } },
@@ -2808,33 +2742,13 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             if card.ability.extra.mult - card.ability.extra.mult_loss <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
-                        -- or just card:remove() for no animation
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                card:remove()
-                                return true
-                            end
-                        }))
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
                 }
             else
+                -- See note about SMODS Scaling Manipulation on the wiki
                 card.ability.extra.mult = card.ability.extra.mult - card.ability.extra.mult_loss
                 return {
                     message = localize { type = 'variable', key = 'a_mult_minus', vars = { card.ability.extra.mult_loss } },
@@ -2864,6 +2778,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.before and context.main_eval and not context.blueprint and (next(context.poker_hands['Two Pair']) or next(context.poker_hands['Full House'])) then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
             return {
                 message = localize('k_upgrade_ex'),
@@ -2927,33 +2842,13 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.discard and not context.blueprint then
             if card.ability.extra.Xmult - card.ability.extra.Xmult_loss <= 1 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
-                        -- or just card:remove() for no animation
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                card:remove()
-                                return true
-                            end
-                        }))
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.FILTER
                 }
             else
+                -- See note about SMODS Scaling Manipulation on the wiki
                 card.ability.extra.Xmult = card.ability.extra.Xmult - card.ability.extra.Xmult_loss
                 return {
                     message = localize { type = 'variable', key = 'a_xmult_minus', vars = { card.ability.extra.Xmult_loss } },
@@ -3011,28 +2906,7 @@ SMODS.Joker {
         end
         if context.after and not context.blueprint then
             if card.ability.extra.hands_left - 1 <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        -- This replicates the food destruction effect
-                        -- If you want a simpler way to destroy Jokers, you can do SMODS.destroy_cards(card) for a dissolving animation
-                        -- or just card:remove() for no animation
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                card:remove()
-                                return true
-                            end
-                        }))
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_drank_ex'),
                     colour = G.C.FILTER
@@ -3064,6 +2938,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.discard and not context.blueprint and not context.other_card.debuff and
             context.other_card:is_suit(G.GAME.current_round.vremade_castle_card.suit) then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
             return {
                 message = localize('k_upgrade_ex'),
@@ -3129,6 +3004,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.selling_card and not context.blueprint then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
             return {
                 message = localize('k_upgrade_ex')
@@ -3698,6 +3574,7 @@ SMODS.Joker {
                     func = function()
                         G.E_MANAGER:add_event(Event({
                             func = function()
+                                -- See note about SMODS Scaling Manipulation on the wiki
                                 card.ability.extra.Xmult = card.ability.extra.Xmult +
                                     card.ability.extra.Xmult_gain * glass_cards
                                 return true
@@ -3908,6 +3785,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:get_id() == 2 and not context.blueprint then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
 
             return {
@@ -4123,6 +4001,7 @@ SMODS.Joker {
         if context.discard and not context.blueprint and
             not context.other_card.debuff and
             context.other_card:get_id() == 11 then
+            -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
             return {
                 message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } },
@@ -4738,6 +4617,7 @@ SMODS.Joker {
                 if removed_card:is_face() then face_cards = face_cards + 1 end
             end
             if face_cards > 0 then
+                -- See note about SMODS Scaling Manipulation on the wiki
                 card.ability.extra.xmult = card.ability.extra.xmult + face_cards * card.ability.extra.xmult_gain
                 return { message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } } }
             end
@@ -4790,6 +4670,7 @@ SMODS.Joker {
         if context.discard and not context.blueprint then
             if card.ability.extra.discards_remaining <= 1 then
                 card.ability.extra.discards_remaining = card.ability.extra.discards
+                -- See note about SMODS Scaling Manipulation on the wiki
                 card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
                 return {
                     message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } },
