@@ -1080,7 +1080,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.mult_gain, card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint then
+        if context.before and not context.blueprint then
             local faces = false
             for _, playing_card in ipairs(context.scoring_hand) do
                 if playing_card:is_face() then
@@ -1122,7 +1122,7 @@ SMODS.Joker {
         return { vars = { numerator, denominator } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.main_eval and SMODS.pseudorandom_probability(card, 'vremade_space', 1, card.ability.extra.odds) then
+        if context.before and SMODS.pseudorandom_probability(card, 'vremade_space', 1, card.ability.extra.odds) then
             return {
                 level_up = true,
                 message = localize('k_level_up_ex')
@@ -1225,7 +1225,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint and next(context.poker_hands['Straight']) then
+        if context.before and not context.blueprint and next(context.poker_hands['Straight']) then
             -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
             return {
@@ -1254,7 +1254,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
     end,
     calculate = function(self, card, context)
-        if context.after and context.main_eval and not context.blueprint then
+        if context.after and not context.blueprint then
             if card.ability.extra.chips - card.ability.extra.chip_mod <= 0 then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
@@ -1294,7 +1294,7 @@ SMODS.Joker {
             local eval = function() return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
             juice_card_until(card, eval, true)
         end
-        if context.before and context.main_eval and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 then
+        if context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 then
             G.playing_card = (G.playing_card and G.playing_card + 1) or 1
             local copy_card = copy_card(context.full_hand[1], nil, nil, G.playing_card)
             copy_card:add_to_deck()
@@ -1507,7 +1507,7 @@ SMODS.Joker {
                 }
             end
         end
-        if context.before and context.main_eval and not context.blueprint then
+        if context.before and not context.blueprint then
             -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.hand_add
             return {
@@ -1572,7 +1572,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.dollars, localize(card.ability.extra.poker_hand, 'poker_hands') } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.main_eval and context.scoring_name == card.ability.extra.poker_hand then
+        if context.before and context.scoring_name == card.ability.extra.poker_hand then
             G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
@@ -1755,7 +1755,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint and #context.full_hand == 4 then
+        if context.before and not context.blueprint and #context.full_hand == 4 then
             -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
             return {
@@ -1854,7 +1854,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint then
+        if context.before and not context.blueprint then
             local enhanced = {}
             for _, scored_card in ipairs(context.scoring_hand) do
                 if next(SMODS.get_enhancements(scored_card)) and not scored_card.debuff and not scored_card.vampired then
@@ -2069,7 +2069,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint then
+        if context.before and not context.blueprint then
             local reset = true
             local play_more_than = (G.GAME.hands[context.scoring_name].played or 0)
             for handname, values in pairs(G.GAME.hands) do
@@ -2109,7 +2109,7 @@ SMODS.Joker {
         info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
     end,
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint then
+        if context.before and not context.blueprint then
             local faces = 0
             for _, scored_card in ipairs(context.scoring_hand) do
                 if scored_card:is_face() then
@@ -2777,7 +2777,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.mult_gain, localize('Two Pair', 'poker_hands'), card.ability.extra.mult } }
     end,
     calculate = function(self, card, context)
-        if context.before and context.main_eval and not context.blueprint and (next(context.poker_hands['Two Pair']) or next(context.poker_hands['Full House'])) then
+        if context.before and not context.blueprint and (next(context.poker_hands['Two Pair']) or next(context.poker_hands['Full House'])) then
             -- See note about SMODS Scaling Manipulation on the wiki
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
             return {
